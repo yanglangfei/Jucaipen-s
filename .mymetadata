@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="AccumulateWealth"
+  id="myeclipse.1432189084064"
+  context-root="/AccumulateWealth"
+  j2ee-spec="5.0"
+  archive="AccumulateWealth.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
