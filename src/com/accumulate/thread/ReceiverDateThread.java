@@ -3,10 +3,7 @@ package com.accumulate.thread;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.accumulate.entity.MessageObject;
@@ -31,7 +28,6 @@ public class ReceiverDateThread extends Thread {
 	private int topId;
 	private int roomId;
 	private int userId;
-	private JSONObject res;
 	private List<MessageObject> msgObject = new ArrayList<MessageObject>();
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 	private int isManager;
@@ -64,7 +60,7 @@ public class ReceiverDateThread extends Thread {
 					object = createChatRecoder(data);
 					if (object != null && object.contains("message")) {
 						// 消息不为空时，推送消息
-						res = XinGeUtil.getInstance().pushAccountDevice(object,
+						XinGeUtil.getInstance().pushAccountDevice(object,
 								userName);
 					}
 				}
@@ -107,6 +103,7 @@ public class ReceiverDateThread extends Thread {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private void parseChatMessage(JSONObject obj) {
 		int id = obj.getInt("Id");
 		int sendUserId = obj.getInt("SendUserId");
@@ -116,7 +113,6 @@ public class ReceiverDateThread extends Thread {
 		int isCheck = obj.getInt("Shenhe");
 		if (!userName.equals(SendUserName)) {
 			MessageObject msg = new MessageObject(2, sendUserId);
-			msg.setMsgId(id);
 			msg.setMsgId(id);
 			msg.setSendDate(sdf.format(new Date(sendDate)));
 			msg.setFronName(SendUserName);

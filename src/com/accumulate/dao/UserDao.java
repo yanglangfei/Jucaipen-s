@@ -11,6 +11,11 @@ import com.accumulate.entity.User;
  */
 public interface UserDao {
 	/**
+	 * @param id
+	 * @return  通过id修改手机号和真实姓名
+	 */
+	public int updateUserTrueNameAndTelById(int id,User u);
+	/**
 	 * @return 用户注册
 	 */
 	public int reginUser(User user);

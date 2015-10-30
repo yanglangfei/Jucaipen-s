@@ -17,7 +17,7 @@ import com.accumulate.utils.StringUtil;
 /**
  * @author YLF
  * 
- *         阳光私募 （私募动态）------ 参数 新闻分类id（bigId==3） ------列表页
+ *         阳光私募 （私募动态） ------列表页
  */
 @SuppressWarnings("serial")
 public class SunShineFind extends HttpServlet {

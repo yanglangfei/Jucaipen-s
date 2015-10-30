@@ -1,21 +1,22 @@
 package com.accumulate.test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
+import java.util.Random;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 
 public class Test{
+	private static Random random;
 	
 	public static void main(String[] args) {
-		for(int i=0;i<100;i++){
-		String uu=UUID.randomUUID().toString();
-		System.out.println("uu:"+uu);
+		StringBuffer buffer=new StringBuffer();
+		if(random==null){
+			random=new Random();
 		}
-}
+		for(int i=0;i<5;i++){
+			int r=random.nextInt(10);
+			buffer.append(r);
+		}
+	}
+	
 }

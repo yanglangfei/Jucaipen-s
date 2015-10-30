@@ -39,6 +39,9 @@ public class MessageModelImp implements MessageModelDao {
 			sta=dbConn.createStatement();
 			res=sta.executeQuery("SELECT * FROM JCP_Mess_Template WHERE Id="+id);
 			models=getMessageModel(res);
+			if(models.size()>0){
+				return models.get(0);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

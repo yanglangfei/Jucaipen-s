@@ -63,6 +63,16 @@ public class UserServer {
 		UserDao dao = new UserImp();
 		return dao.updataUserById(uId, user);
 	}
+	
+	/**
+	 * @param id
+	 * @param user
+	 * @return   通过id修改用户手机号和真实姓名
+	 */
+	public static int updateUserTrueNameAndTelById(int id,User user){
+		UserDao dao=new UserImp();
+		return dao.updateUserTrueNameAndTelById(id, user);
+	}
 
 	/**
 	 * @param uId

@@ -1,6 +1,5 @@
 package com.accumulate.utils;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import com.tencent.xinge.XingeApp;
 public class XinGeUtil {
 	private static final String APP_KEY = "10f91058cbe939b1972867e74860af07";
 	private static final int APP_ID=2100139212;
-	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 	private Map<String, Object> custom = new HashMap<String, Object>();
 	private static Message message;
 	private static XinGeUtil xUtil;

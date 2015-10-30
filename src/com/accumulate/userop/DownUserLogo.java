@@ -34,8 +34,8 @@ public class DownUserLogo extends HttpServlet {
             throws ServletException, IOException {
     	response.setCharacterEncoding("UTF-8");
         //得到要下载的文件名
-        String fileName = request.getParameter("filename");  //23239283-92489-阿凡达.avi
-        if(fileName!=null){
+        String fileName = request.getParameter("filename");
+        if(fileName!=null&&!fileName.equals("")){
         	fileName = new String(fileName.getBytes("iso8859-1"),"UTF-8");
             //上传的文件都是保存在/WEB-INF/upload目录下的子目录当中
 	        result=new UpLoadFileUtils().downFile(fileName, fileSaveRootPath, response);

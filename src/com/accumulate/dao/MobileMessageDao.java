@@ -1,5 +1,7 @@
 package com.accumulate.dao;
 
+import java.util.List;
+
 import com.accumulate.entity.MobileMessage;
 
 /**
@@ -18,8 +20,21 @@ public interface MobileMessageDao {
 	
 	/**
 	 * @param type
-	 * @return  改变短信状态
+	 * @return  根据id改变短信状态
 	 */
-	public int upDateMessageType(int type);
+	public int upDateMessageType(int id,MobileMessage message);
+	
+	/**
+	 * @param telPhone
+	 * @return  通过手机号查询短信
+	 */
+	public List<MobileMessage> findMobileMessgageByMobileNum(String telPhone);
+	
+	/**
+	 * @param count
+	 * @param mobile
+	 * @return  根据手机号查询最近的短信内容
+	 */
+	public List<MobileMessage> findMobileMessageByMobileNumLast(int count,String mobile);
 
 }

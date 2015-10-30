@@ -2,22 +2,30 @@ package com.accumulate.utils;
 
 import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONException;
 import org.junit.Test;
+
+import com.accumulate.entity.Answer;
 import com.accumulate.entity.ApkInfo;
+import com.accumulate.entity.Ask;
+import com.accumulate.entity.AskClass;
 import com.accumulate.entity.ChatFace;
 import com.accumulate.entity.ChatRoom;
 import com.accumulate.entity.Equity;
 import com.accumulate.entity.EquityFavorites;
 import com.accumulate.entity.ExpressionInfo;
 import com.accumulate.entity.ExpressionType;
+import com.accumulate.entity.FamousTeacher;
+import com.accumulate.entity.HotIdea;
+import com.accumulate.entity.LiveInteractive;
+import com.accumulate.entity.LogCommen;
 import com.accumulate.entity.MessageObject;
 import com.accumulate.entity.NewsCommRes;
 import com.accumulate.entity.NewsSmallClass;
 import com.accumulate.entity.OrderEquity;
 import com.accumulate.entity.PrivatePlace;
+import com.accumulate.entity.TextLive;
+import com.accumulate.entity.TxtLiveDetails;
 import com.accumulate.entity.VideoType;
 import com.accumulate.entity.News;
 import com.accumulate.entity.NewsComment;
@@ -479,7 +487,7 @@ public class JsonUtil {
 	 * @param messageObject
 	 * @return 解析上线 、下线消息 msgType 0 上线 1 下线 chatType 0 公聊 1 私聊
 	 * 
-	 *         msgType 0 文本信息 1 图片信息 2 图文混排
+	 *         msgType    0 文本信息     txt 1 图片信息  image 2 图文混排  txt image 
 	 */
 	public static MessageObject parseMessage(String messageObject) {
 		MessageObject msg;
@@ -487,7 +495,8 @@ public class JsonUtil {
 			org.json.JSONObject object = new org.json.JSONObject(messageObject);
 			int messageType = object.getInt("msgType");
 			int fromUser = object.getInt("fromUser");
-			int roomId = object.getInt("roomId");
+			int roomId = object.getInt
+					("roomId");
 			int isManager=object.getInt("isManager");
 			int isServer=object.getInt("isServer");
 			String userName=object.getString("userName");
@@ -668,6 +677,362 @@ public class JsonUtil {
 			object.addProperty("id", face.getId());
 			object.addProperty("title", face.getTitle());
 			object.addProperty("faceUrl", face.getFaceUrl());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param hotIdeas
+	 * @return  返回热门观点
+	 */
+	public static String getIndexHotIdeaList(List<HotIdea> hotIdeas) {
+		JsonArray array=new JsonArray();
+		for(HotIdea idea : hotIdeas){
+			JsonObject object = new JsonObject();
+			object.addProperty("page",idea.getPage());
+			object.addProperty("totlePgae",idea.getTotlePgae());
+			object.addProperty("id", idea.getId());
+			object.addProperty("title", idea.getTitle());
+			object.addProperty("bodys", idea.getBodys());
+			object.addProperty("logImage", idea.getLogImage());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param famousTeachers
+	 * @return  获取推荐名师
+	 */
+	public static String getFamousTeacherList(List<FamousTeacher> famousTeachers) {
+		JsonArray array=new JsonArray();
+		for(FamousTeacher famousTeacher : famousTeachers){
+			JsonObject object = new JsonObject();
+			object.addProperty("page",famousTeacher.getPage());
+			object.addProperty("totlePage",famousTeacher.getTotlePage());
+			object.addProperty("id", famousTeacher.getId());
+			object.addProperty("nickName", famousTeacher.getNickName());
+			object.addProperty("headFace", famousTeacher.getHeadFace());
+			object.addProperty("level", famousTeacher.getLevel());
+			object.addProperty("isV", famousTeacher.getIsV());
+			object.addProperty("introduce", famousTeacher.getIntroduce());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param hotIdea
+	 * @param teacher
+	 * @return  获取热门观点详细内容
+	 */
+	public static String getIdeaDetaile(HotIdea hotIdea, FamousTeacher teacher) {
+		JsonObject object = new JsonObject();
+		object.addProperty("id", hotIdea.getId());
+		object.addProperty("title", hotIdea.getTitle());
+		object.addProperty("bodys", hotIdea.getBodys());
+		object.addProperty("insertDate", hotIdea.getInsertDate());
+		object.addProperty("goods", hotIdea.getGoods());
+		object.addProperty("nickName", teacher.getNickName());
+		object.addProperty("level", teacher.getLevel());
+		object.addProperty("isV", teacher.getIsV());
+		object.addProperty("headFace", teacher.getHeadFace());
+		return object.toString();
+	}
+
+	/**
+	 * @param teacher
+	 * @param txtLives 
+	 * @return  获取名师详细信息
+	 */
+	public static String getFamousTeacherDetaile(FamousTeacher teacher, List<TextLive> txtLives) {
+		JsonObject object = new JsonObject();
+		object.addProperty("id", teacher.getId());
+		object.addProperty("nickName", teacher.getNickName());
+		object.addProperty("level", teacher.getLevel());
+		object.addProperty("isV", teacher.getIsV());
+		object.addProperty("headFace", teacher.getHeadFace());
+		object.addProperty("popularity", teacher.getLiveFans());
+		object.addProperty("fans", teacher.getFans());
+		object.addProperty("goods", teacher.getArticleGood());
+		object.addProperty("joinDate", teacher.getJoinDate());
+		object.addProperty("hoby", teacher.getHoby());
+		object.addProperty("introduce",teacher.getIntroduce());
+		object.addProperty("ideaCount", teacher.getArticleCount());
+		object.addProperty("answerCount",teacher.getAnswerCount());
+		if(txtLives.size()>0){
+			object.addProperty("isEnd",txtLives.get(0).getIsEnd());
+			object.addProperty("txtLiveId", txtLives.get(0).getId());
+		}
+		return object.toString();
+	}
+
+	/**
+	 * @param txtLives
+	 * @param famousTeachers 
+	 * @return   返回名师看盘列表数据
+	 */
+	public static String getTxtLiveList(List<TextLive> txtLives, List<FamousTeacher> famousTeachers) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<txtLives.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("id",txtLives.get(i).getId());
+			object.addProperty("startDate", txtLives.get(i).getStartDate());
+			object.addProperty("title",txtLives.get(i).getTitle());
+			object.addProperty("renQi",txtLives.get(i).getMoods());
+			object.addProperty("teacherId", famousTeachers.get(i).getId());
+			object.addProperty("level", famousTeachers.get(i).getLevel());
+			object.addProperty("nickName",famousTeachers.get(i).getNickName());
+			object.addProperty("headFace",famousTeachers.get(i).getHeadFace());
+			object.addProperty("isV",famousTeachers.get(i).getIsV());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param hotIdeas
+	 * @param teachers 
+	 * @return   获取所有的投资观点列表
+	 */
+	public static String getInvestmentIdeaList(List<HotIdea> hotIdeas, List<FamousTeacher> teachers) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<hotIdeas.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("id",hotIdeas.get(i).getId());
+			object.addProperty("insertDate",hotIdeas.get(i).getInsertDate());
+			object.addProperty("title",hotIdeas.get(i).getTitle());
+			object.addProperty("bodys",hotIdeas.get(i).getBodys());
+			object.addProperty("hits",hotIdeas.get(i).getHits());
+			object.addProperty("teacherId",teachers.get(i).getId());
+			object.addProperty("nickName",teachers.get(i).getNickName());
+			object.addProperty("level",teachers.get(i).getLevel());
+			object.addProperty("headFace",teachers.get(i).getHeadFace());
+			object.addProperty("isV",teachers.get(i).getIsV());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param users
+	 * @return  获取所有的粉丝数据列表
+	 */
+	public static String getAttentionList(List<User> users) {
+		JsonArray array=new JsonArray();
+		for(User user :users){
+			JsonObject object=new JsonObject();
+			object.addProperty("userName",user.getUserName());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param askClasses
+	 * @return   获取咨询分类信息
+	 */
+	public static String getAskClassList(List<AskClass> askClasses) {
+		JsonArray array=new JsonArray();
+		for(AskClass askType :askClasses){
+			JsonObject object=new JsonObject();
+			object.addProperty("classId",askType.getId());
+			object.addProperty("askName",askType.getClassName());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param todayIdeas
+	 * @return    获取今日观点列表
+	 */
+	public static String getTodayIdeasList(
+			List<TxtLiveDetails> todayIdeas) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<todayIdeas.size();i++){
+			TxtLiveDetails details=todayIdeas.get(i);
+			JsonObject object=new JsonObject();
+			object.addProperty("id",details.getId());
+			object.addProperty("relete_liveId",details.getRelate_liveId());
+			object.addProperty("bodys",details.getBodys());
+			object.addProperty("insertDate", details.getInsertDate());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param renQi
+	 * @param answerCount
+	 * @param ideas
+	 * @param fans
+	 * @return   返回首页统计数据
+	 */
+	public static String getIndexStatisticsData(int renQi, int answerCount,
+			int ideas, int fans) {
+		JsonObject object=new JsonObject();
+		object.addProperty("renQi",renQi);
+		object.addProperty("answerCount",answerCount);
+		object.addProperty("ideas",ideas);
+		object.addProperty("fans",fans);
+		return object.toString();
+	}
+
+	/**
+	 * @param ideas
+	 * @param teachers
+	 * @return   通过讲师id获取投资观点信息
+	 */
+	public static String getInvestmentIdeaListByTeacherId(List<HotIdea> ideas,
+			FamousTeacher teachers) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<ideas.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("page",ideas.get(i).getPage());
+			object.addProperty("totlePage",ideas.get(i).getTotlePgae());
+			object.addProperty("id",ideas.get(i).getId());
+			object.addProperty("insertDate",ideas.get(i).getInsertDate());
+			object.addProperty("title",ideas.get(i).getTitle());
+			object.addProperty("bodys",ideas.get(i).getBodys());
+			object.addProperty("hits",ideas.get(i).getHits());
+			object.addProperty("teacherId",teachers.getId());
+			object.addProperty("nickName",teachers.getNickName());
+			object.addProperty("level",teachers.getLevel());
+			object.addProperty("headFace",teachers.getHeadFace());
+			object.addProperty("isV",teachers.getIsV());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param hotIdeas
+	 * @param teachers
+	 * @return   获取所有的热门观点信息
+	 */
+	public static String getAllHotIdeaList(List<HotIdea> hotIdeas,
+			List<FamousTeacher> teachers) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<hotIdeas.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("page",hotIdeas.get(i).getPage());
+			object.addProperty("totlePage",hotIdeas.get(i).getTotlePgae());
+			object.addProperty("id",hotIdeas.get(i).getId());
+			object.addProperty("insertDate",hotIdeas.get(i).getInsertDate());
+			object.addProperty("title",hotIdeas.get(i).getTitle());
+			object.addProperty("bodys",hotIdeas.get(i).getBodys());
+			object.addProperty("hits",hotIdeas.get(i).getHits());
+			object.addProperty("teacherId",teachers.get(i).getId());
+			object.addProperty("nickName",teachers.get(i).getNickName());
+			object.addProperty("level",teachers.get(i).getLevel());
+			object.addProperty("headFace",teachers.get(i).getHeadFace());
+			object.addProperty("isV",teachers.get(i).getIsV());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param interactives
+	 * @param users 
+	 * @return   获取直播互动信息
+	 */
+	public static String getLiveInterationList(
+			List<LiveInteractive> interactives, List<User> users) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<interactives.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("userName",users.get(i).getUserName());
+			object.addProperty("userLogo",users.get(i).getFaceImage());
+			object.addProperty("insertDate",interactives.get(i).getInsertDate());
+			object.addProperty("bodys",interactives.get(i).getBodys());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param teacher
+	 * @param asks
+	 * @param answerList
+	 * @param users 
+	 * @return   获取名师咨询回答列表
+	 */
+	public static String getQuestionForTeacher(FamousTeacher teacher,
+			List<Ask> asks, List<Answer> answerList, List<User> users) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<answerList.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("teacherId",teacher.getId());
+			object.addProperty("headFace",teacher.getHeadFace());
+			object.addProperty("nickName",teacher.getNickName());
+			object.addProperty("level",teacher.getLevel());
+			object.addProperty("isV",teacher.getIsV());
+			object.addProperty("userName",users.get(i).getUserName());
+			object.addProperty("askBody",asks.get(i).getAskBody());
+			object.addProperty("answerBodys",answerList.get(i).getAnswerBody());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param askList
+	 * @param users
+	 * @return   获取提问列表
+	 */
+	public static String getAskList(List<Ask> askList, List<User> users) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<askList.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("askId",askList.get(i).getId());
+			object.addProperty("userName",users.get(i).getUserName());
+			object.addProperty("insertDate",askList.get(i).getAskDate());
+			object.addProperty("askBodys",askList.get(i).getAskBody());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param comms
+	 * @param users
+	 * @return   返回热门观点评论列表
+	 */
+	public static String getIdeaCommList(List<LogCommen> comms, List<User> users) {
+		JsonArray array=new JsonArray();
+		for(int i=0;i<comms.size();i++){
+			JsonObject object=new JsonObject();
+			object.addProperty("commId", comms.get(i).getId());
+			object.addProperty("insertDate",comms.get(i).getInsertDate());
+			object.addProperty("commBody",comms.get(i).getBodys());
+			object.addProperty("goods",comms.get(i).getGoods());
+			object.addProperty("repCount",comms.get(i).getRepCount());
+			object.addProperty("userName", users.get(i).getUserName());
+			object.addProperty("faceImage",users.get(i).getFaceImage());
+			array.add(object);
+		}
+		return array.toString();
+	}
+
+	/**
+	 * @param teachers
+	 * @return   返回找名家列表数据
+	 */
+	public static String getFindTeacherList(List<FamousTeacher> teachers) {
+		JsonArray array=new JsonArray();
+		for(FamousTeacher teacher :teachers){
+			JsonObject object=new JsonObject();
+			object.addProperty("id",teacher.getId());
+			object.addProperty("level",teacher.getLevel());
+			object.addProperty("headFace",teacher.getHeadFace());
+			object.addProperty("nickName", teacher.getNickName());
+			object.addProperty("isV",teacher.getIsV());
+			object.addProperty("introduce",teacher.getIntroduce());
+			object.addProperty("answerCount",teacher.getAnswerCount());
+			object.addProperty("fans", teacher.getFans());
 			array.add(object);
 		}
 		return array.toString();

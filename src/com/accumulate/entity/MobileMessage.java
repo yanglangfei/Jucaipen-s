@@ -53,7 +53,7 @@ public class MobileMessage implements Serializable{
 	/**
 	 * 返回信息id
 	 */
-	private int msgid;
+	private String msgid;
 	/**
 	 * 发送ip
 	 */
@@ -126,10 +126,10 @@ public class MobileMessage implements Serializable{
 	public void setRespstatus(int respstatus) {
 		this.respstatus = respstatus;
 	}
-	public int getMsgid() {
+	public String getMsgid() {
 		return msgid;
 	}
-	public void setMsgid(int msgid) {
+	public void setMsgid(String msgid) {
 		this.msgid = msgid;
 	}
 	public String getSendIp() {

@@ -493,6 +493,132 @@
     <servlet-name>DownLoadApk</servlet-name>
     <servlet-class>com.accumulate.manager.DownLoadApk</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>IdeaCommList</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.IdeaCommList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FamousTeacherList</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.FamousTeacherList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AskList</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AskList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TeacherQuestion</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.TeacherQuestion</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>HotIdeaDetaile</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.HotIdeaDetaile</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FamousTeacherDetaile</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.FamousTeacherDetaile</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AskQuestion</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AskQuestion</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TeacherAttention</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.TeacherAttention</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddSigin</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AddSigin</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FamousDish</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.FamousDish</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FansList</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.FansList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>QuerryAskClass</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.QuerryAskClass</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TodayIdeas</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.TodayIdeas</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>IndexStatisticsData</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.IndexStatisticsData</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>HotIdeaByTeacher</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.HotIdeaByTeacher</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CommunicationInfo</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.CommunicationInfo</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>QuestionForTeacher</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AnswerForTeacher</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AskForTeacher</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AskForTeacher</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SendMobileCode</servlet-name>
+    <servlet-class>com.accumulate.manager.SendMobileCode</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CheckMobileCode</servlet-name>
+    <servlet-class>com.accumulate.manager.CheckMobileCode</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>HotIdeaGoods</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.HotIdeaGoods</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddIdeaComm</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AddIdeaComm</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>HotIdeaList</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.HotIdeasList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddExChange</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AddExChange</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FindFamousTeacher</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.FindFamousTeacher</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -548,5 +674,105 @@
   <servlet-mapping>
     <servlet-name>DownLoadApk</servlet-name>
     <url-pattern>/jucaipen/downLoadApk</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FamousTeacherList</servlet-name>
+    <url-pattern>/jucaipen/famousTeacherList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AskList</servlet-name>
+    <url-pattern>/jucaipen/askList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TeacherQuestion</servlet-name>
+    <url-pattern>/jucaipen/teacherQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HotIdeaDetaile</servlet-name>
+    <url-pattern>/jucaipen/hotIdeaDetaile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FamousTeacherDetaile</servlet-name>
+    <url-pattern>/jucaipen/famousTeacherDetaile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AskQuestion</servlet-name>
+    <url-pattern>/jucaipen/askQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TeacherAttention</servlet-name>
+    <url-pattern>/jucaipen/teacherAttention</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddSigin</servlet-name>
+    <url-pattern>/jucaipen/addSigin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FamousDish</servlet-name>
+    <url-pattern>/jucaipen/famousDish</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FansList</servlet-name>
+    <url-pattern>/jucaipen/fansList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuerryAskClass</servlet-name>
+    <url-pattern>/jucaipen/querryAskClass</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TodayIdeas</servlet-name>
+    <url-pattern>/jucaipen/todayIdeas</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IndexStatisticsData</servlet-name>
+    <url-pattern>/jucaipen/indexStatisticsData</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HotIdeaByTeacher</servlet-name>
+    <url-pattern>/jucaipen/hotIdeaByTeacher</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CommunicationInfo</servlet-name>
+    <url-pattern>/jucaipen/communicationInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuestionForTeacher</servlet-name>
+    <url-pattern>/jucaipen/answerForTeacher</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AskForTeacher</servlet-name>
+    <url-pattern>/jucaipen/askForTeacher</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SendMobileCode</servlet-name>
+    <url-pattern>/jucaipen/sendMobileCode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckMobileCode</servlet-name>
+    <url-pattern>/jucaipen/checkMobileCode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HotIdeaGoods</servlet-name>
+    <url-pattern>/jucaipen/hotIdeaGoods</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddIdeaComm</servlet-name>
+    <url-pattern>/jucaipen/addIdeaComm</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IdeaCommList</servlet-name>
+    <url-pattern>/jucaipen/ideaCommList</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HotIdeaList</servlet-name>
+        <url-pattern>/jucaipen/hotIdeaList</url-pattern>
+    </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddExChange</servlet-name>
+    <url-pattern>/jucaipen/addExChange</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FindFamousTeacher</servlet-name>
+    <url-pattern>/jucaipen/findFamousTeacher</url-pattern>
   </servlet-mapping>
 </web-app>

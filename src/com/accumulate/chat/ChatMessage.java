@@ -47,8 +47,6 @@ public class ChatMessage extends HttpServlet {
 			int isManager = msgObject.getIsManager();
 			String userName = msgObject.getFronName();
 			int isServer = msgObject.getIsServer();
-			// room 1 fromUser null 不在乎
-			// room !=1 fromUser 不为null
 			if ((roomId == 1) || (roomId != 1 && userName != null)) {
 				if (msgType == 0 || msgType == 1) {
 					// 更新状态

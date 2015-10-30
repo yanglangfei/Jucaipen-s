@@ -186,6 +186,20 @@ public class UserImp implements UserDao {
 		return 0;
 	}
 
+	public int updateUserTrueNameAndTelById(int id, User user) {
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			isSuccess = sta.executeUpdate("UPDATE JCPUser SET TrueName='"
+					+ user.getTrueName() + "',MobileNum='"
+					+ user.getMobileNum() + "' WHERE Id=" + id);
+			return isSuccess;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	/*
 	 * 
 	 * 修改用户头像URL
@@ -234,13 +248,15 @@ public class UserImp implements UserDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select UserName,NickName from JCPUser where Id="
+					.executeQuery("select UserName,NickName,FaceImage from JCPUser where Id="
 							+ id);
 			while (res.next()) {
 				String NickName = res.getString(SqlUtil.USER_NICKNAME);
 				String userName = res.getString(SqlUtil.USER_NAME);
+				String faceImage = res.getString(SqlUtil.USRE_FACEIMAGE);
 				u = new User();
 				u.setId(id);
+				u.setFaceImage(faceImage);
 				u.setUserName(userName);
 				u.setNickName(NickName);
 				return u;
