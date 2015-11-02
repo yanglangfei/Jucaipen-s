@@ -103,8 +103,8 @@ public class SendMobileCode extends HttpServlet {
 		@Override
 		public void run() {
 			try {
-				Thread.sleep(1000*3);
-			//	MobileMessageSer.upDateMessageType(msgId, msg);
+				Thread.sleep(1000*60*3);
+				MobileMessageSer.upDateMessageType(Integer.parseInt(msgId), msg);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

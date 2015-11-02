@@ -991,6 +991,8 @@ public class JsonUtil {
 			object.addProperty("userName",users.get(i).getUserName());
 			object.addProperty("insertDate",askList.get(i).getAskDate());
 			object.addProperty("askBodys",askList.get(i).getAskBody());
+			//1 »Ø¸´    2 Î´»Ø¸´
+			object.addProperty("isReply", askList.get(i).getIsReply());
 			array.add(object);
 		}
 		return array.toString();

@@ -54,6 +54,7 @@ public class AskQuestion extends HttpServlet {
 					// 提问类型数字格式化正确
 					if(StringUtil.isNotNull(askBodys)){
 					int type = Integer.parseInt(askType);
+					if(type>0){
 					createAskModel(uId, tId, type, askBodys);
 					if (isSuccess == 1) {
 						result = JsonUtil.getRetMsg(0, "咨询信息提交成功");
@@ -61,8 +62,12 @@ public class AskQuestion extends HttpServlet {
 						result = JsonUtil.getRetMsg(1, "咨询信息提交失败");
 					}
 					}else {
+						result=JsonUtil.getRetMsg(6, "分类id找不到");
+					}
+					}else {
 						result=JsonUtil.getRetMsg(5,"咨询内容不能为空");
 					}
+					
 				} else {
 					// 提问类型数字格式化异常
 					result = JsonUtil.getRetMsg(2, "咨询分类参数数字格式化异常");
