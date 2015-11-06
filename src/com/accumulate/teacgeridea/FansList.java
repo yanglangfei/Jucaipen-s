@@ -52,6 +52,7 @@ public class FansList extends HttpServlet {
 
 	private void initTeacherFansData(int tId) {
 		// 初始化讲师粉丝数据
+		users.clear();
 		attentions = TeacherAttentionSer.findAttentionBytid(tId);
 		if (attentions != null && attentions.size() > 0) {
 			for (TeacherAttention attention : attentions) {

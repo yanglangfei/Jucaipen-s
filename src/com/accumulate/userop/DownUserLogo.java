@@ -36,9 +36,11 @@ public class DownUserLogo extends HttpServlet {
         //得到要下载的文件名
         String fileName = request.getParameter("filename");
         if(fileName!=null&&!fileName.equals("")){
-        	fileName = new String(fileName.getBytes("iso8859-1"),"UTF-8");
+        	String fileNames = new String(fileName.getBytes("iso8859-1"),"UTF-8");
             //上传的文件都是保存在/WEB-INF/upload目录下的子目录当中
-	        result=new UpLoadFileUtils().downFile(fileName, fileSaveRootPath, response);
+        	UpLoadFileUtils upLoadFileUtils=new UpLoadFileUtils();
+        	result=upLoadFileUtils.downFile(fileNames, fileSaveRootPath, response);
+	      //  result=new UpLoadFileUtils().downFile(fileNames, fileSaveRootPath, response);
 			if(result==0){
 				resultMsg=JsonUtil.getRetMsg(result, "文件下载完成");
 			}else if(result==1){
@@ -73,6 +75,6 @@ public class DownUserLogo extends HttpServlet {
     
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+           doGet(request, response);
     }
 }

@@ -593,6 +593,16 @@
     <servlet-name>FindFamousTeacher</servlet-name>
     <servlet-class>com.accumulate.teacgeridea.FindFamousTeacher</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AskForTeacherInfo</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.AskForTeacherInfo</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PushTextLive</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.PushTextLive</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -774,5 +784,13 @@
   <servlet-mapping>
     <servlet-name>FindFamousTeacher</servlet-name>
     <url-pattern>/jucaipen/findFamousTeacher</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AskForTeacherInfo</servlet-name>
+    <url-pattern>/jucaipen/askForTeacherInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PushTextLive</servlet-name>
+    <url-pattern>/jucaipen/pushTextLive</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -15,9 +15,17 @@ public class Question implements Serializable{
 	 */
 	private int teacherId;
 	/**
+	 * 提问id
+	 */
+	private int askId;
+	/**
+	 *  提问时间
+	 */
+	private String askDate;
+	/**
 	 * 讲师照片
 	 */
-	private String image;
+	private String headFace;
 	/**
 	 * 讲师昵称
 	 */
@@ -37,7 +45,7 @@ public class Question implements Serializable{
 	/**
 	 * 提问内容
 	 */
-	private String askBodys;
+	private String askBody;
 	/**
 	 * 提问状态
 	 */
@@ -47,31 +55,56 @@ public class Question implements Serializable{
 	 */
 	private String answerBody;
 	
-	public Question(int teacherId, String image, String nickName, String level,
-			int isV, String askName, String askBodys, int isReply,
+	public Question(int teacherId, String headFace, String nickName, String level,
+			int isV, String askName, String askBody, int isReply,
 			String answerBody) {
 		this.teacherId = teacherId;
-		this.image = image;
+		this.headFace = headFace;
 		this.nickName = nickName;
 		this.level = level;
 		this.isV = isV;
 		this.askName = askName;
-		this.askBodys = askBodys;
+		this.askBody = askBody;
 		this.isReply = isReply;
 		this.answerBody = answerBody;
 	}
+	
+	
+	public String getAskDate() {
+		return askDate;
+	}
+
+
+	public void setAskDate(String askDate) {
+		this.askDate = askDate;
+	}
+
+
+	public int getAskId() {
+		return askId;
+	}
+
+	public void setAskId(int askId) {
+		this.askId = askId;
+	}
+
 	public int getTeacherId() {
 		return teacherId;
 	}
 	public void setTeacherId(int teacherId) {
 		this.teacherId = teacherId;
 	}
-	public String getImage() {
-		return image;
+	
+	public String getHeadFace() {
+		return headFace;
 	}
-	public void setImage(String image) {
-		this.image = image;
+
+
+	public void setHeadFace(String headFace) {
+		this.headFace = headFace;
 	}
+
+
 	public String getNickName() {
 		return nickName;
 	}
@@ -96,11 +129,11 @@ public class Question implements Serializable{
 	public void setAskName(String askName) {
 		this.askName = askName;
 	}
-	public String getAskBodys() {
-		return askBodys;
+	public String getAskBody() {
+		return askBody;
 	}
-	public void setAskBodys(String askBodys) {
-		this.askBodys = askBodys;
+	public void setAskBody(String askBody) {
+		this.askBody = askBody;
 	}
 	
 	public int getIsReply() {

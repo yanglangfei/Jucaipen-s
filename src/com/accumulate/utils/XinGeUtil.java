@@ -33,7 +33,7 @@ public class XinGeUtil {
 		return xUtil;
 	}
 
-	// 向所有设备推送消息所有设备
+	// 向单个设备推送消息所有设备
 	public JSONObject pushAccountDevice(String msg,String account) {
 		XingeApp xinge = new XingeApp(APP_ID, APP_KEY);
 		custom.clear();

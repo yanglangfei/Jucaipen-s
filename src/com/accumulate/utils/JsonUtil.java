@@ -403,6 +403,9 @@ public class JsonUtil {
 		object.addProperty("localProvince", localProvince);
 		object.addProperty("localCity", localCity);
 		object.addProperty("localArea", localArea);
+		object.addProperty("localProId", user.getLocalProvince());
+		object.addProperty("localCityId", user.getLocalCity());
+		object.addProperty("localAreaId", user.getLocalArea());
 		object.addProperty("descript", user.getDescript());
 		object.addProperty("faceImage", user.getFaceImage());
 		object.addProperty("reginFrom", user.getRegFrom());
@@ -823,6 +826,7 @@ public class JsonUtil {
 		JsonArray array=new JsonArray();
 		for(User user :users){
 			JsonObject object=new JsonObject();
+			object.addProperty("headFace",user.getFaceImage());
 			object.addProperty("userName",user.getUserName());
 			array.add(object);
 		}
@@ -965,14 +969,17 @@ public class JsonUtil {
 		JsonArray array=new JsonArray();
 		for(int i=0;i<answerList.size();i++){
 			JsonObject object=new JsonObject();
+			object.addProperty("askId",asks.get(i).getId());
+			object.addProperty("askDate", asks.get(i).getAskDate());
 			object.addProperty("teacherId",teacher.getId());
 			object.addProperty("headFace",teacher.getHeadFace());
 			object.addProperty("nickName",teacher.getNickName());
 			object.addProperty("level",teacher.getLevel());
 			object.addProperty("isV",teacher.getIsV());
-			object.addProperty("userName",users.get(i).getUserName());
+			object.addProperty("askName",users.get(i).getUserName());
 			object.addProperty("askBody",asks.get(i).getAskBody());
-			object.addProperty("answerBodys",answerList.get(i).getAnswerBody());
+			object.addProperty("isReply", asks.get(i).getIsReply());
+			object.addProperty("answerBody",answerList.get(i).getAnswerBody());
 			array.add(object);
 		}
 		return array.toString();
@@ -991,6 +998,7 @@ public class JsonUtil {
 			object.addProperty("userName",users.get(i).getUserName());
 			object.addProperty("insertDate",askList.get(i).getAskDate());
 			object.addProperty("askBodys",askList.get(i).getAskBody());
+			object.addProperty("headFace",users.get(i).getFaceImage());
 			//1 回复    2 未回复
 			object.addProperty("isReply", askList.get(i).getIsReply());
 			array.add(object);
@@ -1035,9 +1043,25 @@ public class JsonUtil {
 			object.addProperty("introduce",teacher.getIntroduce());
 			object.addProperty("answerCount",teacher.getAnswerCount());
 			object.addProperty("fans", teacher.getFans());
+			object.addProperty("goods",teacher.getArticleGood());
 			array.add(object);
 		}
 		return array.toString();
+	}
+
+	/**
+	 * @param teacher
+	 * @return  获取讲师信息
+	 */
+	public static String getFamousInfo(FamousTeacher teacher,Answer answer) {
+		JsonObject object=new JsonObject();
+		object.addProperty("id",teacher.getId());
+		object.addProperty("headFace",teacher.getHeadFace());
+		object.addProperty("nickName",teacher.getNickName());
+		object.addProperty("isV",teacher.getIsV());
+		object.addProperty("level",teacher.getLevel());
+		object.addProperty("answerBody",answer.getAnswerBody());
+		return object.toString();
 	}
 
 }

@@ -50,28 +50,34 @@ public class AskQuestion extends HttpServlet {
 			if (StringUtil.isInteger(teacherId)) {
 				// 讲师id数字格式化正确
 				int tId = Integer.parseInt(teacherId);
-				if (StringUtil.isInteger(askType)) {
-					// 提问类型数字格式化正确
-					if(StringUtil.isNotNull(askBodys)){
-					int type = Integer.parseInt(askType);
-					if(type>0){
-					createAskModel(uId, tId, type, askBodys);
-					if (isSuccess == 1) {
-						result = JsonUtil.getRetMsg(0, "咨询信息提交成功");
+				if(tId>0){
+					if (StringUtil.isInteger(askType)) {
+						// 提问类型数字格式化正确
+						if(StringUtil.isNotNull(askBodys)){
+						int type = Integer.parseInt(askType);
+						if(type>0){
+						createAskModel(uId, tId, type, askBodys);
+						if (isSuccess == 1) {
+							result = JsonUtil.getRetMsg(0, "咨询信息提交成功");
+						} else {
+							result = JsonUtil.getRetMsg(1, "咨询信息提交失败");
+						}
+						}else {
+							result=JsonUtil.getRetMsg(6, "分类id找不到");
+						}
+						}else {
+							result=JsonUtil.getRetMsg(5,"咨询内容不能为空");
+						}
+						
 					} else {
-						result = JsonUtil.getRetMsg(1, "咨询信息提交失败");
-					}
-					}else {
-						result=JsonUtil.getRetMsg(6, "分类id找不到");
-					}
-					}else {
-						result=JsonUtil.getRetMsg(5,"咨询内容不能为空");
+						// 提问类型数字格式化异常
+						result = JsonUtil.getRetMsg(2, "咨询分类参数数字格式化异常");
 					}
 					
-				} else {
-					// 提问类型数字格式化异常
-					result = JsonUtil.getRetMsg(2, "咨询分类参数数字格式化异常");
+				}else {
+					result=JsonUtil.getRetMsg(7,"讲师id异常");
 				}
+				
 			} else {
 				// 讲师id数字格式化异常
 				result = JsonUtil.getRetMsg(3, "讲师id数字格式化异常");

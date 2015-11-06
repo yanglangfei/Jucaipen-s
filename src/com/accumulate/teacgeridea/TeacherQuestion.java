@@ -83,6 +83,7 @@ public class TeacherQuestion extends HttpServlet {
 				int askId=answer.getAskId();
 				FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(id);
 				Ask ask=AskSer.findAskById(askId);
+				String askDate=ask.getAskDate();
 				int userId=ask.getUserId();
 				User user=UserServer.findUserNikNameById(userId);
 				String image=teacher.getHeadFace();
@@ -94,6 +95,8 @@ public class TeacherQuestion extends HttpServlet {
 				int isReply = ask.getIsReply();
 				question = new Question(id, image, nickName, level, isV,
 						askName, askBodys, isReply, answerBodys);
+				question.setAskId(askId);
+				question.setAskDate(askDate);
 				questions.add(question);
 				
 			}
@@ -112,6 +115,7 @@ public class TeacherQuestion extends HttpServlet {
 				int askId=answer.getAskId();
 				FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(id);
 				Ask ask=AskSer.findAskById(askId);
+				String askDate=ask.getAskDate();
 				int userId=ask.getUserId();
 				User user=UserServer.findUserNikNameById(userId);
 				String image=teacher.getHeadFace();
@@ -123,6 +127,8 @@ public class TeacherQuestion extends HttpServlet {
 				int isReply = ask.getIsReply();
 				question = new Question(id, image, nickName, level, isV,
 						askName, askBodys, isReply, answerBodys);
+				question.setAskId(askId);
+				question.setAskDate(askDate);
 				questions.add(question);
 				
 			}

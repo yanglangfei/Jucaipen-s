@@ -68,7 +68,7 @@ public class MyInfo extends HttpServlet {
 		String birth=user.getBirthday();
 		if(birth!=null){
 			user.setBirthday(birth);
-			 age=TimeUtils.getAge(birth);
+		   age=TimeUtils.getAge(birth);
 		}
 		user.setAge(age);
 		int provinceId=user.getLocalProvince();

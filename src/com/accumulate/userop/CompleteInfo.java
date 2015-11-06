@@ -40,32 +40,41 @@ public class CompleteInfo extends HttpServlet {
 		String id = request.getParameter("id");
 		String nickName = request.getParameter("nikeName");
 		String telPhone = request.getParameter("telPhone");
-		String  sex=request.getParameter("sex");
+		String sex = request.getParameter("sex");
 		String email = request.getParameter("email");
 		String bodys = request.getParameter("bodys");
 		String birth = request.getParameter("birthday");
-		String localProvince=request.getParameter("localProvince");
-		String localCity=request.getParameter("localCity");
-		String localArea=request.getParameter("localArea");
+		String localProvince = request.getParameter("localProvince");
+		String localCity = request.getParameter("localCity");
+		String localArea = request.getParameter("localArea");
 		if (!StringUtil.isInteger(id)) {
 			result = JsonUtil.getRetMsg(1, "用户id数字格式化失败");
 		} else {
-			uId=Integer.parseInt(id);
-			if(uId>0){
-				if(StringUtil.isNotNull(telPhone)&&StringUtil.isMobileNumber(telPhone)){
-					user=UserServer.findUserByTelPhone(telPhone);
-					if(user!=null){
-						//手机号已被绑定
-						result=JsonUtil.getRetMsg(8,"手机号已被绑定");
+			uId = Integer.parseInt(id);
+			if (uId > 0) {
+				if (StringUtil.isNotNull(telPhone)
+						) {
+					if(StringUtil.isMobileNumber(telPhone)){
+						//手机号符合要求
+						user = UserServer.findUserByTelPhone(telPhone);
+						if (user != null&&user.getId()!=uId) {
+							// 手机号已被绑定
+							result = JsonUtil.getRetMsg(8, "手机号已被绑定");
+							out.print(result);
+							return;
+						} else {
+							// 手机号不为空完成信息
+							user = new User();
+							user.setMobileNum(telPhone);
+						}
+					}else {
+						// 手机号不符合要求
+						result = JsonUtil.getRetMsg(8, "手机号不符合要求");
 						out.print(result);
 						return ;
-					}else {
-						//手机号不为空完成信息
-						user = new User();
-						user.setMobileNum(telPhone);
 					}
-				}else {
-					//手机号为空完成个人信息
+				} else {
+					// 手机号为空完成个人信息
 					user = new User();
 				}
 				user.setId(Integer.parseInt(id));
@@ -81,28 +90,30 @@ public class CompleteInfo extends HttpServlet {
 				if (StringUtil.isNotNull(nickName)) {
 					user.setNickName(nickName);
 				}
-				if(StringUtil.isNotNull(sex)){
+				if (StringUtil.isNotNull(sex)) {
 					user.setSex(sex);
 				}
-				if(StringUtil.isNotNull(localProvince)&&StringUtil.isInteger(localProvince)){
+				if (StringUtil.isNotNull(localProvince)
+						&& StringUtil.isInteger(localProvince)) {
 					user.setLocalProvince(Integer.parseInt(localProvince));
 				}
-				if(StringUtil.isNotNull(localCity)&&StringUtil.isInteger(localCity)){
+				if (StringUtil.isNotNull(localCity)
+						&& StringUtil.isInteger(localCity)) {
 					user.setLocalCity(Integer.parseInt(localCity));
 				}
-				if(StringUtil.isNotNull(localArea)&&StringUtil.isInteger(localArea)){
+				if (StringUtil.isNotNull(localArea)
+						&& StringUtil.isInteger(localArea)) {
 					user.setLocalArea(Integer.parseInt(localArea));
 				}
-				isSuccess = completeUserInfo(uId,user);
+				isSuccess = completeUserInfo(uId, user);
 				if (isSuccess == 1) {
 					result = JsonUtil.getRetMsg(0, "用户信息提交成功");
 				} else {
 					result = JsonUtil.getRetMsg(2, "用户信息提交失败");
 				}
-			}else {
-				result=JsonUtil.getRetMsg(4,"当前用户还没登录");
+			} else {
+				result = JsonUtil.getRetMsg(4, "当前用户还没登录");
 			}
-			
 		}
 		out.print(result);
 		out.flush();
