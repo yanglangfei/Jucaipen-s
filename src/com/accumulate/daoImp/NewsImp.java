@@ -128,7 +128,7 @@ public class NewsImp implements NewsDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select top 2 Title,Id,Description,ImageUrl,ImagesThumb"
+					.executeQuery("select top 3 Title,Id,Description,ImageUrl,ImagesThumb"
 							+ " from JCPNews "
 							+ "where BigId="
 							+ bigId

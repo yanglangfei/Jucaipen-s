@@ -31,7 +31,7 @@ public interface LiveInteractiveDao {
 	 * @param liveId
 	 * @return  根据直播id获取直播互动信息
 	 */
-	public List<LiveInteractive> findByLiveId(int liveId);
+	public List<LiveInteractive> findByLiveId(int liveId,int page);
 	/**
 	 * @param uId
 	 * @param liveId

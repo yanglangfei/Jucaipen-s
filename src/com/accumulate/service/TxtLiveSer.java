@@ -16,6 +16,16 @@ public class TxtLiveSer{
 		TxtLiveDao dao=new TextLiveImp();
 		return dao.insertTxtLive(textLive);
 	}
+	
+	/**
+	 * @param lastId
+	 * @param page
+	 * @return    根据上次的文字直播id获取最近的文字直播信息
+	 */
+	public static List<TextLive> findNewLiveByLastId(int lastId){
+		TxtLiveDao dao=new TextLiveImp();
+		return dao.findNewLiveByLastId(lastId);
+	}
 
 	/**
 	 * @param id
@@ -60,6 +70,23 @@ public class TxtLiveSer{
 	public static List<TextLive> findTxtLiveByTeacherIdAndLast(int teacherId,int count){
 		TxtLiveDao dao=new TextLiveImp();
 		return dao.findTxtLiveByTeacherIdAndLast(teacherId, count);
+	}
+	
+	/**
+	 * @return  获取所有需要推送的文字直播信息
+	 */
+	public static List<TextLive> findAllNewTextLivesByPush(){
+		TxtLiveDao dao=new TextLiveImp();
+		return dao.findAllNewTextLivesByPush();
+	}
+	
+	/**
+	 * @param count
+	 * @return  获取最近几条需要推送的直播信息
+	 */
+	public static List<TextLive> findLastPushLive(int count){
+		TxtLiveDao dao=new TextLiveImp();
+		return dao.findLastPushLive(count);
 	}
 
 }

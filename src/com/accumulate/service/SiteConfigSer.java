@@ -14,7 +14,7 @@ public class SiteConfigSer{
 	/**
 	 * @return   获取配置信息
 	 */
-	public SiteConfig findSiteConfig() {
+	public static SiteConfig findSiteConfig() {
 		SiteConfigDao dao=new SiteConfigImp();
 		return dao.findSiteConfig();
 	}

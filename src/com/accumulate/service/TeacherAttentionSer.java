@@ -21,6 +21,15 @@ public class TeacherAttentionSer {
 		TeacherAttentionDao dao=new TeacherAttentionImp();
 		return dao.insertAttention(attention);
 	}
+	/**
+	 * @param teacherId
+	 * @param userId
+	 * @return   取消关注
+	 */
+	public static int cancleAttention(int teacherId,int userId){
+		TeacherAttentionDao dao=new TeacherAttentionImp();
+		return dao.cancleAttention(teacherId, userId);
+	}
 
 	/**
 	 * @return 获取所有的关注
@@ -43,9 +52,9 @@ public class TeacherAttentionSer {
 	 * @param tId
 	 * @return  根据讲师id查询关注信息
 	 */
-	public static List<TeacherAttention> findAttentionBytid(int tId) {
+	public static List<TeacherAttention> findAttentionBytid(int tId,int page) {
 		TeacherAttentionDao dao=new TeacherAttentionImp();
-		return dao.findAttentionBytid(tId);
+		return dao.findAttentionBytid(tId,page);
 	}
 
 	/**
@@ -53,7 +62,7 @@ public class TeacherAttentionSer {
 	 * @param tId
 	 * @return 查询当前
 	 */
-	public static List<TeacherAttention> findAttentionByUidAndTid(int uId, int tId) {
+	public static TeacherAttention findAttentionByUidAndTid(int uId, int tId) {
 		TeacherAttentionDao dao=new TeacherAttentionImp();
 		return dao.findAttentionByUidAndTid(uId, tId);
 	}

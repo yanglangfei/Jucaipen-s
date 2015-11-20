@@ -15,6 +15,27 @@ import org.apache.commons.lang.StringUtils;
 public class TimeUtils {
 	private static String defaultDatePattern = "yyyy-MM-dd ";
 	private static int age;
+	
+	
+	public static boolean compareDate(String date){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date comDate=sdf.parse(date);
+			Date currrent=new Date();
+			int comYear=comDate.getYear();
+			int comMoth=comDate.getMonth();
+			int comDay=comDate.getDate();
+			int currentYear=currrent.getYear();
+			int currentMoth=currrent.getMonth();
+			int currentDay=currrent.getDate();
+			if(currentYear==comYear&&currentDay==comDay&&currentMoth==comMoth){
+				return true;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	/**
 	 * @param birth

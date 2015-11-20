@@ -40,7 +40,7 @@ public class HotIdeaImp implements HotIdeaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return -1;
 
 	}
 
@@ -53,9 +53,8 @@ public class HotIdeaImp implements HotIdeaDao {
 					+ hits + " WHERE Id=" + ideaId);
 			return isSuccess;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		return 0;
+		return -1;
 	}
 
 	public int addComment(int ideaId, int commCount) {
@@ -67,9 +66,8 @@ public class HotIdeaImp implements HotIdeaDao {
 					+ commCount + " WHERE Id=" + ideaId);
 			return isSuccess;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		return 0;
+		return -1;
 	}
 
 	public int addGood(int ideaId, int googs) {
@@ -82,7 +80,7 @@ public class HotIdeaImp implements HotIdeaDao {
 			return isSuccess;
 		} catch (Exception e) {
 		}
-		return 0;
+		return -1;
 	}
 
 	public HotIdea findGoodAndHitAndComm(int id) {
@@ -91,33 +89,51 @@ public class HotIdeaImp implements HotIdeaDao {
 		try {
 			dbConn=JdbcUtil.connSqlServer();
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT Goods,Commens,Hits FROM JCPTearch_LiveLog");
+			res=sta.executeQuery("SELECT Goods,Commens,Hits FROM JCPTearch_LiveLog WHERE Id="+id);
 			while (res.next()) {
-				int goods=res.getInt(1);
-				int comms=res.getInt(2);
-				int hits=res.getInt(3);
+				int goods=res.getInt("Goods");
+				int comms=res.getInt("Commens");
+				int hits=res.getInt("Hits");
 				idea=new HotIdea();
 				idea.setId(id);
 				idea.setHits(hits);
 				idea.setCommens(comms);
 				idea.setGoods(goods);
+				return idea;
 			}
-			return idea;
 		} catch (Exception e) {
 		}
 		return null;
 	}
 
 	public List<HotIdea> findAllHotIdea(int page) {
+		ideas.clear();
 		try {
 			int totlePage = findTotlePage("");
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY Hits desc) AS RowNumber,* FROM JCPTearch_LiveLog) A "
+					.executeQuery("SELECT TOP 15 Id,InsertDate,Title,Bodys,Hits,TearchId FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveLog) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
-			ideas = getHotIdea(res, page, totlePage);
+			while (res.next()) {
+				int id=res.getInt(1);
+				String insertDate=res.getString(2);
+				String title=res.getString(3);
+				String body=res.getString(4);
+				int hits=res.getInt(5);
+				int teacherId=res.getInt(6);
+				HotIdea idea=new HotIdea();
+				idea.setId(id);
+				idea.setTotlePgae(totlePage);
+				idea.setPage(page);
+				idea.setInsertDate(insertDate);
+				idea.setBodys(body);
+				idea.setHits(hits);
+				idea.setTitle(title);
+				idea.setTeacherId(teacherId);
+				ideas.add(idea);
+			}
 			return ideas;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -133,7 +149,7 @@ public class HotIdeaImp implements HotIdeaDao {
 			res = sta
 					.executeQuery("SELECT TOP "
 							+ count
-							+ " Id,ISNULL (Title,'') Title,ISNULL (Bodys,'') Bodys,ISNULL (LogImg,'') LogImg FROM JCPTearch_LiveLog ORDER BY Hits DESC");
+							+ " Id,ISNULL (Title,'') Title,ISNULL (Bodys,'') Bodys,ISNULL (LogImg,'') LogImg FROM JCPTearch_LiveLog ORDER BY InsertDate DESC");
 			while (res.next()) {
 				int id = res.getInt("Id");
 				String title = res.getString("Title");
@@ -160,7 +176,7 @@ public class HotIdeaImp implements HotIdeaDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY Hits desc) AS RowNumber,* FROM JCPTearch_LiveLog"
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveLog"
 							+ " WHERE TearchId=" + teacherId + " )A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			ideas = getHotIdea(res, page, totlePage);
@@ -172,15 +188,28 @@ public class HotIdeaImp implements HotIdeaDao {
 	}
 
 	public HotIdea findIdeaById(int id) {
+		ideas.clear();
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT * FROM JCPTearch_LiveLog WHERE Id="
-					+ id + " ORDER BY Hits DESC");
-			ideas = getHotIdea(res, 0, 0);
-			if (ideas.size() > 0) {
-				return ideas.get(0);
+			res = sta.executeQuery("SELECT Title,Bodys,InsertDate,Goods,TearchId FROM JCPTearch_LiveLog WHERE Id="
+					+ id + " ORDER BY InsertDate DESC");
+			while (res.next()) {
+				String title=res.getString(1);
+				String body=res.getString(2);
+				String insertDate=res.getString(3);
+				int goods=res.getInt(4);
+				int teacherId=res.getInt(5);
+				HotIdea idea=new HotIdea();
+				idea.setId(id);
+				idea.setBodys(body);
+				idea.setTitle(title);
+				idea.setInsertDate(insertDate);
+				idea.setGoods(goods);
+				idea.setTeacherId(teacherId);
+				return idea;
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

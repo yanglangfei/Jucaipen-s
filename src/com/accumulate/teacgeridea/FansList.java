@@ -37,11 +37,17 @@ public class FansList extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String teacherId = request.getParameter("teacherId");
+		String page=request.getParameter("page");
 		if (StringUtil.isInteger(teacherId)) {
 			// 讲师id数字格式化正确
 			int tId = Integer.parseInt(teacherId);
-			initTeacherFansData(tId);
-			result = JsonUtil.getAttentionList(users);
+			if(StringUtil.isInteger(page)){
+				int p=Integer.parseInt(page);
+				initTeacherFansData(tId,p);
+				result = JsonUtil.getAttentionList(attentions,users);
+			}else {
+				result=JsonUtil.getRetMsg(2,"页数参数数字格式化异常");
+			}
 		} else {
 			result = JsonUtil.getRetMsg(1, "讲师id数字格式化异常");
 		}
@@ -50,10 +56,10 @@ public class FansList extends HttpServlet {
 		out.close();
 	}
 
-	private void initTeacherFansData(int tId) {
+	private void initTeacherFansData(int tId,int page) {
 		// 初始化讲师粉丝数据
 		users.clear();
-		attentions = TeacherAttentionSer.findAttentionBytid(tId);
+		attentions = TeacherAttentionSer.findAttentionBytid(tId,page);
 		if (attentions != null && attentions.size() > 0) {
 			for (TeacherAttention attention : attentions) {
 				int uId = attention.getUserId();

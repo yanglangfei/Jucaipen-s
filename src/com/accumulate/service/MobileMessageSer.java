@@ -22,9 +22,9 @@ public class MobileMessageSer{
 	 * @param message
 	 * @return  修改短信验证状态
 	 */
-	public static int upDateMessageType(int id, MobileMessage message) {
+	public static int upDateMessageType(String msgId, MobileMessage message) {
 		MobileMessageDao dao=new MobileMessageImp();
-		return dao.upDateMessageType(id, message);
+		return dao.upDateMessageType(msgId, message);
 	}
 
 	/**

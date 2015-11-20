@@ -10,6 +10,15 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class LogCommen implements Serializable{
 	/**
+	 * 日志评论当前页
+	 */
+	private int page;
+	
+	/**
+	 * 日志评论总页数
+	 */
+	private int totlePage;
+	/**
 	 * 日志评论id
 	 */
 	private int id;
@@ -58,6 +67,23 @@ public class LogCommen implements Serializable{
 		this.isShow = isShow;
 		this.repCount = repCount;
 	}
+	
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getTotlePage() {
+		return totlePage;
+	}
+
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
+
 	public int getId() {
 		return id;
 	}

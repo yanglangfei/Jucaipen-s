@@ -75,17 +75,14 @@ public class PrivatePlaceImp implements PrivatePlaceDao {
 	}
 
 	public List<PrivatePlace> findPrivatePlaceByIsIndex(int isIndex) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public List<PrivatePlace> findPrivatePlaceByIsTop(int isTop) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public List<PrivatePlace> findPrivatePlaceByIsTuijian(int IsTuijian) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

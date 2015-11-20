@@ -22,7 +22,7 @@ public interface MobileMessageDao {
 	 * @param type
 	 * @return  根据id改变短信状态
 	 */
-	public int upDateMessageType(int id,MobileMessage message);
+	public int upDateMessageType(String msgId,MobileMessage message);
 	
 	/**
 	 * @param telPhone

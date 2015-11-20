@@ -17,6 +17,27 @@ public class LogCommImp implements LogCommenDao {
 	private Statement sta;
 	private ResultSet res;
 	private List<LogCommen> logCommens = new ArrayList<LogCommen>();
+	
+	/**
+	 * @return 查询登录日志总页数
+	 */
+	public int findTotlePager(String condition) {
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_LogCommen "
+							+ condition);
+			res.next();
+			int totlePager = res.getInt("totlePager");
+			return totlePager;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	
 
 	public int insertLogComm(LogCommen logCommen) {
 		try {
@@ -47,7 +68,7 @@ public class LogCommImp implements LogCommenDao {
 			res = sta
 					.executeQuery("SELECT * FROM JCPTearch_LogCommen WHERE Id="
 							+ id);
-			logCommens = getLogComm(res);
+			logCommens = getLogComm(res,1,1);
 			if (logCommens.size() > 0) {
 				return logCommens.get(0);
 			}
@@ -63,7 +84,7 @@ public class LogCommImp implements LogCommenDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT * FROM JCPTearch_LogCommen ORDER BY InsertDate DESC");
-			logCommens = getLogComm(res);
+			logCommens = getLogComm(res,1,1);
 			return logCommens;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,7 +99,7 @@ public class LogCommImp implements LogCommenDao {
 			res = sta
 					.executeQuery("SELECT * FROM JCPTearch_LogCommen WHERE UserId="
 							+ uid + " ORDER BY InsertDate DESC");
-			logCommens = getLogComm(res);
+			logCommens = getLogComm(res,1,1);
 			return logCommens;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,14 +107,17 @@ public class LogCommImp implements LogCommenDao {
 		return null;
 	}
 
-	public List<LogCommen> findLogCommByLogId(int logId) {
+	public List<LogCommen> findLogCommByLogId(int logId,int page) {
+		int totlePage=findTotlePager("WHERE LogId="+logId);
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_LogCommen WHERE LogId="
-							+ logId + " ORDER BY InsertDate DESC");
-			logCommens = getLogComm(res);
+					.executeQuery("SELECT TOP 15 * FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPTearch_LogCommen"
+							+ " where LogId=" + logId + " ) A "
+							+ "WHERE RowNumber > " + 15 * (page - 1));
+			logCommens = getLogComm(res,page,totlePage);
 			return logCommens;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,7 +135,7 @@ public class LogCommImp implements LogCommenDao {
 							+ "AND LogId="
 							+ logId
 							+ " ORDER BY InsertDate DESC");
-			logCommens = getLogComm(res);
+			logCommens = getLogComm(res,1,1);
 			return logCommens;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,7 +143,7 @@ public class LogCommImp implements LogCommenDao {
 		return null;
 	}
 
-	public List<LogCommen> getLogComm(ResultSet result) {
+	public List<LogCommen> getLogComm(ResultSet result,int page,int totlePage) {
 		logCommens.clear();
 		try {
 			while (result.next()) {
@@ -134,6 +158,8 @@ public class LogCommImp implements LogCommenDao {
 				int repCount = result.getInt("RepCount");
 				LogCommen commen = new LogCommen(id, userId, parentId, logId,
 						bodys, insertDate, goods, isShow, repCount);
+				commen.setTotlePage(totlePage);
+				commen.setPage(page);
 				logCommens.add(commen);
 			}
 			return logCommens;

@@ -70,6 +70,24 @@ public class AskImp implements AskDao {
 		}
 		return null;
 	}
+	
+	
+	public int findAskNumByUId(int uId) {
+		//根据用户id获取用户的提问数
+		try {
+			dbConn=JdbcUtil.connSqlServer();
+			sta=dbConn.createStatement();
+			res=sta.executeQuery("SELECT COUNT (*) FROM JCPTearch_Ask WHERE UserId="+uId);
+			while (res.next()) {
+				int askNum=res.getInt(1);
+				return askNum;
+			}
+		} catch (Exception e) {
+		}
+		return -1;
+	}
+	
+	
 
 	public List<Ask> findAskByUserId(int userId) {
 		// 根据用户id获取提问信息
@@ -81,24 +99,25 @@ public class AskImp implements AskDao {
 			asks = getAsk(res,0,0);
 			return asks;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public List<Ask> findAskByTeacherId(int teacherId) {
+	public List<Ask> findAskByTeacherId(int teacherId,int page) {
 		// 根据讲师id获取提问信息
+		int totlePage=findTotlePage("WHERE TearcherId="+teacherId);
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Ask WHERE TearcherId="
-							+ teacherId + " ORDER BY AskDate DESC");
-			asks = getAsk(res,0,0);
+					.executeQuery("SELECT TOP 15 * FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY AskDate desc) AS RowNumber,* FROM JCPTearch_Ask" +
+							" WHERE TearcherId="+teacherId+") A "
+							+ "WHERE RowNumber > " + 15 * (page - 1));
+			asks = getAsk(res,page,totlePage);
 			return asks;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -114,7 +133,6 @@ public class AskImp implements AskDao {
 			asks = getAsk(res,0,0);
 			return asks;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -131,7 +149,6 @@ public class AskImp implements AskDao {
 			asks = getAsk(res,0,0);
 			return asks;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -147,7 +164,6 @@ public class AskImp implements AskDao {
 			asks = getAsk(res,0,0);
 			return asks;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -165,7 +181,6 @@ public class AskImp implements AskDao {
 				return asks.get(0);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

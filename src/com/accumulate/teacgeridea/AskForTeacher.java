@@ -37,49 +37,49 @@ public class AskForTeacher extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String isAll=request.getParameter("isAll");
-		if(StringUtil.isInteger(isAll)){
-			int all=Integer.parseInt(isAll);
-			if(all==0){
-				//获取全部数据
-				String pager=request.getParameter("page");
-				if(StringUtil.isInteger(pager)){
-					//page参数正常
-					int page=Integer.parseInt(pager);
+		String pager=request.getParameter("page");
+		if(StringUtil.isInteger(pager)){
+			//page参数正常
+			int page=Integer.parseInt(pager);
+			if(StringUtil.isInteger(isAll)){
+				int all=Integer.parseInt(isAll);
+				if(all==0){
+					//获取全部数据
 					initAllAskList(page);
 					result=JsonUtil.getAskList(askList,users);
+				}else if(all==1){
+					//根据讲师id获取
+					String teacherId=request.getParameter("teacherId");
+					if(StringUtil.isInteger(teacherId)){
+						//page参数正常
+						int tId=Integer.parseInt(teacherId);
+						initAskListForTeacher(tId,page);
+						result=JsonUtil.getAskList(askList, users);
+					}else {
+						//page参数异常
+						result=JsonUtil.getRetMsg(3,"讲师id参数数字格式化异常");
+					}
 				}else {
-					//page参数异常
-					result=JsonUtil.getRetMsg(3,"页数参数数字格式化异常");
+					//参数异常
+					result=JsonUtil.getRetMsg(2,"isALL参数不符合要求");
 				}
-			}else if(all==1){
-				//根据讲师id获取
-				String teacherId=request.getParameter("teacherId");
-				if(StringUtil.isInteger(teacherId)){
-					//page参数正常
-					int tId=Integer.parseInt(teacherId);
-					initAskListForTeacher(tId);
-					result=JsonUtil.getAskList(askList, users);
-				}else {
-					//page参数异常
-					result=JsonUtil.getRetMsg(3,"讲师id参数数字格式化异常");
-				}
+				
 			}else {
-				//参数异常
-				result=JsonUtil.getRetMsg(2,"isALL参数不符合要求");
+				result=JsonUtil.getRetMsg(1,"isAll参数数字格式化异常");
 			}
-			
 		}else {
-			result=JsonUtil.getRetMsg(1,"isAll参数数字格式化异常");
+			//page参数异常
+			result=JsonUtil.getRetMsg(3,"页数参数数字格式化异常");
 		}
 		out.print(result);
 		out.flush();
 		out.close();
 	}
 
-	private void initAskListForTeacher(int tId) {
+	private void initAskListForTeacher(int tId,int page) {
 		//通过讲师id初始化提问信息
 		users.clear();
-		askList=AskSer.findAskByTeacherId(tId);
+		askList=AskSer.findAskByTeacherId(tId,page);
 		if(askList.size()>0){
 			for(Ask ask :askList){
 				int uId=ask.getUserId();

@@ -55,18 +55,10 @@ public class TextLive implements Serializable{
 	 */
 	private int isEnd;
 	
-	public TextLive(int id, String title, String startDate, String endDate,
-			int goods, int moods, int isYouKe, int teacherId, int isEnd) {
-		this.id = id;
-		this.title = title;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.goods = goods;
-		this.moods = moods;
-		this.isYouKe = isYouKe;
-		this.teacherId = teacherId;
-		this.isEnd = isEnd;
+	public TextLive() {
 	}
+	
+	
 	
 	public int getPage() {
 		return page;

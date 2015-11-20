@@ -47,46 +47,52 @@ public class AddIdeaComm extends HttpServlet {
 		if (StringUtil.isInteger(userId)) {
 			// 用户id正常
 			int uId = Integer.parseInt(userId);
-			if (StringUtil.isInteger(ideaId)) {
-				// 观点id正常
-				int iId = Integer.parseInt(ideaId);
-				if (StringUtil.isInteger(commType)) {
-					int type = Integer.parseInt(commType);
-					if (StringUtil.isNotNull(commBody)) {
-						if (type == 0) {
-							// 发表评论
-							insertIdeaComm(0, uId, iId, commBody);
-						} else {
-							// 回复评论
-							String commId = request.getParameter("commId");
-							if (StringUtil.isInteger(commId)) {
-								int cId = Integer.parseInt(commId);
-								insertIdeaComm(cId, uId, iId, commBody);
+			if(uId>0){
+				if (StringUtil.isInteger(ideaId)) {
+					// 观点id正常
+					int iId = Integer.parseInt(ideaId);
+					if (StringUtil.isInteger(commType)) {
+						int type = Integer.parseInt(commType);
+						if (StringUtil.isNotNull(commBody)) {
+							if (type == 0) {
+								// 发表评论
+								insertIdeaComm(0, uId, iId, commBody);
 							} else {
-								result = JsonUtil.getRetMsg(6, "回复的评论id数字化异常");
-								out.print(result);
-								return;
+								// 回复评论
+								String commId = request.getParameter("commId");
+								if (StringUtil.isInteger(commId)) {
+									int cId = Integer.parseInt(commId);
+									insertIdeaComm(cId, uId, iId, commBody);
+								} else {
+									result = JsonUtil.getRetMsg(6, "回复的评论id数字化异常");
+									out.print(result);
+									return;
+								}
 							}
-						}
-						if (isSuccess == 1) {
-							// 添加评论成功
-							result = JsonUtil.getRetMsg(0, "添加评论成功");
+							if (isSuccess == 1) {
+								// 添加评论成功
+								result = JsonUtil.getRetMsg(0, "添加评论成功");
+							} else {
+								// 添加评论失败
+								result = JsonUtil.getRetMsg(3, "添加评论失败");
+							}
+
 						} else {
-							// 添加评论失败
-							result = JsonUtil.getRetMsg(3, "添加评论失败");
+							result = JsonUtil.getRetMsg(4, "评论内容不能为空");
 						}
 
 					} else {
-						result = JsonUtil.getRetMsg(4, "评论内容不能为空");
+						result = JsonUtil.getRetMsg(5, "类型id数字化异常");
 					}
 
 				} else {
-					result = JsonUtil.getRetMsg(5, "类型id数字化异常");
+					result = JsonUtil.getRetMsg(1, "热门观点id数字格式化异常");
 				}
-
-			} else {
-				result = JsonUtil.getRetMsg(1, "热门观点id数字格式化异常");
+				
+			}else {
+				result=JsonUtil.getRetMsg(7, "您还没登录");
 			}
+			
 		} else {
 			result = JsonUtil.getRetMsg(2, "用户id数字格式化异常");
 		}

@@ -11,6 +11,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class LiveInteractive implements Serializable {
 	/**
+	 *  当前页数 
+	 */
+	private int page;
+	/**
+	 *  总页数
+	 */
+	private int totlePage;
+	/**
 	 *  互动id
 	 */
 	private int id;
@@ -60,6 +68,23 @@ public class LiveInteractive implements Serializable {
 		this.ip = ip;
 		this.parentaId = parentaId;
 	}
+	
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getTotlePage() {
+		return totlePage;
+	}
+
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
+
 	public int getId() {
 		return id;
 	}

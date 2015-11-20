@@ -69,13 +69,10 @@ public class DownLoadApk extends HttpServlet {
 			// ¹Ø±ÕÊä³öÁ÷
 			out.close();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

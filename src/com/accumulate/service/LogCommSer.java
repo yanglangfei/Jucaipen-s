@@ -47,9 +47,9 @@ public class LogCommSer{
 	 * @param logId
 	 * @return  根据日志id查询日志评论
 	 */
-	public static List<LogCommen> findLogCommByLogId(int logId) {
+	public static List<LogCommen> findLogCommByLogId(int logId,int page) {
 		LogCommenDao dao=new LogCommImp();
-		return dao.findLogCommByLogId(logId);
+		return dao.findLogCommByLogId(logId,page);
 	}
 
 	/**

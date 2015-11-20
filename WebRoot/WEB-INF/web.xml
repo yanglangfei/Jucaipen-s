@@ -600,7 +600,14 @@
   <servlet>
     <servlet-name>PushTextLive</servlet-name>
     <servlet-class>com.accumulate.teacgeridea.PushTextLive</servlet-class>
+        <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>QuerryAttention</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.QuerryAttention</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -792,5 +799,9 @@
   <servlet-mapping>
     <servlet-name>PushTextLive</servlet-name>
     <url-pattern>/jucaipen/pushTextLive</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuerryAttention</servlet-name>
+    <url-pattern>/jucaipen/querryAttention</url-pattern>
   </servlet-mapping>
 </web-app>

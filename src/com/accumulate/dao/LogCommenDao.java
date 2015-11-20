@@ -28,7 +28,7 @@ public interface LogCommenDao {
 	 * @param logId
 	 * @return 根据日志id获取日志评论信息
 	 */
-	public List<LogCommen> findLogCommByLogId(int logId);
+	public List<LogCommen> findLogCommByLogId(int logId,int page);
 	/**
 	 * @param uid
 	 * @param logId

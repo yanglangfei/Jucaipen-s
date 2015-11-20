@@ -37,19 +37,25 @@ public class TxtLiveDetaileImp implements TxtLiveDetailsDao {
 							+ details.getInsertDate() + "')");
 			return isSuccess;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return 0;
 	}
 
 	public List<TxtLiveDetails> findTextDetaileByLiveId(int liveId) {
 		try {
+			txtLiveDetails.clear();
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_TxtLiveDetails WHERE FK_LiveId="
+					.executeQuery("SELECT FK_LiveId,Bodys,InsertDate FROM JCPTearch_TxtLiveDetails WHERE FK_LiveId="
 							+ liveId+" ORDER BY InsertDate DESC");
-			txtLiveDetails = getTexDetaile(res);
+			while (res.next()) {
+				int relate_LiveId=res.getInt(1);
+				String bodys=res.getString(2);
+				String insertDate=res.getString(3);
+				TxtLiveDetails diDetails=new TxtLiveDetails(-1, relate_LiveId, -1, bodys, null, -1, insertDate);
+				txtLiveDetails.add(diDetails);
+			}
 			return txtLiveDetails;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,7 +141,6 @@ public class TxtLiveDetaileImp implements TxtLiveDetailsDao {
 			}
 			return txtLiveDetails;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return null;
 	}

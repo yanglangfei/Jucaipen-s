@@ -75,7 +75,8 @@ public class TeacherQuestion extends HttpServlet {
 
 	private void initAllQuestion(int page) {
 		questions.clear();
-		answers=AnswerSer.findAllAnswer();
+		answers=AnswerSer.findAllAnswer(page);
+		int totlePage=answers.get(0).getTotlePage();
 		if(answers.size()>0){
 			for(Answer answer :answers){
 				String answerBodys=answer.getAnswerBody();
@@ -96,6 +97,8 @@ public class TeacherQuestion extends HttpServlet {
 				question = new Question(id, image, nickName, level, isV,
 						askName, askBodys, isReply, answerBodys);
 				question.setAskId(askId);
+				question.setTotlePage(totlePage);
+				question.setPage(page);
 				question.setAskDate(askDate);
 				questions.add(question);
 				

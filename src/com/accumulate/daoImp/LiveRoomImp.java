@@ -67,7 +67,6 @@ public class LiveRoomImp implements LiveRoomDao {
 	}
 
 	public List<ChatRoom> getAllRoom() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

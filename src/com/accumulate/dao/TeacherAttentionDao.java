@@ -11,6 +11,12 @@ public interface TeacherAttentionDao {
 	 */
 	public int insertAttention(TeacherAttention attention);
 	/**
+	 * @param tId
+	 * @param uId
+	 * @return    取消关注
+	 */
+	public int cancleAttention(int tId,int uId);
+	/**
 	 * @return 获取所有的关注信息
 	 */
 	public List<TeacherAttention> findAllAttention();
@@ -23,13 +29,13 @@ public interface TeacherAttentionDao {
 	 * @param tId
 	 * @return 根据讲师id查询关注信息
 	 */
-	public List<TeacherAttention> findAttentionBytid(int tId);
+	public List<TeacherAttention> findAttentionBytid(int tId,int page);
 	/**
 	 * @param uId
 	 * @param tId
 	 * @return 根据用户id、讲师id获取关注的信息
 	 */
-	public List<TeacherAttention> findAttentionByUidAndTid(int uId,int tId);
+	public TeacherAttention findAttentionByUidAndTid(int uId,int tId);
 	
 
 }

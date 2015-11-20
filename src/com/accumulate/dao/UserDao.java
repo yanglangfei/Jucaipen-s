@@ -14,7 +14,7 @@ public interface UserDao {
 	 * @param id
 	 * @return  通过id修改手机号和真实姓名
 	 */
-	public int updateUserTrueNameAndTelById(int id,User u);
+	public int updateUserTrueNameAndTelById(String telPhone,User u);
 	/**
 	 * @return 用户注册
 	 */

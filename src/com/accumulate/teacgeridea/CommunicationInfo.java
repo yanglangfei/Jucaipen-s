@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,22 +34,30 @@ public class CommunicationInfo extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String liveId=request.getParameter("liveId");
-		if(StringUtil.isInteger(liveId)){
-			//直播id正常
-			int lId=Integer.parseInt(liveId);
-			initCommunicationData(lId);
-			result=JsonUtil.getLiveInterationList(interactives,users);
+		String page=request.getParameter("page");
+		if(StringUtil.isInteger(page)){
+			//page 参数正常
+			int p=Integer.parseInt(page);
+			if(StringUtil.isInteger(liveId)){
+				//直播id正常
+				int lId=Integer.parseInt(liveId);
+				initCommunicationData(lId,p);
+				result=JsonUtil.getLiveInterationList(interactives,users);
+			}else {
+				//直播id参数异常
+				result=JsonUtil.getRetMsg(1,"直播id参数数字格式化异常");
+			}
 		}else {
-			//直播id参数异常
-			result=JsonUtil.getRetMsg(1,"直播id参数数字格式化异常");
+			result=JsonUtil.getRetMsg(2,"分页参数数字格式化异常");
 		}
 		out.print(result);
 		out.flush();
 		out.close();
 	}
-	private void initCommunicationData(int lId) {
+	private void initCommunicationData(int lId,int page) {
 		// 初始化直播互动信息
-		interactives=LiveInteractiveSer.findByLiveId(lId);
+		users.clear();
+		interactives=LiveInteractiveSer.findByLiveId(lId,page);
 		if(interactives.size()>0){
 			for(LiveInteractive liInteractive :interactives){
 				int uId=liInteractive.getUserId();

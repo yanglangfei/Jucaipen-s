@@ -21,7 +21,7 @@ public interface AnswerDao {
 	/**
 	 * @return  获取所有回答
 	 */
-	public List<Answer> findAllAnswer();
+	public List<Answer> findAllAnswer(int page);
 	
 	/**
 	 * @param teacherId

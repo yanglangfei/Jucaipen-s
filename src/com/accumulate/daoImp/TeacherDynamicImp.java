@@ -49,7 +49,6 @@ public class TeacherDynamicImp implements TeacherDynamicDao {
 			dynamics = getDynamic(res);
 			return dynamics;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return null;
 	}

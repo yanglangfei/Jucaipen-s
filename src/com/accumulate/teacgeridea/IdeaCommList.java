@@ -36,10 +36,17 @@ public class IdeaCommList extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String ideaId = request.getParameter("ideaId");
+		String page=request.getParameter("page");
 		if (StringUtil.isInteger(ideaId)) {
 			int id = Integer.parseInt(ideaId);
-			initHotIdeaCommList(id);
-			result = JsonUtil.getIdeaCommList(comms,users);
+			if(StringUtil.isInteger(page)){
+				int p=Integer.parseInt(page);
+				initHotIdeaCommList(id,p);
+				result = JsonUtil.getIdeaCommList(comms,users);
+			}else {
+				result=JsonUtil.getRetMsg(2,"页数参数数字格式化异常");
+			}
+			
 		} else {
 			result = JsonUtil.getRetMsg(1, "热门观点id数字格式化异常");
 		}
@@ -48,9 +55,9 @@ public class IdeaCommList extends HttpServlet {
 		out.close();
 	}
 
-	private void initHotIdeaCommList(int id) {
+	private void initHotIdeaCommList(int id,int page) {
 		// 初始化热门观点评论列表
-		comms = LogCommSer.findLogCommByLogId(id);
+		comms = LogCommSer.findLogCommByLogId(id,page);
 		if (comms.size() > 0) {
 			for (LogCommen comm : comms) {
 				int uId = comm.getUserId();

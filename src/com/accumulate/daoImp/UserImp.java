@@ -186,13 +186,12 @@ public class UserImp implements UserDao {
 		return 0;
 	}
 
-	public int updateUserTrueNameAndTelById(int id, User user) {
+	public int updateUserTrueNameAndTelById(String telPhone, User user) {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			isSuccess = sta.executeUpdate("UPDATE JCPUser SET TrueName='"
-					+ user.getTrueName() + "',MobileNum='"
-					+ user.getMobileNum() + "' WHERE Id=" + id);
+					+ user.getTrueName() + "' WHERE MobileNum='" + telPhone+"'");
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();

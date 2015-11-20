@@ -45,22 +45,26 @@ public class AddExChange extends HttpServlet {
 		if(StringUtil.isInteger(userId)){
 			//用户id正常
 			int uId=Integer.parseInt(userId);
-			if(StringUtil.isInteger(liveId)){
-				//直播id正常
-				if(StringUtil.isNotNull(bodys)){
-				int lId=Integer.parseInt(liveId);
-				insertLiveExchange(uId,lId,bodys,ip);
-				if(isSuccess==1){
-					result=JsonUtil.getRetMsg(0, "添加交流信息成功");
+			if(uId>0){
+				if(StringUtil.isInteger(liveId)){
+					//直播id正常
+					if(StringUtil.isNotNull(bodys)){
+					int lId=Integer.parseInt(liveId);
+					insertLiveExchange(uId,lId,bodys,ip);
+					if(isSuccess==1){
+						result=JsonUtil.getRetMsg(0, "添加交流信息成功");
+					}else {
+						result=JsonUtil.getRetMsg(3, "添加交流信息失败");
+					}
+					}else {
+						result=JsonUtil.getRetMsg(4, "交流内容不能为空");
+					}
+					
 				}else {
-					result=JsonUtil.getRetMsg(3, "添加交流信息失败");
+					result=JsonUtil.getRetMsg(1, "直播id参数数字格式化异常");
 				}
-				}else {
-					result=JsonUtil.getRetMsg(4, "交流内容不能为空");
-				}
-				
 			}else {
-				result=JsonUtil.getRetMsg(1, "直播id参数数字格式化异常");
+				result=JsonUtil.getRetMsg(5, "您还没登录");
 			}
 		}else {
 			result=JsonUtil.getRetMsg(2,"用户id数字格式化异常");

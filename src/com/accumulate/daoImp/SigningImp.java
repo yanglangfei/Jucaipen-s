@@ -24,7 +24,7 @@ public class SigningImp implements SigningDao {
 			sta = dbConn.createStatement();
 			isSuccess = sta.executeUpdate("INSERT INTO JCPTearch_Signing "
 					+ "(UserId,TearchId,TrueName,MobileNum,InsertDate,"
-					+ "StartDate,EndDate,QSName,Types,Ip,ComeType) VALUES("
+					+ "QSName,Types,Ip,ComeType) VALUES("
 					+ signing.getUserId()
 					+ ","
 					+ signing.getTeacherId()
@@ -34,10 +34,6 @@ public class SigningImp implements SigningDao {
 					+ signing.getMobileNum()
 					+ "','"
 					+ signing.getInsertDate()
-					+ "','"
-					+ signing.getStartDate()
-					+ "','"
-					+ signing.getEndDate()
 					+ "','"
 					+ signing.getQSName()
 					+ "',"
@@ -146,13 +142,14 @@ public class SigningImp implements SigningDao {
 				String ip = result.getString("Ip");
 				int comeFrom = result.getInt("ComeType");
 				Signing signing = new Signing(id, userId, teacherId, trueName,
-						mobileNum, insertDate, startDate, endDate, qsName,
+						mobileNum, insertDate, qsName,
 						state, ip, comeFrom);
+				signing.setStartDate(startDate);
+				signing.setEndDate(endDate);
 				signings.add(signing);
 			}
 			return signings;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return null;
 	}

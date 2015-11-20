@@ -233,7 +233,6 @@ public class VideoImp implements VideoDao {
 			}
 			return videos;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 		return null;

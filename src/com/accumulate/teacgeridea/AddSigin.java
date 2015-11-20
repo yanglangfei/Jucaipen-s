@@ -43,15 +43,13 @@ public class AddSigin extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String userId = request.getParameter("userId");
 		String teacherId = request.getParameter("teacherId");
-		String statrtDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
 		String qsName = request.getParameter("QsName");
 		ip=request.getRemoteAddr();
 		if (StringUtil.isInteger(userId)) {
 			int uId = Integer.parseInt(userId);
 			if (StringUtil.isInteger(teacherId)) {
 				int tId = Integer.parseInt(teacherId);
-				initSigingData(uId, tId, statrtDate, endDate, qsName);
+				initSigingData(uId, tId, qsName);
 				if(isSuccess==1){
 					result=JsonUtil.getRetMsg(0, "Ç©Ô¼³É¹¦");
 				}else {
@@ -66,14 +64,13 @@ public class AddSigin extends HttpServlet {
 		out.close();
 	}
 
-	private void initSigingData(int uId, int tId, String startDate,
-			String endDate, String qsName) {
+	private void initSigingData(int uId, int tId,String qsName) {
 		    User user=UserServer.findUserById(uId);
 		    String trueName=user.getTrueName();
 		    String mobileNum=user.getMobileNum();
 		    String insertDate=sdf.format(new Date());
 		    Signing signing = new Signing(0, uId, tId, trueName,
-				mobileNum, insertDate, startDate, endDate, qsName, 0, ip,
+				mobileNum, insertDate, qsName, 0, ip,
 				3);
 		   isSuccess=SigingSer.insertSigin(signing);
 

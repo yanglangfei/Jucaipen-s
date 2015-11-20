@@ -39,6 +39,7 @@ public class ChatMessage extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String messageObject = request.getParameter("messageObject");
+		System.out.println("msg:"+messageObject.toString());
 		if (messageObject.length() > 0) {
 			msgObject = JsonUtil.parseMessage(messageObject);
 			int msgType = msgObject.getMsgType();
@@ -59,7 +60,9 @@ public class ChatMessage extends HttpServlet {
 								+ "&topCount=10&roomId="
 								+ roomId
 								+ "&isServer=" + isServer + "&messType=0";
+						System.out.println("url:"+url);
 						String position = HttpUtils.sendHttpGet(url);
+						System.out.println("p:"+position);
 						if (position != null) {
 							int p = Integer.parseInt(position);
 							ReceiverDateThread reThread = new ReceiverDateThread(

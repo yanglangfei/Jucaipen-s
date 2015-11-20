@@ -35,6 +35,7 @@ public class SendMobileCode extends HttpServlet {
 	private String ip;
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private int isSuccess;
+	 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -52,29 +53,40 @@ public class SendMobileCode extends HttpServlet {
 		if (StringUtil.isMobileNumber(mobileNum)) {
 			initMessage();
 			if (msg != null) {
-				String code = RandomUtils.getRandomData(5);
+				String code = RandomUtils.getRandomData(4);
 				newMsg = msg.replace("{mobile_code}", code);
 				String path = check_url + mobileNum + "&msg="
 						+ URLEncoder.encode(newMsg, "UTF-8") + "&needstatus=true";
-				result = HttpUtils.sendHttpGet(path);
-				insertMobileMessage(mobileNum,code);
+				String res = HttpUtils.sendHttpGet(path);
+				result=JsonUtil.getRetMsg(0, "短信发送成功");
+				
+				insertMobileMessage(mobileNum,code,res);
 			}else {
 				result=JsonUtil.getRetMsg(2,"短信发送失败");
 			}
 
 		} else {
-			result = JsonUtil.getRetMsg(1, "手机号错误");
+			result = JsonUtil.getRetMsg(1, "手机号格式错误");
 		}
 		out.print(result);
+		System.out.println("result:"+result);
 		out.flush();
 		out.close();
 	}
 
-	private void insertMobileMessage(String mobileNum, String code) {
+	private void insertMobileMessage(String mobileNum, String code,String results) {
 		//添加短信记录
+		System.out.println("results:"+results);
+		String resptime=results.split(",")[0];
+		String tempStr=results.split(",")[1];
+		String ret_code=tempStr.substring(0, 1);
+		String msgId=tempStr.substring(1, tempStr.length());
 		MobileMessage message=new MobileMessage();
 		message.setActionCode(code);
 		message.setTelPhone(mobileNum);
+		message.setResptime(resptime);
+		message.setMsgid(msgId);
+		message.setRespstatus(Integer.parseInt(ret_code));
 		message.setSendIp(ip);
 		message.setSendDate(sdf.format(new Date()));
 		message.setMessageContent(newMsg);
@@ -104,7 +116,7 @@ public class SendMobileCode extends HttpServlet {
 		public void run() {
 			try {
 				Thread.sleep(1000*60*3);
-				MobileMessageSer.upDateMessageType(Integer.parseInt(msgId), msg);
+				MobileMessageSer.upDateMessageType(msgId, msg);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

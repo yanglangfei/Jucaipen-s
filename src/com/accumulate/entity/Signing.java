@@ -59,16 +59,13 @@ public class Signing implements Serializable{
 	private int comeType;
 	
 	public Signing(int id, int userId, int teacherId, String trueName,
-			String mobileNum, String insertDate, String startDate,
-			String endDate, String qSName, int state, String ip, int comeType) {
+			String mobileNum, String insertDate, String qSName, int state, String ip, int comeType) {
 		this.id = id;
 		this.userId = userId;
 		this.teacherId = teacherId;
 		this.trueName = trueName;
 		this.mobileNum = mobileNum;
 		this.insertDate = insertDate;
-		this.startDate = startDate;
-		this.endDate = endDate;
 		QSName = qSName;
 		this.state = state;
 		this.ip = ip;

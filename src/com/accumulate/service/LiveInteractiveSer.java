@@ -38,9 +38,9 @@ public class LiveInteractiveSer{
 	 * @param liveId
 	 * @return  根据直播id获取直播互动
 	 */
-	public static List<LiveInteractive> findByLiveId(int liveId) {
+	public static List<LiveInteractive> findByLiveId(int liveId,int page) {
 		LiveInteractiveDao dao=new LiveInteractiveImp();
-		return dao.findByLiveId(liveId);
+		return dao.findByLiveId(liveId,page);
 	}
 
 	public List<LiveInteractive> findByUidAndLiveId(int uId, int liveId) {

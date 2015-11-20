@@ -28,6 +28,11 @@ public interface TxtLiveDao {
 	 */
 	public List<TextLive>findAllTextLive(int page);
 	/**
+	 * @return   获取全部最新推送的直播信息
+	 */
+	public List<TextLive> findAllNewTextLivesByPush();
+	
+	/**
 	 * @param teacherId
 	 * @return  根据讲师id获取直播信息
 	 */
@@ -44,4 +49,14 @@ public interface TxtLiveDao {
 	 * @return   获取讲师最近的几次直播
 	 */
 	public List<TextLive> findTxtLiveByTeacherIdAndLast(int teacherId,int count);
+	/**
+	 * @param lastId
+	 * @return   通过当前直播id，获取最近的直播信息
+	 */
+	public List<TextLive> findNewLiveByLastId(int lastId);
+	/**
+	 * @param count
+	 * @return   获取最近几条要推送的消息
+	 */
+	public List<TextLive> findLastPushLive(int count);
 }

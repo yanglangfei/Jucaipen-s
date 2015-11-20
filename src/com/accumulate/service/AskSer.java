@@ -24,6 +24,16 @@ public class AskSer{
 		AskDao dao=new AskImp();
 		return dao.findLstAsk(count);
 	}
+	
+	
+	/**
+	 * @param uId
+	 * @return   根据用户id获取用户的提问数
+	 */
+	public static int findAskNumByUid(int uId){
+		AskDao dao=new AskImp();
+		return dao.findAskNumByUId(uId);
+	}
 
 	/**
 	 * @param userId
@@ -38,9 +48,9 @@ public class AskSer{
 	 * @param teacherId
 	 * @return 根据讲师id获取提问信息
 	 */
-	public static List<Ask> findAskByTeacherId(int teacherId) {
+	public static List<Ask> findAskByTeacherId(int teacherId,int page) {
 		AskDao dao=new AskImp();
-		return dao.findAskByTeacherId(teacherId);
+		return dao.findAskByTeacherId(teacherId,page);
 	}
 
 	/**

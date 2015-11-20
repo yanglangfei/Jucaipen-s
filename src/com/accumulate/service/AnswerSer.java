@@ -29,9 +29,9 @@ public class AnswerSer{
 	/**
 	 * @return  获取所有回复信息
 	 */
-	public static List<Answer> findAllAnswer() {
+	public static List<Answer> findAllAnswer(int page) {
 		AnswerDao dao=new AnswerImp();
-		return dao.findAllAnswer();
+		return dao.findAllAnswer(page);
 	}
 	
 	/**

@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.accumulate.entity.Ask;
+import com.accumulate.entity.SiteConfig;
 import com.accumulate.service.AskSer;
+import com.accumulate.service.SiteConfigSer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
 
 /**
  * @author Administrator
- * 
  * 
  *         咨询名师
  */
@@ -27,6 +28,8 @@ public class AskQuestion extends HttpServlet {
 	private String result;
 	private String ip;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private int totleAskNum;
+	private int currentAskNum;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,49 +50,63 @@ public class AskQuestion extends HttpServlet {
 		if (StringUtil.isInteger(userId)) {
 			// 用户id格式正确
 			int uId = Integer.parseInt(userId);
-			if (StringUtil.isInteger(teacherId)) {
-				// 讲师id数字格式化正确
-				int tId = Integer.parseInt(teacherId);
-				if(tId>0){
-					if (StringUtil.isInteger(askType)) {
-						// 提问类型数字格式化正确
-						if(StringUtil.isNotNull(askBodys)){
-						int type = Integer.parseInt(askType);
-						if(type>0){
-						createAskModel(uId, tId, type, askBodys);
-						if (isSuccess == 1) {
-							result = JsonUtil.getRetMsg(0, "咨询信息提交成功");
+			initMaxAskNum(uId);
+			//判断提问数量是否超出限制的提问数
+			if (currentAskNum < totleAskNum) {
+				if (StringUtil.isInteger(teacherId)) {
+					// 讲师id数字格式化正确
+					int tId = Integer.parseInt(teacherId);
+					if (tId > 0) {
+						if (StringUtil.isInteger(askType)) {
+							// 提问类型数字格式化正确
+							if (StringUtil.isNotNull(askBodys)) {
+								int type = Integer.parseInt(askType);
+								if (type > 0) {
+									createAskModel(uId, tId, type, askBodys);
+									if (isSuccess == 1) {
+										result = JsonUtil.getRetMsg(0,
+												"咨询信息提交成功");
+									} else {
+										result = JsonUtil.getRetMsg(1,
+												"咨询信息提交失败");
+									}
+								} else {
+									result = JsonUtil.getRetMsg(6, "分类id找不到");
+								}
+							} else {
+								result = JsonUtil.getRetMsg(5, "咨询内容不能为空");
+							}
+
 						} else {
-							result = JsonUtil.getRetMsg(1, "咨询信息提交失败");
+							// 提问类型数字格式化异常
+							result = JsonUtil.getRetMsg(2, "咨询分类参数数字格式化异常");
 						}
-						}else {
-							result=JsonUtil.getRetMsg(6, "分类id找不到");
-						}
-						}else {
-							result=JsonUtil.getRetMsg(5,"咨询内容不能为空");
-						}
-						
+
 					} else {
-						// 提问类型数字格式化异常
-						result = JsonUtil.getRetMsg(2, "咨询分类参数数字格式化异常");
+						result = JsonUtil.getRetMsg(7, "讲师id异常");
 					}
-					
-				}else {
-					result=JsonUtil.getRetMsg(7,"讲师id异常");
+
+				} else {
+					// 讲师id数字格式化异常
+					result = JsonUtil.getRetMsg(3, "讲师id数字格式化异常");
 				}
-				
 			} else {
-				// 讲师id数字格式化异常
-				result = JsonUtil.getRetMsg(3, "讲师id数字格式化异常");
+				result = JsonUtil.getRetMsg(8, "您的提问数已经超出限制");
 			}
 		} else {
 			// 用户id数字格式化异常
 			result = JsonUtil.getRetMsg(4, "用户id数字格式化异常");
 		}
-
 		out.print(result);
 		out.flush();
 		out.close();
+	}
+
+	private void initMaxAskNum(int uId) {
+		// 获取最大提问数和当前已经提问的数量
+		SiteConfig config = SiteConfigSer.findSiteConfig();
+		totleAskNum = config.getAskNum();
+		currentAskNum = AskSer.findAskNumByUid(uId);
 	}
 
 	private void createAskModel(int uId, int tId, int type, String askBodys) {

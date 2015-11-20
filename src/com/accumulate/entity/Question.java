@@ -11,6 +11,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Question implements Serializable{
 	/**
+	 *  当前页数
+	 */
+	private int page;
+	/**
+	 *   总页数
+	 */
+	private int totlePage;
+	/**
 	 *  被提问讲师id
 	 */
 	private int teacherId;
@@ -70,6 +78,31 @@ public class Question implements Serializable{
 	}
 	
 	
+	
+	public int getPage() {
+		return page;
+	}
+
+
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+
+
+	public int getTotlePage() {
+		return totlePage;
+	}
+
+
+
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
+
+
+
 	public String getAskDate() {
 		return askDate;
 	}

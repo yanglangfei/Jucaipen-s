@@ -11,6 +11,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TeacherAttention implements Serializable{
 	/**
+	 * 总页数
+	 */
+	private int totlePage;
+	/**
+	 *  当前页数
+	 */
+	private int page;
+	/**
 	 * 关注id
 	 */
 	private int id;
@@ -28,6 +36,23 @@ public class TeacherAttention implements Serializable{
 		this.userId = userId;
 		this.teacherId = teacherId;
 	}
+	
+	public int getTotlePage() {
+		return totlePage;
+	}
+
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
 	public int getId() {
 		return id;
 	}

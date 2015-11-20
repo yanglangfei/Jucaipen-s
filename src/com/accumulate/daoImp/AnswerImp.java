@@ -17,6 +17,28 @@ public class AnswerImp implements AnswerDao {
 	private ResultSet res;
 	private int isSuccess;
 	private List<Answer> answers = new ArrayList<Answer>();
+	
+	
+
+	/**
+	 * @return 查询新闻评论总页数
+	 */
+	public int findTotlePager(String condition) {
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_Answer "
+							+ condition);
+			res.next();
+			int totlePager = res.getInt("totlePager");
+			return totlePager;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 
 	public int insertAnswer(Answer answer) {
 		try {
@@ -43,7 +65,7 @@ public class AnswerImp implements AnswerDao {
 			sta = dbConn.createStatement();
 			res = sta.executeQuery("SELECT * FROM JCPTearch_Answer WHERE Id="
 					+ id);
-			answers = getAnswer(res);
+			answers = getAnswer(res,1,1);
 			if (answers.size() > 0) {
 				return answers.get(0);
 			}
@@ -59,7 +81,7 @@ public class AnswerImp implements AnswerDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP "+count+" * FROM JCPTearch_Answer ORDER BY AnswerDate DESC");
-			answers = getAnswer(res);
+			answers = getAnswer(res,1,1);
 			return answers;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,13 +90,17 @@ public class AnswerImp implements AnswerDao {
 	}
 	
 	
-	public List<Answer> findAllAnswer() {
+	public List<Answer> findAllAnswer(int page) {
+		int totlePage=findTotlePager("");
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Answer ORDER BY AnswerDate DESC");
-			answers = getAnswer(res);
+					.executeQuery("SELECT TOP 15 * FROM "
+							+ "(SELECT ROW_NUMBER() OVER ( ORDER BY AnswerDate DESC) AS RowNumber,* FROM JCPTearch_Answer"
+							+") A "
+							+ "WHERE RowNumber > " + 15 * (page - 1));
+			answers = getAnswer(res,page,totlePage);
 			return answers;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,7 +115,7 @@ public class AnswerImp implements AnswerDao {
 			res = sta
 					.executeQuery("SELECT * FROM JCPTearch_Answer WHERE TearcherId="
 							+ teacherId + " ORDER BY AnswerDate DESC");
-			answers = getAnswer(res);
+			answers = getAnswer(res,1,1);
 			return answers;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,11 +128,15 @@ public class AnswerImp implements AnswerDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Answer WHERE AskId="
+					.executeQuery("SELECT AnswerBody,TearcherId FROM JCPTearch_Answer WHERE AskId="
 							+ askId + " ORDER BY AnswerDate DESC");
-			answers = getAnswer(res);
-			if (answers.size() > 0) {
-				return answers.get(0);
+			while (res.next()) {
+				String answerBody=res.getString(1);
+				int teacherId=res.getInt(2);
+				Answer answer=new Answer();
+				answer.setAnswerBody(answerBody);
+				answer.setTeacherId(teacherId);
+				return answer;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,7 +151,7 @@ public class AnswerImp implements AnswerDao {
 			res = sta.executeQuery("SELECT TOP " + count
 					+ " * FROM JCPTearch_Answer WHERE TearcherId=" + teacherId
 					+ " ORDER BY AnswerDate DESC");
-			answers = getAnswer(res);
+			answers = getAnswer(res,1,1);
 			return answers;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,7 +159,7 @@ public class AnswerImp implements AnswerDao {
 		return null;
 	}
 
-	public List<Answer> getAnswer(ResultSet result) {
+	public List<Answer> getAnswer(ResultSet result,int page,int totlePage) {
 		answers.clear();
 		try {
 			while (result.next()) {
@@ -141,6 +171,8 @@ public class AnswerImp implements AnswerDao {
 				int askId = result.getInt("AskId");
 				int scroe = result.getInt("Pingfen");
 				Answer answer = new Answer();
+				answer.setPage(page);
+				answer.setTotlePage(totlePage);
 				answer.setId(id);
 				answer.setAnswerBody(answerBody);
 				answer.setTeacherId(teacherId);
@@ -152,7 +184,6 @@ public class AnswerImp implements AnswerDao {
 			}
 			return answers;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return null;
 	}

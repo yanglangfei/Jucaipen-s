@@ -38,7 +38,7 @@ public interface AskDao {
 	 * @param teacherId
 	 * @return 获取当前讲师下的所有提问
 	 */
-	public List<Ask> findAskByTeacherId(int teacherId);
+	public List<Ask> findAskByTeacherId(int teacherId,int page);
 	
 	/**
 	 * @param classId
@@ -66,5 +66,12 @@ public interface AskDao {
 	 * @return 添加问题
 	 */
 	public int insertAsk(Ask ask);
+	
+	
+	/**
+	 * @param uId
+	 * @return    根据用户id获取当前提问数
+	 */
+	public int findAskNumByUId(int uId);
 
 }

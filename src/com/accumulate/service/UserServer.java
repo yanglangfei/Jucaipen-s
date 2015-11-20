@@ -69,9 +69,9 @@ public class UserServer {
 	 * @param user
 	 * @return   通过id修改用户手机号和真实姓名
 	 */
-	public static int updateUserTrueNameAndTelById(int id,User user){
+	public static int updateUserTrueNameAndTelById(String telPhone,User user){
 		UserDao dao=new UserImp();
-		return dao.updateUserTrueNameAndTelById(id, user);
+		return dao.updateUserTrueNameAndTelById(telPhone, user);
 	}
 
 	/**

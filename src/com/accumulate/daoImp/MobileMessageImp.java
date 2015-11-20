@@ -24,7 +24,7 @@ public class MobileMessageImp implements MobileMessageDao {
 			sta = dbConn.createStatement();
 			isSuccess = sta
 					.executeUpdate("INSERT INTO JCP_MobileMess"
-							+ " (MobileNum,ActionCode,MessContent,SendDate,SendDev,MessType,Return_resptime,Return_respstatus,Return_msgid,SendIp,Remark) VALUES ('"
+							+ " (MobileNum,ActionCode,MessContent,SendDate,SendDev,MessType,Return_resptime,Return_respstatus,Return_msgid,SendIp) VALUES ('"
 							+ message.getTelPhone()
 							+ "','"
 							+ message.getActionCode()
@@ -44,7 +44,7 @@ public class MobileMessageImp implements MobileMessageDao {
 							+ message.getMsgid()
 							+ "','"
 							+ message.getSendIp()
-							+ "','" + message.getRemark() + "')");
+							+ "'");
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,14 +52,16 @@ public class MobileMessageImp implements MobileMessageDao {
 		return 0;
 	}
 
-	public int upDateMessageType(int id, MobileMessage message) {
+	public int upDateMessageType(String msgId, MobileMessage message) {
 		// ÐÞ¸Ä¶ÌÐÅ×´Ì¬
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			isSuccess = sta.executeUpdate("UPDATE JCP_MobileMess SET MessType="
-					+ message.getMsgType() + ",CheckDate="
-					+ message.getCheckDate() + " WHERE Id=" + id);
+					+ message.getMsgType() + ",CheckDate='"
+					+ message.getCheckDate() + 
+					"',Remark='"+message.getRemark()+
+					"' WHERE Return_msgid='" + msgId+"'");
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();

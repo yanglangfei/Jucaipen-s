@@ -2,6 +2,7 @@ package com.accumulate.manager;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CheckMobileCode extends HttpServlet {
 	private boolean isPassed;
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private String checkDate;
-	private int id;
+	private String msgId;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -58,6 +59,7 @@ public class CheckMobileCode extends HttpServlet {
 			//用户id数字格式化正常
 			int uId=Integer.parseInt(userId);
 			if(StringUtil.isMobileNumber(mobileNum)){
+				if(StringUtil.isNotNull(qsName)){
 				//手机号符合要求
 				checkMobileCode(mobileNum,actionCode);
 				if(isPassed){
@@ -66,7 +68,10 @@ public class CheckMobileCode extends HttpServlet {
 				}else {
 					result=JsonUtil.getRetMsg(3,"无效的验证码");
 				}
-				insertCheckInfo(mobileNum,checkDate);
+				insertCheckInfo(mobileNum,checkDate,qsName);
+				}else {
+					result=JsonUtil.getRetMsg(4, "请选择券商");
+				}
 			}else {
 				result=JsonUtil.getRetMsg(2,"手机号不符合要求");
 			}
@@ -82,35 +87,41 @@ public class CheckMobileCode extends HttpServlet {
 		User u=new User();
 		u.setTrueName(trueName);
 		u.setMobileNum(mobileNum);
-		UserServer.updateUserTrueNameAndTelById(id, u);
+		UserServer.updateUserTrueNameAndTelById(mobileNum, u);
 		
 	}
-	private void insertCheckInfo(String mobileNum, String checkDate2) {
+	private void insertCheckInfo(String mobileNum, String checkDate,String qsName) {
 		//修改短信激活状态
 		MobileMessage mobileMessage=new MobileMessage();
 		if(isPassed){
 			mobileMessage.setMsgType(2);
-			mobileMessage.setCheckDate(checkDate2);
+			mobileMessage.setCheckDate(checkDate);
+			mobileMessage.setRemark(qsName);
 		}else {
 			mobileMessage.setMsgType(3);
 		}
-		MobileMessageSer.upDateMessageType(id, mobileMessage);
+		MobileMessageSer.upDateMessageType(msgId, mobileMessage);
 		
 	}
 	private void checkMobileCode(String mobile, String actionCode) {
-		// 验证手机验证码是否合法
-		List<MobileMessage> mobileList = MobileMessageSer.findMobileMessageByMobileNumLast(1, mobile);
-		if(mobileList.size()>0){
-			String checkCode=mobileList.get(0).getActionCode();
-			String sendDate=mobileList.get(0).getSendDate();
-			id = mobileList.get(0).getId();
-			long sendTime=new Date(sendDate).getTime();
-			long currrentTime=new Date(checkCode).getTime();
-			if((actionCode.equals(checkCode))&&((currrentTime-sendTime)<=(3*60*1000))){
-				isPassed=true;
-			}else {
-				isPassed=false;
+		try {
+			// 验证手机验证码是否合法
+			List<MobileMessage> mobileList = MobileMessageSer.findMobileMessageByMobileNumLast(1, mobile);
+			if(mobileList.size()>0){
+				String checkCode=mobileList.get(0).getActionCode();
+				String sendDate=mobileList.get(0).getSendDate();
+				msgId = mobileList.get(0).getMsgid();
+				long sendTime=sdf.parse(sendDate).getTime();
+				long currrentTime=System.currentTimeMillis();
+				if((actionCode.equals(checkCode))&&((currrentTime-sendTime)<=(3*60*1000))){
+					isPassed=true;
+				}else {
+					isPassed=false;
+				}
 			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	   
 	}

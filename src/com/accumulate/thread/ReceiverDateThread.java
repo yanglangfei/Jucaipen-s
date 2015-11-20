@@ -56,12 +56,15 @@ public class ReceiverDateThread extends Thread {
 				String object = null;
 				String data = HttpUtils.sendHttpPost(path, topId, roomId,
 						userId);
+				System.out.println("date:"+data);
 				if (data != null && data.contains("MessBody")) {
 					object = createChatRecoder(data);
+					System.out.println("obj:"+object);
 					if (object != null && object.contains("message")) {
 						// 消息不为空时，推送消息
-						XinGeUtil.getInstance().pushAccountDevice(object,
+						JSONObject object2=XinGeUtil.getInstance(true).pushAccountDevice(object,
 								userName);
+						System.out.println("push:"+object2.toString());
 					}
 				}
 				Thread.sleep(3000);

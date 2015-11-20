@@ -54,6 +54,10 @@
 				href="admin/apkManager.jsp"><font color="green" size="5"><strong>APK管理</strong>
 				</font> </a>
 			</td>
+			<td align="center" valign="middle" bgColor="#c0c0c0" width="10%"><a
+				href="admin/pushInfoManager.jsp"><font color="green" size="5"><strong>消息推送管理</strong>
+				</font> </a>
+			</td>
 		</tr>
 
 
