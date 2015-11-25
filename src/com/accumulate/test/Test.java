@@ -2,11 +2,13 @@ package com.accumulate.test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.json.JSONObject;
 
+import com.accumulate.timertask.MobileState;
 import com.accumulate.utils.XinGeUtil;
 import com.tencent.xinge.XingeApp;
 
@@ -44,25 +46,6 @@ public class Test {
 		String ret=str.split(",")[1];
 		System.out.println("ret_code："+ret.split(" ")[0]);
 		System.out.println("ret_code："+ret.split(" ")[1]);*/
-		ExecutorService service=Executors.newScheduledThreadPool(3);
-		for(int i=0;i<10;i++){
-			final int p=i;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			service.execute(new Runnable() {
-				
-				public void run() {
-					String name=Thread.currentThread().getName();
-					System.out.println("当前线程:"+name+"  p:"+p);
-					
-				}
-			});
-			
-		}
-		
 	}
 
 }

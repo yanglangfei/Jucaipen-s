@@ -57,6 +57,7 @@ public class IdeaCommList extends HttpServlet {
 
 	private void initHotIdeaCommList(int id,int page) {
 		// 初始化热门观点评论列表
+		users.clear();
 		comms = LogCommSer.findLogCommByLogId(id,page);
 		if (comms.size() > 0) {
 			for (LogCommen comm : comms) {

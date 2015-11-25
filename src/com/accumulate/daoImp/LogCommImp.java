@@ -44,7 +44,7 @@ public class LogCommImp implements LogCommenDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			isSuccess = sta
-					.executeUpdate("INSERT INTO JCPTearch_LogCommen "
+					.executeUpdate("INSERT INTO JCPTearch_LogCommen"
 							+ "(UserId,ParentId,LogId,Bodys,InsertDate,Good,IsShow,RepCount) VALUES ("
 							+ logCommen.getUserId() + ","
 							+ logCommen.getParentId() + ","
@@ -114,8 +114,8 @@ public class LogCommImp implements LogCommenDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPTearch_LogCommen"
-							+ " where LogId=" + logId + " ) A "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate DESC) AS RowNumber,* FROM JCPTearch_LogCommen"
+							+ " where LogId=" + logId + ") A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			logCommens = getLogComm(res,page,totlePage);
 			return logCommens;

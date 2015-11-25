@@ -133,7 +133,7 @@ public class NewsCommImp implements NewsCommDao {
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
 							+ "(SELECT ROW_NUMBER() OVER ( ORDER BY Id DESC,InsertDate DESC) AS RowNumber,* FROM JCPNewsCommen"
-							+ " where UserId=" + uId + " AND  ParentId="+type+") A "
+							+ " where UserId=" + uId +") A "
 							+ "WHERE RowNumber > " + 15 * (pager - 1));
 			newsComments = getNewsCommen(res, pager, totlePager);
 			return newsComments;

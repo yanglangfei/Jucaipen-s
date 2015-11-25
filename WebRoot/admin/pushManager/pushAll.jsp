@@ -21,6 +21,7 @@
 </head>
 
 <body>
+<form action="jucaipen/WebPush" method="post">
 	<div align="center" style="margin-top: 10%">
 
 		推送消息类型<select name="msgType">
@@ -44,5 +45,9 @@
 	<div align="center" style="margin-top: 2%">
 	消息内容<input type="text">
 	</div>
+	<div align="center" style="margin-top: 2%">
+	<input type="submit" value="推送">&nbsp;&nbsp;<input type="reset" value="重置">
+	</div>
+	</form>
 </body>
 </html>

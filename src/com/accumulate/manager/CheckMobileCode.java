@@ -120,7 +120,6 @@ public class CheckMobileCode extends HttpServlet {
 				}
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	   

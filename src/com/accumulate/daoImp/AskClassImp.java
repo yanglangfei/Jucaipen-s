@@ -46,6 +46,7 @@ public class AskClassImp implements AskClassDao {
 	}
 	
 	public List<AskClass> getAskClass(ResultSet result){
+		askClasss.clear();
 		try {
 			while (result.next()) {
 				int id=result.getInt("Id");

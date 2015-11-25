@@ -804,4 +804,12 @@
     <servlet-name>QuerryAttention</servlet-name>
     <url-pattern>/jucaipen/querryAttention</url-pattern>
   </servlet-mapping>
+    <servlet>
+        <servlet-name>WebPush</servlet-name>
+        <servlet-class>com.accumulate.manager.WebPushInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebPush</servlet-name>
+        <url-pattern>/WebPush</url-pattern>
+    </servlet-mapping>
 </web-app>
