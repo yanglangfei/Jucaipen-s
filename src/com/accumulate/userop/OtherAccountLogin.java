@@ -30,10 +30,10 @@ public class OtherAccountLogin extends HttpServlet {
 	private String result;
 	private String uuid;
 	private int uId;
-	private String password;
+//	private String password;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private String clientAddress;
-	private int isSuccess;
+//	private int isSuccess;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -57,7 +57,7 @@ public class OtherAccountLogin extends HttpServlet {
 					result = JsonUtil.getLoginResult(user);
 					uuid = UUID.randomUUID().toString();
 					uId = user.getId();
-					password = user.getPassword();
+					//password = user.getPassword();
 					upDateLoginState(user.getId(), uuid);
 					handleLoginResult(1, user);
 				} else {
@@ -84,12 +84,12 @@ public class OtherAccountLogin extends HttpServlet {
 		log.setPassword(user.getPassword());
 		log.setRemark("µÇÂ¼³É¹¦");
 		log.setLoginIp(clientAddress);
-		isSuccess = LogServer.insertLog(log);
+		 LogServer.insertLog(log);
 
 	}
 
 	private void upDateLoginState(int id, String uuid) {
-		isSuccess = UserServer.updateLoginToken(uId, uuid);
+		 UserServer.updateLoginToken(uId, uuid);
 
 	}
 

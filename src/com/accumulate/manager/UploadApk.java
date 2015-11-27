@@ -24,6 +24,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.accumulate.entity.ApkInfo;
 import com.accumulate.service.ApkInfoServer;
 import com.accumulate.utils.StringUtil;
+import com.accumulate.utils.XinGeUtil;
 
 /**
  * @author YLF
@@ -49,6 +50,7 @@ public class UploadApk extends HttpServlet {
 	private int maxId;
 	private String uuId;
 	private String savePath;
+	private String versionName;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -93,6 +95,7 @@ public class UploadApk extends HttpServlet {
 								createApkDate(param, uuId+"/"+ tempFile.getName());
 								if(info!=null){
 									updateApkInfo(info);
+								//	pushUpdateInfo();
 				     				out.print("文件上传处理成功");
 								}else {
 									out.print("文件处理失败");
@@ -112,6 +115,10 @@ public class UploadApk extends HttpServlet {
 		}
 		out.flush();
 		out.close();
+	}
+
+	private void pushUpdateInfo() {
+		XinGeUtil.getInstance(false).pushAllUpdateDevice(0, "apk版本更新提醒", "可更新到最新版本"+versionName);
 	}
 
 	/**
@@ -139,7 +146,7 @@ public class UploadApk extends HttpServlet {
 	 */
 	private void createApkDate(Map<String, String> param, String path) {
 		if (param.size() > 0) {
-			String versionName = param.get("versionName");
+			versionName = param.get("versionName");
 			String versionCode = param.get("versionCode");
 			info = new ApkInfo();
 			info.setId(++maxId);

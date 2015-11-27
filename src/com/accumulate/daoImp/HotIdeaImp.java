@@ -58,12 +58,13 @@ public class HotIdeaImp implements HotIdeaDao {
 	}
 
 	public int addComment(int ideaId, int commCount) {
-		//添加评论数
+		// 添加评论数
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			isSuccess = sta.executeUpdate("UPDATE JCPTearch_LiveLog SET Commens="
-					+ commCount + " WHERE Id=" + ideaId);
+			isSuccess = sta
+					.executeUpdate("UPDATE JCPTearch_LiveLog SET Commens="
+							+ commCount + " WHERE Id=" + ideaId);
 			return isSuccess;
 		} catch (Exception e) {
 		}
@@ -71,7 +72,7 @@ public class HotIdeaImp implements HotIdeaDao {
 	}
 
 	public int addGood(int ideaId, int googs) {
-		//添加点赞数
+		// 添加点赞数
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
@@ -84,17 +85,19 @@ public class HotIdeaImp implements HotIdeaDao {
 	}
 
 	public HotIdea findGoodAndHitAndComm(int id) {
-		//获取点赞数、点击数和评论数
-		HotIdea idea=null;
+		// 获取点赞数、点击数和评论数
+		HotIdea idea = null;
 		try {
-			dbConn=JdbcUtil.connSqlServer();
-			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT Goods,Commens,Hits FROM JCPTearch_LiveLog WHERE Id="+id);
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT Goods,Commens,Hits FROM JCPTearch_LiveLog WHERE Id="
+							+ id);
 			while (res.next()) {
-				int goods=res.getInt("Goods");
-				int comms=res.getInt("Commens");
-				int hits=res.getInt("Hits");
-				idea=new HotIdea();
+				int goods = res.getInt("Goods");
+				int comms = res.getInt("Commens");
+				int hits = res.getInt("Hits");
+				idea = new HotIdea();
 				idea.setId(id);
 				idea.setHits(hits);
 				idea.setCommens(comms);
@@ -117,13 +120,13 @@ public class HotIdeaImp implements HotIdeaDao {
 							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveLog) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			while (res.next()) {
-				int id=res.getInt(1);
-				String insertDate=res.getString(2);
-				String title=res.getString(3);
-				String body=res.getString(4);
-				int hits=res.getInt(5);
-				int teacherId=res.getInt(6);
-				HotIdea idea=new HotIdea();
+				int id = res.getInt(1);
+				String insertDate = res.getString(2);
+				String title = res.getString(3);
+				String body = res.getString(4);
+				int hits = res.getInt(5);
+				int teacherId = res.getInt(6);
+				HotIdea idea = new HotIdea();
 				idea.setId(id);
 				idea.setTotlePgae(totlePage);
 				idea.setPage(page);
@@ -149,7 +152,7 @@ public class HotIdeaImp implements HotIdeaDao {
 			res = sta
 					.executeQuery("SELECT TOP "
 							+ count
-							+ " Id,ISNULL (Title,'') Title,ISNULL (Bodys,'') Bodys,ISNULL (LogImg,'') LogImg FROM JCPTearch_LiveLog ORDER BY InsertDate DESC");
+							+ " Id,ISNULL (Title,'') Title,ISNULL (Bodys,'') Bodys,ISNULL (LogImg,'') LogImg FROM JCPTearch_LiveLog  WHERE LEN(LogImg)>0 ORDER BY InsertDate DESC");
 			while (res.next()) {
 				int id = res.getInt("Id");
 				String title = res.getString("Title");
@@ -192,15 +195,16 @@ public class HotIdeaImp implements HotIdeaDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT Title,Bodys,InsertDate,Goods,TearchId FROM JCPTearch_LiveLog WHERE Id="
-					+ id + " ORDER BY InsertDate DESC");
+			res = sta
+					.executeQuery("SELECT Title,Bodys,InsertDate,Goods,TearchId FROM JCPTearch_LiveLog WHERE Id="
+							+ id + " ORDER BY InsertDate DESC");
 			while (res.next()) {
-				String title=res.getString(1);
-				String body=res.getString(2);
-				String insertDate=res.getString(3);
-				int goods=res.getInt(4);
-				int teacherId=res.getInt(5);
-				HotIdea idea=new HotIdea();
+				String title = res.getString(1);
+				String body = res.getString(2);
+				String insertDate = res.getString(3);
+				int goods = res.getInt(4);
+				int teacherId = res.getInt(5);
+				HotIdea idea = new HotIdea();
 				idea.setId(id);
 				idea.setBodys(body);
 				idea.setTitle(title);
@@ -209,7 +213,7 @@ public class HotIdeaImp implements HotIdeaDao {
 				idea.setTeacherId(teacherId);
 				return idea;
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

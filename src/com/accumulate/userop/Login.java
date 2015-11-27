@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 	private String md5Pwd;
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private String userName;
-	private int isSuccess;
+//	private int isSuccess;
 	private String uuid;
 	private String clientAddress;
 
@@ -82,7 +82,7 @@ public class Login extends HttpServlet {
      * ÐÞ¸ÄµÇÂ¼×´Ì¬
      */
 	private void upDateLoginState(int uId,String token) {
-		isSuccess=UserServer.updateLoginToken(uId, token);
+		UserServer.updateLoginToken(uId, token);
 		
 	}
 
@@ -100,7 +100,7 @@ public class Login extends HttpServlet {
 			log.setRemark("µÇÂ¼³É¹¦");
 		}
 		log.setLoginIp(clientAddress);
-		isSuccess=LogServer.insertLog(log);
+		LogServer.insertLog(log);
 		
 		
 	}

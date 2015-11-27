@@ -58,6 +58,12 @@ public class XinGeUtil {
 		return ret;
 	}
 	
+	/**
+	 * @param liveId
+	 * @param title
+	 * @param msg
+	 * @return  推送直播信息
+	 */
 	public JSONObject pushAllDevice(int liveId,String title,String msg){
 		if(xinge==null){
 			xinge=new XingeApp(APP_ID, APP_KEY);
@@ -69,6 +75,31 @@ public class XinGeUtil {
 		message.setAction(action);
 		custom.clear();
 		custom.put("liveId", liveId);
+		message.setCustom(custom);
+		message.setTitle(title);
+		message.setContent(msg);
+		
+		JSONObject res=xinge.pushAllDevice(XingeApp.DEVICE_ALL,message);
+		return res;
+	}
+	
+	/**
+	 * @param liveId
+	 * @param title
+	 * @param msg
+	 * @return  推送更新信息
+	 */
+	public JSONObject pushAllUpdateDevice(int versionId,String title,String msg){
+		if(xinge==null){
+			xinge=new XingeApp(APP_ID, APP_KEY);
+		}
+		ClickAction action=new ClickAction();
+		action.setActionType(ClickAction.TYPE_URL);
+		action.setUrl("http://dd.myapp.com/16891/6162317DC23CBB7E015FF123D3FB4835.apk?fsname=com.example.androidnetwork_1.2_3.apk");
+		action.setConfirmOnUrl(0);
+		message.setAction(action);
+		custom.clear();
+		custom.put("liveId", versionId);
 		message.setCustom(custom);
 		message.setTitle(title);
 		message.setContent(msg);

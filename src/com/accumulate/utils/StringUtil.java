@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sun.org.apache.commons.digester.RegexMatcher;
+
 public class StringUtil {
 	/**
 	 *   聚财盆跟路径
@@ -121,8 +123,37 @@ public class StringUtil {
 
 			break;
 		}
-		System.out.println("    " + strtemp);
 		return strtemp;
 	}
+	 /**
+	 * @param html
+	 * @return  过滤HTML 标签
+	 */
+	public static String clearHTMLCode(String html)
+     {
+		 String script="<script[\\s\\S]+</script *>";
+		 String href=" href *= *[\\s\\S]*script *:";
+		 String action=" no[\\s\\S]*=";
+		 String ifream="<iframe[\\s\\S]+</iframe *>";
+		 String frameset="<frameset[\\s\\S]+</frameset *>";
+		 String fm="\\<img[^\\>]+\\>";
+		 String p="</p>";
+		 String ps="<p>";
+		 String n="<[^>]*>";
+         html = html.replaceAll(script, ""); //过滤<script></script>标记 
+         html = html.replaceAll(href, ""); //过滤href=javascript: (<A>) 属性 
+         html =  html.replaceAll(action, " _disibledevent="); //过滤其它控件的on...事件 
+         html =  html.replaceAll(ifream, ""); //过滤iframe 
+         html =  html.replaceAll(frameset, ""); //过滤frameset 
+         html =  html.replaceAll(fm, ""); //过滤frameset 
+         html =  html.replaceAll(p, ""); //过滤frameset 
+         html =  html.replaceAll(ps, ""); //过滤frameset 
+         html =  html.replaceAll(n, "");
+         html =  html.replaceAll(" ", "");
+         html =  html.replaceAll("</strong>", "");
+         html = html.replaceAll("<strong>", "");
+         return html;
+     }
+
 
 }

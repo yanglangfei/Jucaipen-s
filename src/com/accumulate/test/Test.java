@@ -46,6 +46,8 @@ public class Test {
 		String ret=str.split(",")[1];
 		System.out.println("ret_code："+ret.split(" ")[0]);
 		System.out.println("ret_code："+ret.split(" ")[1]);*/
+		JSONObject res=XinGeUtil.getInstance(false).pushAllUpdateDevice(0, "apk版本更新提醒", "可更新到最新版本1.3");
+        System.out.println("res:"+res.toString());
 	}
 
 }

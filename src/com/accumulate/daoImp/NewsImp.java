@@ -314,8 +314,8 @@ public class NewsImp implements NewsDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select top 3 Id,Title,ImagesThumb,ImageUrl,Description from JCPNews where BigId="
-							+ bigId + " order by InsertDate desc,Id desc");
+					.executeQuery("select top 3 Id,Title,ImagesThumb,ImageUrl,Description from JCPNews where LEN(ImagesThumb)>0 AND BigId="
+							+ bigId + "  order by InsertDate desc,Id desc");
 			while (res.next()) {
 				String title = res.getString(SqlUtil.NEWS_TITLE);
 				int id = res.getInt(SqlUtil.NEWS_ID);
