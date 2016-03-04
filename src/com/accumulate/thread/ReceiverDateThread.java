@@ -4,19 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.accumulate.entity.MessageObject;
-import com.accumulate.utils.GePushUtils;
 import com.accumulate.utils.HttpUtils;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.XinGeUtil;
 
 /**
  * @author Administrator
- * 
+ *     ？  
  * 
  *         topId roomId userId
  * 
@@ -49,7 +47,7 @@ public class ReceiverDateThread extends Thread {
 			      userLevel（用户产品ID）、ReceiveLevel（接收产品ID）、ReceiveManger（接收用户是否为管理员）、SendManager（发送人是否为管	      理员，1为管理员0为普通用户）、
 			      ReceiveServiceId（接收信息的服务ID）、SendServiceId（发送信息的服务ID）、MessType（消息类型，0为群聊，1为私信）、
 
-
+  你  
 
 		聊天记录接口：http://chat.jucaipen.com/ashx/chat_msg.ashx?action=getlist
 
@@ -93,16 +91,18 @@ public class ReceiverDateThread extends Thread {
 				String object = null;
 				String data = HttpUtils.sendHttpPost(path, topId, roomId,
 						userId,isVip);
+				System.out.println("tId:"+topId);
 				if (data != null && data.contains("MessBody")) {
 					object = createChatRecoder(data);
 					if (object != null && object.contains("message")) {
 						// 消息不为空时，推送消息
-						GePushUtils.getInstance().sendMsg(object, userName);
-					//	XinGeUtil.getInstance(true).pushAccountDevice(object,
-						//		userName);
+						//GePushUtils.getInstance().sendMsg(object, userName);
+						System.out.println(object);
+						JSONObject res=XinGeUtil.getInstance(true).pushAccountDevice(object, userName);
+					    System.out.println("res:"+res.toString());
 					}
 				}
-				Thread.sleep(500);
+				Thread.sleep(3000);
 				if (msgObject.size() > 0) {
 					if (isVip == 1) {
 						// 管理员 、客服 topId等于消息id
@@ -151,6 +151,8 @@ public class ReceiverDateThread extends Thread {
 		int isCheck = obj.getInt("Shenhe");
 		if (!userName.equals(SendUserName)) {
 			MessageObject msg = new MessageObject(2, sendUserId);
+			String uuId=UUID.randomUUID().toString();
+			msg.setUuId(uuId);
 			msg.setMsgId(id);
 			msg.setSendDate(sdf.format(new Date(sendDate)));
 			msg.setFronName(SendUserName);

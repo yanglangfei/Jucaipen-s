@@ -2,16 +2,19 @@ package com.accumulate.utils;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.derby.tools.sysinfo;
 import org.json.JSONObject;
-
 import com.tencent.xinge.ClickAction;
 import com.tencent.xinge.Message;
 import com.tencent.xinge.Style;
 import com.tencent.xinge.TimeInterval;
 import com.tencent.xinge.XingeApp;
 
+/**
+ * @author Administrator
+ *
+ *
+ *   ÐÅ¸ëÍÆËÍ
+ */
 public class XinGeUtil {
 	public static final String APP_KEY = "10f91058cbe939b1972867e74860af07";
 	public static final int APP_ID = 2100139212;

@@ -29,7 +29,7 @@ public class NewTextLiveTasker extends TimerTask {
 					int teacherId=textLive.getTeacherId();   
 					FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(teacherId);
 					String nickName=teacher.getNickName();
-				   // XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
+				    XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
 				}
 			}
 		}

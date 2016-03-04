@@ -28,7 +28,7 @@ public class ChatMessage extends HttpServlet {
 	private Map<Integer, ReceiverDateThread> threads = new HashMap<Integer, ReceiverDateThread>();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {      
 		doPost(request, response);
 	}
    
@@ -57,6 +57,7 @@ public class ChatMessage extends HttpServlet {
 						String position = HttpUtils.getChatTopCount(isManager,roomId,isServer);
 						if (position != null) {
 							int p = Integer.parseInt(position);
+							System.out.println("po:"+position);
 							ReceiverDateThread reThread = new ReceiverDateThread(
 									userName, isManager, p, roomId, fromId,isServer);
 							reThread.stopTask(false);

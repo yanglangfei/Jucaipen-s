@@ -14,6 +14,10 @@ import com.gexin.rp.sdk.template.NotificationTemplate;
 import com.gexin.rp.sdk.template.NotyPopLoadTemplate;
 import com.gexin.rp.sdk.template.TransmissionTemplate;
 
+/**
+ * @author Administrator
+ *   ¸öÍÆ
+ */
 public class GePushUtils {
 	private static final  String appKey="7ZpsKKg0TT6fqcZDLfE066";
 	private static final String masterSecret="Ty1d91F73470oBqx0ozpB9";

@@ -10,6 +10,10 @@ import java.io.Serializable;
  */
 @SuppressWarnings("serial")
 public class MessageObject implements Serializable {
+	/**
+	 * 消息唯一标识符
+	 */
+	private String uuId;
 	
 	/**
 	 * 消息id
@@ -65,6 +69,12 @@ public class MessageObject implements Serializable {
 	private int isServer;
 	
 	
+	public String getUuId() {
+		return uuId;
+	}
+	public void setUuId(String uuId) {
+		this.uuId = uuId;
+	}
 	public int getIsServer() {
 		return isServer;
 	}
