@@ -36,7 +36,10 @@ public class JdbcUtil {
 	private static final String SQLSERVER_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	private static final String SQLSERVER_URL = "jdbc:sqlserver://121.41.46.228; DatabaseName=JCPData";
 	private static final String SQLSERVER_UNAME = "jcp";
-	private static final String SQLSERVER_UPWD = "jUcaipen168";
+	private static final String SQLSERVER_UPWD = "jCp#)2016";
+	
+	
+	
 	/*
 	 * 本地MySql 数据库
 	 * 
@@ -48,6 +51,7 @@ public class JdbcUtil {
 	@SuppressWarnings("unused")
 	private static final String MYSQL_ENCODING = "useUnicode=true&characterEncoding=UTF8";
 	private static Connection dbConn;
+	private static boolean isNormal;
 	
 	
 	/**
@@ -75,6 +79,9 @@ public class JdbcUtil {
 		return null;
 
 	}
+	
+	
+	
 	/**
 	 * @return   连接sqlServer 测试数据库
 	 */
@@ -118,13 +125,10 @@ public class JdbcUtil {
 			dbConn=DriverManager.getConnection(DERBY_URL,DERBY_UNAME,DERBY_PWD);
 			Statement sta=dbConn.createStatement();
 			ResultSet res=sta.executeQuery("SELECT ID FROM APKINFO");
-			System.out.println("链接成功");
 			while (res.next()) {
-				int id=res.getInt("ID");
-				System.out.println("   id="+id);
+				//int id=res.getInt("ID");
 			}
 		} catch (Exception e) {
-			System.out.println("   error:"+e.getMessage());
 		}
 	}
 
@@ -146,6 +150,15 @@ public class JdbcUtil {
 		}
 		return null;
 
+	}
+	
+	public static Connection isConnectNormalSql(){
+		isNormal=true;
+		if(isNormal){
+			return connSqlServer();
+		}else {
+			return connTestSqlServer();
+		}
 	}
 
 }

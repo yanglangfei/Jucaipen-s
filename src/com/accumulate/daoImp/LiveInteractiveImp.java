@@ -26,7 +26,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta
+			res = sta  
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_LiveInteractive "
 							+ condition);
 			res.next();

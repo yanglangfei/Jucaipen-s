@@ -18,11 +18,12 @@ import com.accumulate.utils.JsonUtil;
  *   根据分类，获取直播视频列表
  *
  */
+   
 @SuppressWarnings("serial")
 public class TeachVideo extends HttpServlet {
 
 	private String result;
-	private List<ChatRoom> rooms;
+	private List<ChatRoom> rooms;   
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

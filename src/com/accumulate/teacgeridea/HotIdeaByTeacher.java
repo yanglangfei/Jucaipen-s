@@ -20,7 +20,7 @@ import com.accumulate.utils.StringUtil;
  * @author Administrator
  * 
  * 
- *         根据讲师id获取热门观点
+ *         根据讲师id获取热门观点   
  */
 @SuppressWarnings("serial")
 public class HotIdeaByTeacher extends HttpServlet {

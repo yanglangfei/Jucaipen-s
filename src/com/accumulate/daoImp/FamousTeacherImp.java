@@ -128,6 +128,7 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			teachers=getTeacher(res,0,0);
 			if(teachers.size()>0){
 				return teachers.get(0);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -164,6 +165,10 @@ public class FamousTeacherImp implements FamousTeacherDao {
 				String lastLoginDate=result.getString("LastLoginDate");
 				String lastLoginIp=result.getString("LastLoginIp");
 				int liveGbookIsPass=result.getInt("LiveGbookIsPass");
+				float  yearPrice=result.getFloat("YearPrice");
+				float motnPrice=result.getFloat("MonthPrice");
+				float quarterPrice=result.getFloat("QuarterPrice");
+				float dayPrice=result.getFloat("DayPrice");
 				int userId=result.getInt("UserId");
 				int askNum=result.getInt("AskNum");
 				FamousTeacher teacher=new FamousTeacher();
@@ -181,10 +186,14 @@ public class FamousTeacherImp implements FamousTeacherDao {
 				teacher.setLevel(touxian);
 				teacher.setIntroduce(introduce);
 				teacher.setIsV(isV);
+				teacher.setYaerPrice(yearPrice);
+				teacher.setMothPrice(motnPrice);
+				teacher.setQulaterPrice(quarterPrice);
+				teacher.setDayPrice(dayPrice);
 				teacher.setFans(fans);
 				teacher.setLiveFans(liveRenQi);
 				teacher.setHoby(hoby);
-				teacher.setArticleCount(articleReadCount);
+				teacher.setArticleReadCount(articleReadCount);
 				teacher.setArticleGood(articleGood);
 				teacher.setNotice(notice);
 				teacher.setServerCount(serviceNum);

@@ -30,7 +30,7 @@ public class LiveRoomImp implements LiveRoomDao {
 		try {
 			dbConn = JdbcUtil.connVideoSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT UserLevel,RoomFace,ShiTingDay,IsStopYouke,Id,RoomName FROM Chat_Room");
+			res = sta.executeQuery("SELECT UserLevel,RoomFace,ShiTingDay,IsStopYouke,Id,RoomName,LiveUrl FROM Chat_Room");
 			while (res.next()) {
 				int id = res.getInt(SqlUtil.NEWS_ID);
 				String roomName = res.getString("RoomName");
@@ -38,8 +38,10 @@ public class LiveRoomImp implements LiveRoomDao {
 				int ShiTingDay=res.getInt("ShiTingDay");
 				String roomFace=res.getString("RoomFace");
 				String UserLevel=res.getString("UserLevel");
+				String liveUrl=res.getString("LiveUrl");
 				ChatRoom room = new ChatRoom();
 				room.setId(id);
+				room.setLiveUrl(liveUrl);
 				room.setUserLevel(UserLevel);
 				room.setRoomFace(roomFace);
 				room.setIsStopYouke(IsStopYouke);

@@ -30,7 +30,7 @@ import com.accumulate.utils.StringUtil;
  * 
  */
 @SuppressWarnings("serial")
-public class MyCollect extends HttpServlet {
+public class MyCollect extends HttpServlet {  
 	private String result;
 	private List<NewsFavorites> nFavorites = new ArrayList<NewsFavorites>();
 	private List<EquityFavorites> eqList = new ArrayList<EquityFavorites>();

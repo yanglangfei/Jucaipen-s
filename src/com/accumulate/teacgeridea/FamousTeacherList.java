@@ -31,7 +31,7 @@ public class FamousTeacherList extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		PrintWriter   out = response.getWriter();
 		String which = request.getParameter("whichPage");
 		if (StringUtil.isInteger(which)) {
 			int whichPage = Integer.parseInt(which);

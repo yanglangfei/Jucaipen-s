@@ -1,9 +1,7 @@
 package com.accumulate.entity;
 
 import java.io.Serializable;
-
-import javax.xml.crypto.Data;
-
+import java.util.Date;
 /**
  * @author ylf
  * 
@@ -47,7 +45,7 @@ public class Video implements Serializable{
 	/**
 	 * 视频日期
 	 */
-	private Data VideoDate;
+	private Date VideoDate;
 	/**
 	 * 点击量
 	 */
@@ -141,10 +139,10 @@ public class Video implements Serializable{
 	public void setVideoUrl(String videoUrl) {
 		VideoUrl = videoUrl;
 	}
-	public Data getVideoDate() {
+	public Date getVideoDate() {
 		return VideoDate;
 	}
-	public void setVideoDate(Data videoDate) {
+	public void setVideoDate(Date videoDate) {
 		VideoDate = videoDate;
 	}
 	public int getHitCount() {

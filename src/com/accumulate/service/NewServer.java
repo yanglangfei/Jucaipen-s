@@ -54,15 +54,25 @@ public class NewServer {
 		NewsDao dao = new NewsImp();
 		return dao.findIndexShow(bigId);
 	}
+	
+	
+	/**
+	 * @param bigId
+	 * @return  查询首页显示的新闻 （带有图片）
+	 */
+	public static List<News> queryNewsByIndexIsImage(int bigId){
+		NewsDao dao = new NewsImp();
+		return dao.findIndexShowIsImage(bigId);
+	}
 
 	/**
 	 * @param bigId
 	 * @param smallId
 	 * @return 首页信息
 	 */
-	public static List<News> findIndexNewsById(int bigId, int smallId) {
+	public static List<News> findIndexNewsById(int bigId, int smallId,int top) {
 		NewsDao dao = new NewsImp();
-		return dao.findNewsByIndexId(bigId, smallId);
+		return dao.findNewsByIndexId(bigId, smallId,top);
 	}
 
 	/**

@@ -25,13 +25,12 @@ import com.accumulate.utils.StringUtil;
 /**
  * @author Administrator
  * 
- * 
- *         验证手机号
+ *         msgId 1 其他短信验证 3 修改密码 验证手机号
  */
 @SuppressWarnings("serial")
 public class SendMobileCode extends HttpServlet {
 	private String result;
-	private String check_url = "http://222.73.117.158/msg/HttpBatchSendSM?account=jcpxxk&pswd=jCpshanghai2017&mobile=";
+	private String check_url = "http://222.73.117.158/msg/HttpBatchSendSM?account="+StringUtil.sendPhoneAccount+"&pswd="+StringUtil.sendPhonePwd+"&mobile=";
 	private String msg;
 	private String newMsg;
 	private String ip;
@@ -51,24 +50,35 @@ public class SendMobileCode extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		ip = request.getRemoteAddr();
 		String mobileNum = request.getParameter("telPhone");
-		if (StringUtil.isMobileNumber(mobileNum)) {
-			initMessage();
-			if (msg != null) {
-				String code = RandomUtils.getRandomData(4);
-				newMsg = msg.replace("{mobile_code}", code);
-				String path = check_url + mobileNum + "&msg="
-						+ URLEncoder.encode(newMsg, "UTF-8")
-						+ "&needstatus=true";
-				String res = HttpUtils.sendHttpGet(path);
-				result = JsonUtil.getRetMsg(0, "短信发送成功");
+		String msgId = request.getParameter("msgId");
+		if (msgId != null && StringUtil.isInteger(msgId)) {
+			int id = Integer.parseInt(msgId);
+			if (StringUtil.isMobileNumber(mobileNum)) {
+				initMessage(id);
+				if (msg != null) {
+					String code = RandomUtils.getRandomData(4);
+					if (id == 3) {
+						msg = StringUtil.replaceStr(msg);
+						newMsg = msg.replace("{actioncode}", code);
+					} else {
+						newMsg = msg.replace("{mobile_code}", code);
+					}
+					String path = check_url + mobileNum + "&msg="
+							+ URLEncoder.encode(newMsg, "UTF-8")
+							+ "&needstatus=true";
+					String res = HttpUtils.sendHttpGet(path);
+					result = JsonUtil.getRetMsg(0, "短信发送成功");
 
-				insertMobileMessage(mobileNum, code, res);
+					insertMobileMessage(mobileNum, code, res);
+				} else {
+					result = JsonUtil.getRetMsg(2, "短信发送失败");
+				}
+
 			} else {
-				result = JsonUtil.getRetMsg(2, "短信发送失败");
+				result = JsonUtil.getRetMsg(1, "手机号格式错误");
 			}
-
 		} else {
-			result = JsonUtil.getRetMsg(1, "手机号格式错误");
+			result = JsonUtil.getRetMsg(3, "短信ID状态异常");
 		}
 		out.print(result);
 		out.flush();
@@ -78,7 +88,6 @@ public class SendMobileCode extends HttpServlet {
 	private void insertMobileMessage(String mobileNum, String code,
 			String results) {
 		// 添加短信记录
-		System.out.println("results:" + results);
 		String resptime = results.split(",")[0];
 		String tempStr = results.split(",")[1];
 		String ret_code = tempStr.substring(0, 1);
@@ -108,9 +117,9 @@ public class SendMobileCode extends HttpServlet {
 		timer.schedule(state, 60000 * 3);
 	}
 
-	private void initMessage() {
+	private void initMessage(int id) {
 		// 初始化短信内容
-		MessageModel messageModel = MessageModelSer.findModelById(1);
+		MessageModel messageModel = MessageModelSer.findModelById(id);
 		msg = messageModel.getModelContent();
 
 	}

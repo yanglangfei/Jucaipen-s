@@ -31,7 +31,7 @@ public class ChatMessage extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
-
+   
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
@@ -39,10 +39,9 @@ public class ChatMessage extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String messageObject = request.getParameter("messageObject");
-		System.out.println("msg:"+messageObject.toString());
-		if (messageObject.length() > 0) {
+		if (messageObject!=null&&messageObject.length() > 0) {
 			msgObject = JsonUtil.parseMessage(messageObject);
-			int msgType = msgObject.getMsgType();
+			int msgType = msgObject.getMsgType();      
 			int fromId = msgObject.getFromUser();
 			int roomId = msgObject.getRoomId();
 			int isManager = msgObject.getIsManager();
@@ -55,18 +54,11 @@ public class ChatMessage extends HttpServlet {
 					// 上线、 下线消息
 					if (msgType == 0) {
 						// 启动线程，循环获取信息，并转发给用户
-						String url = "http://chat-data.jucaipen.com/ashx/getSxTopId.ashx?userType="
-								+ isManager
-								+ "&topCount=10&roomId="
-								+ roomId
-								+ "&isServer=" + isServer + "&messType=0";
-						System.out.println("url:"+url);
-						String position = HttpUtils.sendHttpGet(url);
-						System.out.println("p:"+position);
+						String position = HttpUtils.getChatTopCount(isManager,roomId,isServer);
 						if (position != null) {
 							int p = Integer.parseInt(position);
 							ReceiverDateThread reThread = new ReceiverDateThread(
-									userName, isManager, p, roomId, fromId);
+									userName, isManager, p, roomId, fromId,isServer);
 							reThread.stopTask(false);
 							threads.put(fromId, reThread);
 							reThread.start();

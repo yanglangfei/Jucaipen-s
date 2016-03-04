@@ -53,7 +53,7 @@ public class UpLoadFileUtils {
 			// 1、创建一个DiskFileItemFactory工厂
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			// 设置工厂的缓冲区的大小，当上传的文件大小超过缓冲区的大小时，就会生成一个临时文件存放到指定的临时目录当中。
-			factory.setSizeThreshold(1024 * 100);// 设置缓冲区的大小为100KB，如果不指定，那么缓冲区的大小默认是10KB
+			factory.setSizeThreshold(1024 * 100);//设置缓冲区的大小为100KB，如果不指定，那么缓冲区的大小默认是10KB
 			// 设置上传时生成的临时文件的保存目录
 			factory.setRepository(tmpFile);
 			// 2、创建一个文件上传解析器
@@ -106,11 +106,16 @@ public class UpLoadFileUtils {
 					// 得到上传文件的扩展名
 					String fileExtName = filename.substring(filename
 							.lastIndexOf(".") + 1);
+					
+					//if(fileExtName.equals(""))
+					
 					// 如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的文件类型是否合法
 					System.out.println("上传的文件的扩展名是：" + fileExtName);
 					System.out.println("上传文件大小：" + item.getSize());
 					// 获取item中的上传文件的输入流
 					InputStream in = item.getInputStream();
+					
+					
 					// 得到文件保存的名称
 					String saveFilename = makeFileName(filename);
 					// 得到文件的保存目录
@@ -137,8 +142,6 @@ public class UpLoadFileUtils {
 					// 删除处理文件上传时生成的临时文件
 					// item.delete();
 					message = saveFilename;
-					System.out.println("   " + message + "   " + filename
-							+ "    " + params.get(0));
 					map.put(params.get(0), saveFilename);
 					return map;
 				}

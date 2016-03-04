@@ -78,5 +78,13 @@ public interface VideoDao {
 	 * @return  通过id 获取视频资源
 	 */
 	public Video findVideoRecouresById(int id);
+	
+	
+	/**
+	 * @param count
+	 * @param classId
+	 * @return    根据分类获取最近几条视频直播
+	 */
+	public List<Video> findVideoByClassIdLast(int count,int classId);
 
 }

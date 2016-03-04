@@ -118,11 +118,77 @@ public class FamousTeacher implements Serializable{
 	 * 提问人数 
 	 */
 	private int askNum;
+	/**
+	 *   年价格 
+	 */
+	private double yaerPrice;
+	/**
+	 *   月价格 
+	 */
+	private double mothPrice;
+	/**
+	 *   季度价格 
+	 */
+	private double qulaterPrice;
+	/**
+	 *   每天价格
+	 */
+	private double dayPrice;
 	
 	public FamousTeacher() {
 		super();
 	}
 	
+	
+	
+	public double getYaerPrice() {
+		return yaerPrice;
+	}
+
+
+
+	public void setYaerPrice(double yaerPrice) {
+		this.yaerPrice = yaerPrice;
+	}
+
+
+
+	public double getMothPrice() {
+		return mothPrice;
+	}
+
+
+
+	public void setMothPrice(double mothPrice) {
+		this.mothPrice = mothPrice;
+	}
+
+
+
+	public double getQulaterPrice() {
+		return qulaterPrice;
+	}
+
+
+
+	public void setQulaterPrice(double qulaterPrice) {
+		this.qulaterPrice = qulaterPrice;
+	}
+
+
+
+	public double getDayPrice() {
+		return dayPrice;
+	}
+
+
+
+	public void setDayPrice(double dayPrice) {
+		this.dayPrice = dayPrice;
+	}
+
+
+
 	public int getPage() {
 		return page;
 	}

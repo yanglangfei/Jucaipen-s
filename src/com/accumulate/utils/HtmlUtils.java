@@ -1,5 +1,9 @@
 package com.accumulate.utils;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 /**
  * @author YLF
  * 
@@ -8,28 +12,24 @@ package com.accumulate.utils;
  */
 public class HtmlUtils {
 
-	/*
-	 * private String url1 =
-	 * "<iframe width='480' height='380' frameborder='0' src='http://www.quklive.com/q3/embed/a/4045?autoPlay=true'></iframe>"
-	 * ; private String url2 =
-	 * " <iframe width='480' height='380' frameborder='0' src='http://www.quklive.com/q3/embed/a/4043?autoPlay=true'></iframe>"
-	 * ; private String imagePath1 =
-	 * "<img src='http://img.jucaipen.com/jucaipenUpload/2015/7/15/2015715174415.gif'>"
-	 * ; private String imagePath =
-	 * "http://img.jucaipen.com/jucaipenUpload/2015/7/15/2015715174415.gif";
-	 */
-
 	/**
 	 * @return ½âÎöÖ±²¥ÊÓÆµURL
 	 */
 	public static String parseWeb(String videoUrl) {
-		String array[] = videoUrl.split(" src=");
-		if (array.length > 1) {
-			String path = videoUrl.split("src=")[1].replace("></iframe>", "").replace("\"", "");
-			return path;
-		} else {
-			return null;
+		if (videoUrl != null) {
+			if (videoUrl.contains("iframe")&&videoUrl.contains("src")) {
+				Document document = Jsoup.parse(videoUrl);
+				Element ec = document.select("iframe").first();
+				return ec.attr("src");
+			} else if (videoUrl.contains("object")&&videoUrl.contains("data")) {
+				Document document = Jsoup.parse(videoUrl);
+				Element ec = document.select("object").first();
+				return ec.attr("data");
+			}
+
 		}
+		return null;
+
 	}
 
 	/**

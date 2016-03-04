@@ -72,14 +72,21 @@ public interface NewsDao {
 	public List<News> findNewsIndex(int bigId,int isIndex);
 	/**
 	 * @return  首页显示
+	 *        不过滤图片
 	 */
 	public List<News> findIndexShow(int bigId);
+	
+	/**
+	 * @param bigId
+	 * @return   首页显示     ---带有图片
+	 */
+	public List<News> findIndexShowIsImage(int bigId);
 	/**
 	 * @param bigId
 	 * @param smallId
 	 * @return   查询首页股权要闻信息
 	 */
-	public List<News> findNewsByIndexId(int bigId, int smallId);
+	public List<News> findNewsByIndexId(int bigId, int smallId,int top);
 	/**
 	 * @param id
 	 * @return   通过指定新闻id 获取相关新闻

@@ -5,19 +5,31 @@ import java.io.Serializable;
 /**
  * @author Administrator
  * 
- *   商品
+ *   商品订单详细信息
  *
  */
 @SuppressWarnings("serial")
 public class PayProduct implements Serializable{
 	/**
+	 * 当前页数
+	 */
+	private int page;
+	/**
+	 * 总页数
+	 */
+	private int totlePage;
+	/**
 	 * id 
 	 */
 	private int id;
 	/**
-	 * 商品名称
+	 *  订单ID
 	 */
-	private String productTitle;
+	private String orderId;
+	/**
+	 *   商品ID 
+	 */
+	private int productId;
 	/**
 	 * 原价
 	 */
@@ -27,50 +39,43 @@ public class PayProduct implements Serializable{
 	 */
 	private String nowPrice;
 	/**
-	 * 讲师Id(等于0时，该产品为系统产品，不属于某个讲师的产品)
+	 *   购买数量
 	 */
-	private int teacherId;
+	private int buyCount;
 	/**
-	 * 产品类型（1：一次性销售；2：续约型销售）
+	 *   总金额
 	 */
-	private int type;
-	private int pxId;
+	private String allMoney;
 	/**
-	 * 续约年数
+	 *  商品标题
 	 */
-	private int contractYear;
+	private String productTitle;
 	/**
-	 * 续约月数
+	 * 此字段为续约性产品专用字段（值为续约年数）
 	 */
-	private int contractMoth;
+	private int xuYueYear;
 	/**
-	 * 续约天数
+	 * 此字段为续约性产品专用字段（值为续约月数）
 	 */
-	private int contraceDay;
+	private int xuYueMonth;
 	/**
-	 * 销售状态（1：正常销售；2：暂停销售）
+	 * 此字段为续约性产品专用字段（值为续约天数）
 	 */
-	private int state;
+	private int xuYueDay;
+	/**
+	 * 
+	 */
+	private int productType;
+	/**
+	 * 用户ID
+	 */
+	private int userId;
 	/**
 	 * 产品状态（1：正常；4：删除）
 	 */
 	private int isDelete;
-	public PayProduct(int id, String productTitle, String price,
-			String nowPrice, int teacherId, int type, int pxId,
-			int contractYear, int contractMoth, int contraceDay, int state,
-			int isDelete) {
-		this.id = id;
-		this.productTitle = productTitle;
-		this.price = price;
-		this.nowPrice = nowPrice;
-		this.teacherId = teacherId;
-		this.type = type;
-		this.pxId = pxId;
-		this.contractYear = contractYear;
-		this.contractMoth = contractMoth;
-		this.contraceDay = contraceDay;
-		this.state = state;
-		this.isDelete = isDelete;
+	public PayProduct() {
+		super();
 	}
 	public int getId() {
 		return id;
@@ -78,11 +83,17 @@ public class PayProduct implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getProductTitle() {
-		return productTitle;
+	public String getOrderId() {
+		return orderId;
 	}
-	public void setProductTitle(String productTitle) {
-		this.productTitle = productTitle;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	public String getPrice() {
 		return price;
@@ -96,47 +107,53 @@ public class PayProduct implements Serializable{
 	public void setNowPrice(String nowPrice) {
 		this.nowPrice = nowPrice;
 	}
-	public int getTeacherId() {
-		return teacherId;
+	public int getBuyCount() {
+		return buyCount;
 	}
-	public void setTeacherId(int teacherId) {
-		this.teacherId = teacherId;
+	public void setBuyCount(int buyCount) {
+		this.buyCount = buyCount;
 	}
-	public int getType() {
-		return type;
+	public String getAllMoney() {
+		return allMoney;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setAllMoney(String allMoney) {
+		this.allMoney = allMoney;
 	}
-	public int getPxId() {
-		return pxId;
+	public String getProductTitle() {
+		return productTitle;
 	}
-	public void setPxId(int pxId) {
-		this.pxId = pxId;
+	public void setProductTitle(String productTitle) {
+		this.productTitle = productTitle;
 	}
-	public int getContractYear() {
-		return contractYear;
+	public int getXuYueYear() {
+		return xuYueYear;
 	}
-	public void setContractYear(int contractYear) {
-		this.contractYear = contractYear;
+	public void setXuYueYear(int xuYueYear) {
+		this.xuYueYear = xuYueYear;
 	}
-	public int getContractMoth() {
-		return contractMoth;
+	public int getXuYueMonth() {
+		return xuYueMonth;
 	}
-	public void setContractMoth(int contractMoth) {
-		this.contractMoth = contractMoth;
+	public void setXuYueMonth(int xuYueMonth) {
+		this.xuYueMonth = xuYueMonth;
 	}
-	public int getContraceDay() {
-		return contraceDay;
+	public int getXuYueDay() {
+		return xuYueDay;
 	}
-	public void setContraceDay(int contraceDay) {
-		this.contraceDay = contraceDay;
+	public void setXuYueDay(int xuYueDay) {
+		this.xuYueDay = xuYueDay;
 	}
-	public int getState() {
-		return state;
+	public int getProductType() {
+		return productType;
 	}
-	public void setState(int state) {
-		this.state = state;
+	public void setProductType(int productType) {
+		this.productType = productType;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public int getIsDelete() {
 		return isDelete;
@@ -144,8 +161,19 @@ public class PayProduct implements Serializable{
 	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
 	}
-	
-	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getTotlePage() {
+		return totlePage;
+	}
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
+
 	
 
 }

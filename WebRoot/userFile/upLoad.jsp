@@ -20,7 +20,7 @@
 </style>
 <body>
 	<p align="center">请您选择需要上传的文件</p>
-	<form id="form1" name="form1" method="post" action="upload"
+	<form id="form1" name="form1" method="post" action="http://192.168.1.79/ashx/AndroidUser.ashx?action=ImageUpload"
 		enctype="multipart/form-data">
 		<table border="0" align="center">
 			<tr>
@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<td>上传文件：</td>
-				<td><input name="file" type="file" size="20">
+				<td><input name="imgFile" type="file" size="20">
 				</td>
 			</tr>
 			<tr>

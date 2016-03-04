@@ -67,6 +67,7 @@ public class HotIdeasList extends HttpServlet {
 
 	private void initAllHotIdeasData(int p) {
 		// 分页查询所有数据
+		teachers.clear();
 		hotIdeas = HotIdeaServ.findAllHotIdea(p);
 		if(hotIdeas.size()>0){
 			for(HotIdea idea :hotIdeas){

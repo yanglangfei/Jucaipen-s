@@ -31,6 +31,13 @@ public interface TxtLiveDetailsDao {
 	 * @return  根据直播id查询直播详细信息
 	 */
 	public List<TxtLiveDetails> findTextDetaileByLiveId(int liveId);
+	
+	/**
+	 * @param liveId
+	 * @param maxId
+	 * @return   查询实时更新的今日观点
+	 */
+	public List<TxtLiveDetails> findPullTextDetaileByLiveId(int liveId,int maxId);
 	/**
 	 * @param titleId
 	 * @return   根据标题id获取文字直播信息

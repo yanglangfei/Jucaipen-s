@@ -22,7 +22,7 @@ import com.accumulate.utils.StringUtil;
  * 
  *         查询评论列表
  */
-@SuppressWarnings("serial")
+@SuppressWarnings("serial")    
 public class MyRemark extends HttpServlet {
 	private String result;
 	private List<NewsComment> comments = new ArrayList<NewsComment>();

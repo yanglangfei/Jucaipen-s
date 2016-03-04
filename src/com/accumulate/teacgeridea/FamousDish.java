@@ -23,7 +23,7 @@ import com.accumulate.utils.StringUtil;
  *
  *   Ãû¼Ò¿´ÅÌ
  */
-@SuppressWarnings("serial")
+@SuppressWarnings("serial")   
 public class FamousDish extends HttpServlet {
 	private String result;
 	private List<TextLive> txtLives;
@@ -50,6 +50,7 @@ public class FamousDish extends HttpServlet {
 
 	
 	private void initDishData(int page) {
+		famousTeachers.clear();
 		txtLives=TxtLiveSer.findAllTextLive(page);
 		if(txtLives.size()>0){
 			for(TextLive textLive :txtLives){

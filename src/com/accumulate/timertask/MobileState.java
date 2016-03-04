@@ -23,7 +23,7 @@ public class MobileState extends TimerTask{
 
 	@Override
 	public void run() {
-		MobileMessageSer.upDateMessageType(msgId, message);
+		MobileMessageSer.upDateMessageFailType(msgId, message);
 	}
 
 }

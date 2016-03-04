@@ -64,20 +64,20 @@ public class TextLiveImp implements TxtLiveDao {
 		}
 		return 0;
 	}
-	
-	
+
 	public List<TextLive> findAllNewTextLivesByPush() {
 		textLives.clear();
 		try {
-			dbConn=JdbcUtil.connSqlServer();
-			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT Id,Title,StartDate,TearchId FROM JCPTearch_TxtLive");
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT Id,Title,StartDate,TearchId FROM JCPTearch_TxtLive");
 			while (res.next()) {
-				int id=res.getInt(1);
-				String title=res.getString(2);
-				String startDate=res.getString(3);
-				int teacherId=res.getInt(4);
-				TextLive textLive=new TextLive();
+				int id = res.getInt(1);
+				String title = res.getString(2);
+				String startDate = res.getString(3);
+				int teacherId = res.getInt(4);
+				TextLive textLive = new TextLive();
 				textLive.setId(id);
 				textLive.setTitle(title);
 				textLive.setStartDate(startDate);
@@ -86,7 +86,7 @@ public class TextLiveImp implements TxtLiveDao {
 			}
 			return textLives;
 		} catch (Exception e) {
-			
+
 		}
 		return null;
 	}
@@ -114,23 +114,27 @@ public class TextLiveImp implements TxtLiveDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT TOP 15 Id,Title,StartDate,RenQi,TearchId FROM "
+					.executeQuery("SELECT TOP 15 Id,Title,StartDate,RenQi,TearchId,Livetype,Price FROM "
 							+ "(SELECT ROW_NUMBER() OVER (ORDER BY StartDate desc) AS RowNumber,* FROM JCPTearch_TxtLive) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			while (res.next()) {
-				int id=res.getInt(1);
-				String title=res.getString(2);
-				String startDate=res.getString(3);
-				int renQi=res.getInt(4);
-				int teacherId=res.getInt(5);
-				TextLive textLive=new TextLive();
+				int id = res.getInt(1);
+				String title = res.getString(2);
+				String startDate = res.getString(3);
+				int renQi = res.getInt(4);
+				int teacherId = res.getInt(5);
+				int liveType = res.getInt(6);
+				float price = res.getFloat(7);
+				TextLive textLive = new TextLive();
 				textLive.setId(id);
+				textLive.setLiveType(liveType);
+				textLive.setPrice(price);
 				textLive.setTitle(title);
 				textLive.setTeacherId(teacherId);
 				textLive.setStartDate(startDate);
 				textLive.setMoods(renQi);
-			    textLive.setPage(page);
-			    textLive.setTotlePage(totlePage);
+				textLive.setPage(page);
+				textLive.setTotlePage(totlePage);
 				textLives.add(textLive);
 			}
 			return textLives;
@@ -139,35 +143,58 @@ public class TextLiveImp implements TxtLiveDao {
 		}
 		return null;
 	}
-	
-	
-	public List<TextLive> findNewLiveByLastId(int lastId) {
-		//根据上次的id 获取最新的直播id
+
+	public TextLive findIsPayByTeacherId(int teacherId) {
+		// 根据讲师id获取文字直播是否免费
 		try {
-			dbConn=JdbcUtil.connSqlServer();
-			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT * FROM JCPTearch_TxtLive WHERE Id >"+lastId+" ORDER BY StartDate");
-			textLives=getTxtLive(res, 1, 1);
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT Livetype,Price FROM JCPTearch_TxtLive WHERE TearchId="
+							+ teacherId + " ORDER BY StartDate DESC");
+			while (res.next()) {
+				int liveType=res.getInt(1);
+				float price=res.getFloat(2);
+				TextLive textLive=new TextLive();
+				textLive.setLiveType(liveType);
+				textLive.setPrice(price);
+				return textLive;
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	public List<TextLive> findNewLiveByLastId(int lastId) {
+		// 根据上次的id 获取最新的直播id
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta.executeQuery("SELECT * FROM JCPTearch_TxtLive WHERE Id >"
+					+ lastId + " ORDER BY StartDate");
+			textLives = getTxtLive(res, 1, 1);
 			return textLives;
 		} catch (Exception e) {
 		}
 		return null;
 	}
-	
-	
+
 	public List<TextLive> findLastPushLive(int count) {
-		//获取最近几条要推送的直播消息
+		// 获取最近几条要推送的直播消息
 		textLives.clear();
 		try {
-			dbConn=JdbcUtil.connSqlServer();
-			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT TOP "+count+" Id,Title,StartDate,TearchId FROM JCPTearch_TxtLive ORDER BY StartDate DESC");
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT TOP "
+							+ count
+							+ " Id,Title,StartDate,TearchId FROM JCPTearch_TxtLive ORDER BY StartDate DESC");
 			while (res.next()) {
-				int id=res.getInt(1);
-				String title=res.getString(2);
-				String startDate=res.getString(3);
-				int teacherId=res.getInt(4);
-				TextLive textLive=new TextLive();
+				int id = res.getInt(1);
+				String title = res.getString(2);
+				String startDate = res.getString(3);
+				int teacherId = res.getInt(4);
+				TextLive textLive = new TextLive();
 				textLive.setId(id);
 				textLive.setTitle(title);
 				textLive.setTeacherId(teacherId);
@@ -179,8 +206,6 @@ public class TextLiveImp implements TxtLiveDao {
 		}
 		return null;
 	}
-	
-	
 
 	public List<TextLive> findTxtLiveByTeacherIdAndLast(int teacherId, int count) {
 		try {
@@ -203,13 +228,15 @@ public class TextLiveImp implements TxtLiveDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT Id,StartDate FROM JCPTearch_TxtLive WHERE TearchId="
+					.executeQuery("SELECT Id,StartDate,IsEnd FROM JCPTearch_TxtLive WHERE TearchId="
 							+ teacherId + " ORDER BY StartDate DESC");
 			while (res.next()) {
-				int id=res.getInt(1);
-				String startDate=res.getString(2);
-				TextLive textLive=new TextLive();
+				int id = res.getInt(1);
+				String startDate = res.getString(2);
+				int isEnd = res.getInt(3);
+				TextLive textLive = new TextLive();
 				textLive.setId(id);
+				textLive.setIsEnd(isEnd);
 				textLive.setStartDate(startDate);
 				textLives.add(textLive);
 			}
@@ -248,9 +275,13 @@ public class TextLiveImp implements TxtLiveDao {
 				int isYouKe = result.getInt("IsYouke");
 				int teacherId = result.getInt("TearchId");
 				int isEnd = result.getInt("IsEnd");
+				float price = result.getFloat("Price");
+				int liveType = result.getInt("Livetype");
 				TextLive textLive = new TextLive();
 				textLive.setId(id);
 				textLive.setTitle(title);
+				textLive.setPrice(price);
+				textLive.setLiveType(liveType);
 				textLive.setStartDate(startDate);
 				textLive.setEndDate(endDate);
 				textLive.setGoods(goods);

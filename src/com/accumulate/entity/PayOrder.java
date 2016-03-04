@@ -4,18 +4,28 @@ import java.io.Serializable;
 
 /**
  * @author Administrator
+ * 
+ *     订单信息
  *
  */
 @SuppressWarnings("serial")
 public class PayOrder implements Serializable{
 	/**
+	 * 当前页数
+	 */
+	private int page;
+	/**
+	 *  总页数
+	 */
+	private int totlePage;
+	/**
 	 * 
 	 */
 	private int id;
 	/**
-	 * 用户名
+	 * 用户ID
 	 */
-	private String userName;
+	private int userId;
 	/**
 	 * 真实姓名
 	 */
@@ -84,31 +94,8 @@ public class PayOrder implements Serializable{
 	 * 产品状态（1：正常；4：删除）
 	 */
 	private int isDelete;
-	
-	public PayOrder(int id, String userName, String trueName, String mobileNum,
-			int provinceId, int cityId, int areaId, String address,
-			String title, String orderCode, String allMoney, String payMoney,
-			String insertDate, int payModel, int payState, String payDate,
-			int orderState, int fromTeacherId, int isDelete) {
-		this.id = id;
-		this.userName = userName;
-		this.trueName = trueName;
-		this.mobileNum = mobileNum;
-		this.provinceId = provinceId;
-		this.cityId = cityId;
-		this.areaId = areaId;
-		this.address = address;
-		this.title = title;
-		this.orderCode = orderCode;
-		this.allMoney = allMoney;
-		this.payMoney = payMoney;
-		this.insertDate = insertDate;
-		this.payModel = payModel;
-		this.payState = payState;
-		this.payDate = payDate;
-		this.orderState = orderState;
-		this.fromTeacherId = fromTeacherId;
-		this.isDelete = isDelete;
+	public PayOrder() {
+		super();
 	}
 	public int getId() {
 		return id;
@@ -116,11 +103,11 @@ public class PayOrder implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserName() {
-		return userName;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String getTrueName() {
 		return trueName;
@@ -224,11 +211,20 @@ public class PayOrder implements Serializable{
 	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
 	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getTotlePage() {
+		return totlePage;
+	}
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
 	
-	
-	
-	
-	
+
 	
 
 }

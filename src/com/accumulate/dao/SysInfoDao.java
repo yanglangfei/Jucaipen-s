@@ -39,5 +39,11 @@ public interface SysInfoDao {
 	 * @return   根据发送时间获取信息
 	 */
 	public List<SystemInfo> findInfoBySendDate(String SendDate,int page);
+	
+	/**
+	 * @param userId
+	 * @return   通过用户id获取系统消息
+	 */
+	public List<SystemInfo> findAllSystemInfoByUserId(int userId,int page);
 
 }

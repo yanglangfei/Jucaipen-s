@@ -45,7 +45,7 @@ public class AddGood extends HttpServlet {
 				int cId=Integer.parseInt(commId);
 				//查询评论的赞数
 				querryGoodCount(cId);
-				//添加赞
+				//添加赞 
 				addGood(goodCount+1,cId);
 				if(isSuccess==1){
 					result=JsonUtil.getRetMsg(0,"点赞成功");
@@ -64,7 +64,7 @@ public class AddGood extends HttpServlet {
 	}
 
 	private void addGood(int good, int cId) {
-		isSuccess=NewsCommSer.updateComment(good, cId);
+		isSuccess=NewsCommSer.updateComment(cId, good);
 		
 	}
 

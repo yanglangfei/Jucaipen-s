@@ -20,7 +20,7 @@ import com.accumulate.utils.JsonUtil;
  *         首页在线教学视频 indexId=1 classId=3 (parentId=1)
  * 
  */
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") 
 public class IndexTeach extends HttpServlet {
 	private List<Video> tvs = new ArrayList<Video>();
 	private String result;
@@ -36,11 +36,11 @@ public class IndexTeach extends HttpServlet {
 		out.print(result);
 		out.close();
 	}
-
-	private void initData() {
+ 
+	private void initData() {    
 		// 获取直播数据
 		tvs.clear();
-		tvs = VideoServer.findVideoByIsIndexId(1, 3);
+		tvs = VideoServer.findVideoByClassIdLast(2, 1);
 
 	}
 

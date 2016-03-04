@@ -37,6 +37,10 @@ public class TxtLiveDetails implements Serializable{
 	 * 上传时间
 	 */
 	private String insertDate;
+	/**
+	 * 是否支付
+	 */
+	private int isPay;
 	public TxtLiveDetails(int id, int relate_liveId, int relate_titleId,
 			String bodys, String image, int liveType, String insertDate) {
 		this.id = id;
@@ -47,6 +51,15 @@ public class TxtLiveDetails implements Serializable{
 		this.liveType = liveType;
 		this.insertDate = insertDate;
 	}
+	
+	public int getIsPay() {
+		return isPay;
+	}
+
+	public void setIsPay(int isPay) {
+		this.isPay = isPay;
+	}
+
 	public int getId() {
 		return id;
 	}

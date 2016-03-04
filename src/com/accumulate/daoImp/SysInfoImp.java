@@ -47,7 +47,7 @@ public class SysInfoImp implements SysInfoDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge"
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
 							+ " ) A " + "WHERE RowNumber > " + 15 * (page - 1));
 			infos = getInfos(res, page, totlePage);
 			return infos;
@@ -89,7 +89,7 @@ public class SysInfoImp implements SysInfoDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge"
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
 							+ " where Types=" + type + " ) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			infos = getInfos(res, page, totlePage);
@@ -104,10 +104,10 @@ public class SysInfoImp implements SysInfoDao {
 	 * 根据接受者查询信息
 	 */
 	public List<SystemInfo> findInfoByReceiver(int receiverId, int page) {
-		int totlePage = findTotlePager("where ReceiveId=" + receiverId);
+		int totlePage = findTotlePager("where ReceiveID=" + receiverId);
 		String sql="SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge"
-							+ " where ReceiveId=" + receiverId + ") A "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
+							+ " where ReceiveID=" + receiverId + ") A "
 							+ "WHERE RowNumber > " + 15 * (page - 1);
 		try {
 			dbConn = JdbcUtil.connSqlServer();
@@ -126,14 +126,14 @@ public class SysInfoImp implements SysInfoDao {
 	 * 根据发送者查询信息
 	 */
 	public List<SystemInfo> findInfoBySender(int senderId, int page) {
-		int totlePage = findTotlePager("where SendId=" + senderId);
+		int totlePage = findTotlePager("where SendID=" + senderId);
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Message"
-							+ "where SendId=" + senderId + " ) A "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
+							+ "where SendID=" + senderId + " ) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			infos = getInfos(res, page, totlePage);
 			return infos;
@@ -153,7 +153,7 @@ public class SysInfoImp implements SysInfoDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Message"
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
 							+ "where ReadDate=" + readDate + " ) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			infos = getInfos(res, page, totlePage);
@@ -163,6 +163,27 @@ public class SysInfoImp implements SysInfoDao {
 		}
 		return null;
 	}
+	
+	
+	public List<SystemInfo> findAllSystemInfoByUserId(int userId,int page) {
+		//根据用户id获取系统消息
+		int totlePage = findTotlePager("where SendID=" + userId +" OR  ReceiveID="+userId);
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT TOP 15 * FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
+							+ " where SendID=" + userId + " OR  ReceiveID= "+userId+" ) A "
+							+ " WHERE RowNumber > " + 15 * (page - 1));
+			infos = getInfos(res, page, totlePage);
+			return infos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 	/*
 	 * 根据发送时间获取信息
@@ -174,7 +195,7 @@ public class SysInfoImp implements SysInfoDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 15 * FROM "
-							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Message"
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id) AS RowNumber,* FROM JCPUser_Messge "
 							+ "where SendDate=" + SendDate + " ) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			infos = getInfos(res, page, totlePage);
@@ -215,5 +236,6 @@ public class SysInfoImp implements SysInfoDao {
 		return null;
 
 	}
+
 
 }

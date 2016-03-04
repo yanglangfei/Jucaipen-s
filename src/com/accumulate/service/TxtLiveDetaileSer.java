@@ -36,6 +36,16 @@ public class TxtLiveDetaileSer{
 		return dao.findTextDetaileByLiveId(liveId);
 	}
 	
+	/**
+	 * @param liveId
+	 * @param maxId
+	 * @return  获取实时更新的今日观点
+	 */
+	public static List<TxtLiveDetails> findPullTextDetaileByLiveId(int liveId,int maxId){
+		TxtLiveDetailsDao dao=new TxtLiveDetaileImp();
+		return dao.findPullTextDetaileByLiveId(liveId, maxId);
+	}
+	
 	
 	/**
 	 * @param titleId

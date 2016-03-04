@@ -2,15 +2,19 @@ package com.accumulate.userop;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.accumulate.entity.User;
-import com.accumulate.service.UserServer;
 import com.accumulate.utils.JsonUtil;
+import com.accumulate.utils.LoginUtil;
 import com.accumulate.utils.StringUtil;
 
 /**
@@ -21,10 +25,15 @@ import com.accumulate.utils.StringUtil;
  */
 @SuppressWarnings("serial")
 public class CompleteInfo extends HttpServlet {
+	// 修改个人信息
+	private String upDatePath = "http://user.jucaipen.com/ashx/AndroidUser.ashx?action=Useredit";
 	private String result;
 	private User user;
-	private int isSuccess;
+	private int province;
+	private int city;
+	private int area;
 	private int uId;
+	private Map<String, String> para = new HashMap<String, String>();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -39,7 +48,6 @@ public class CompleteInfo extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String id = request.getParameter("id");
 		String nickName = request.getParameter("nikeName");
-		String telPhone = request.getParameter("telPhone");
 		String sex = request.getParameter("sex");
 		String email = request.getParameter("email");
 		String bodys = request.getParameter("bodys");
@@ -47,70 +55,52 @@ public class CompleteInfo extends HttpServlet {
 		String localProvince = request.getParameter("localProvince");
 		String localCity = request.getParameter("localCity");
 		String localArea = request.getParameter("localArea");
+		if (!StringUtil.isMail(email)) {
+			result = JsonUtil.getRetMsg(9, "邮箱格式不符合要求");
+			out.print(result);
+			return;
+		}
 		if (!StringUtil.isInteger(id)) {
 			result = JsonUtil.getRetMsg(1, "用户id数字格式化失败");
 		} else {
 			uId = Integer.parseInt(id);
 			if (uId > 0) {
-				if (StringUtil.isNotNull(telPhone)
-						) {
-					if(StringUtil.isMobileNumber(telPhone)){
-						//手机号符合要求
-						user = UserServer.findUserByTelPhone(telPhone);
-						if (user != null&&user.getId()!=uId) {
-							// 手机号已被绑定
-							result = JsonUtil.getRetMsg(8, "手机号已被绑定");
-							out.print(result);
-							return;
-						} else {
-							// 手机号不为空完成信息
-							user = new User();
-							user.setMobileNum(telPhone);
-						}
-					}else {
-						// 手机号不符合要求
-						result = JsonUtil.getRetMsg(8, "手机号不符合要求");
-						out.print(result);
-						return ;
-					}
-				} else {
-					// 手机号为空完成个人信息
-					user = new User();
-				}
-				user.setId(Integer.parseInt(id));
+				para.put("userid", uId + "");
 				if (StringUtil.isNotNull(birth)) {
-					user.setBirthday(birth);
+					para.put("ages", birth);
 				}
 				if (StringUtil.isNotNull(bodys)) {
-					user.setDescript(bodys);
+					para.put("resume", bodys);
 				}
 				if (StringUtil.isNotNull(email)) {
-					user.setEmail(email);
+					para.put("email", email);
 				}
 				if (StringUtil.isNotNull(nickName)) {
-					user.setNickName(nickName);
+					para.put("name", nickName);
 				}
 				if (StringUtil.isNotNull(sex)) {
-					user.setSex(sex);
+					para.put("sex", sex);
 				}
 				if (StringUtil.isNotNull(localProvince)
 						&& StringUtil.isInteger(localProvince)) {
-					user.setLocalProvince(Integer.parseInt(localProvince));
+					province = Integer.parseInt(localProvince);
+				} else {
+					province = 0;
 				}
 				if (StringUtil.isNotNull(localCity)
 						&& StringUtil.isInteger(localCity)) {
-					user.setLocalCity(Integer.parseInt(localCity));
+					city = Integer.parseInt(localCity);
+				} else {
+					city = 0;
 				}
 				if (StringUtil.isNotNull(localArea)
 						&& StringUtil.isInteger(localArea)) {
-					user.setLocalArea(Integer.parseInt(localArea));
-				}
-				isSuccess = completeUserInfo(uId, user);
-				if (isSuccess == 1) {
-					result = JsonUtil.getRetMsg(0, "用户信息提交成功");
+					area = Integer.parseInt(localArea);
 				} else {
-					result = JsonUtil.getRetMsg(2, "用户信息提交失败");
+					area = 0;
 				}
+				para.put("address", province + "-" + city + "-" + area);
+				result = completeUserInfo(uId, para);
 			} else {
 				result = JsonUtil.getRetMsg(4, "当前用户还没登录");
 			}
@@ -120,8 +110,20 @@ public class CompleteInfo extends HttpServlet {
 		out.close();
 	}
 
-	private int completeUserInfo(int uId, User user) {
-		return UserServer.updateUser(uId, user);
+	// 提交个人信息
+	private String completeUserInfo(int uId, Map<String, String> p) {
+		String resJson = LoginUtil.sendHttpPost(upDatePath, p);
+		if (resJson!=null&&resJson.length() > 0) {
+			JSONObject object = new JSONObject(resJson);
+			boolean isRes = object.getBoolean("Result");
+			if (isRes) {
+				return JsonUtil.getRetMsg(0, "个人资料修改成功");
+			}
+			String msg = object.getString("Msg");
+			return JsonUtil.getRetMsg(5, msg);
+		}
+		return JsonUtil.getRetMsg(6, "提交失败");
+		
 	}
 
 }

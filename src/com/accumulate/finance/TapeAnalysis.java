@@ -19,6 +19,15 @@ import com.accumulate.utils.StringUtil;
  * 
  * 
  *         根据分类id 获取分类数据
+ *         
+ *          big    6     small  19    名师专栏
+ *                 6            6     大盘分析
+ *                 6            7     板块分析
+ *                 6            8     新股中心
+ *                 6            9     投资教育
+ *                 6           10     财经新闻
+ *                 6           11     收盘点评
+ *                 6           20     今日头条
  * 
  */
 @SuppressWarnings("serial")

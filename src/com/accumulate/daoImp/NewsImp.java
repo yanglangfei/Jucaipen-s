@@ -122,13 +122,13 @@ public class NewsImp implements NewsDao {
 	/*
 	 * 查询首页股权要闻信息
 	 */
-	public List<News> findNewsByIndexId(int bigId, int smallId) {
+	public List<News> findNewsByIndexId(int bigId, int smallId,int top) {
 		news = new ArrayList<News>();
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select top 3 Title,Id,Description,ImageUrl,ImagesThumb"
+					.executeQuery("select top "+top+" Title,Id,Description,ImageUrl,ImagesThumb"
 							+ " from JCPNews "
 							+ "where BigId="
 							+ bigId
@@ -307,8 +307,42 @@ public class NewsImp implements NewsDao {
 
 	/*
 	 * 首页显示新闻
+	 *    全部（不过滤图片）
 	 */
 	public List<News> findIndexShow(int bigId) {
+		news.clear();
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("select top 4 Id,Title,ImagesThumb,ImageUrl,Description from JCPNews where  BigId="
+							+ bigId + "  order by InsertDate desc,Id desc");
+			while (res.next()) {
+				String title = res.getString(SqlUtil.NEWS_TITLE);
+				int id = res.getInt(SqlUtil.NEWS_ID);
+				String images = res.getString(SqlUtil.NEW_IMAGE);
+				String imageThumb = res.getString(SqlUtil.NEWS_IMAGETHUMB);
+				String descript = res.getString(SqlUtil.NEWS_DES);
+				News n = new News(id);
+				n.setTitle(title);
+				n.setDescript(descript);
+				n.setImagesThumb(imageThumb);
+				n.setImageUrl(images);
+				news.add(n);
+			}
+			return news;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
+	/*
+	 * 首页显示新闻
+	 *     ---带有图片（过滤图片）
+	 */
+	public List<News> findIndexShowIsImage(int bigId) {
 		news.clear();
 		try {
 			dbConn = JdbcUtil.connSqlServer();
@@ -335,7 +369,7 @@ public class NewsImp implements NewsDao {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * @param res
 	 * @param pager

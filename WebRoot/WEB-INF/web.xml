@@ -4,9 +4,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name></display-name>
-	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
-	</welcome-file-list>
+	
+	
 
 	<servlet>
 		<servlet-name>Login</servlet-name>
@@ -169,7 +168,7 @@
 		<url-pattern>/accumulate/finalType</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>NewsDetail</servlet-name>
@@ -808,8 +807,107 @@
         <servlet-name>WebPush</servlet-name>
         <servlet-class>com.accumulate.manager.WebPushInfo</servlet-class>
     </servlet>
+  <servlet>
+    <servlet-name>PullTodayIdea</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.PullTodayIdea</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PrivateDynamic</servlet-name>
+    <servlet-class>com.accumulate.finance.PrivateDynamic</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>IsPurshLive</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.IsPurshLive</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TxtLivePayInfo</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.TxtLivePayInfo</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SubmitPayInfo</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.SubmitPayInfo</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetOrderCode</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.GetOrderCode</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PayOrder</servlet-name>
+    <servlet-class>com.accumulate.teacgeridea.PayOrder</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>NewsIndexList</servlet-name>
+    <servlet-class>com.accumulate.finance.NewsIndexList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FinalInfo</servlet-name>
+    <servlet-class>com.accumulate.finance.FinalInfo</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ImageUpload</servlet-name>
+    <servlet-class>com.accumulate.userop.ImageUpload</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdatePhone</servlet-name>
+    <servlet-class>com.accumulate.userop.UpdatePhone</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+
+
     <servlet-mapping>
         <servlet-name>WebPush</servlet-name>
-        <url-pattern>/WebPush</url-pattern>
+        <url-pattern>/jucaipen/webPush</url-pattern>
     </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PullTodayIdea</servlet-name>
+    <url-pattern>/jucaipen/pullTodayIdea</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PrivateDynamic</servlet-name>
+    <url-pattern>/jucaipen/privateDynamic</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IsPurshLive</servlet-name>
+    <url-pattern>/jucaipen/isPurshLive</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TxtLivePayInfo</servlet-name>
+    <url-pattern>/jucaipen/txtLivePayInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SubmitPayInfo</servlet-name>
+    <url-pattern>/jucaipen/submitPayInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetOrderCode</servlet-name>
+    <url-pattern>/jucaipen/getOrderCode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PayOrder</servlet-name>
+    <url-pattern>/jucaipen/payOrder</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NewsIndexList</servlet-name>
+    <url-pattern>/jucaipen/newsIndexList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FinalInfo</servlet-name>
+    <url-pattern>/jucaipen/finalInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageUpload</servlet-name>
+    <url-pattern>/jucaipen/imageUpload</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePhone</servlet-name>
+    <url-pattern>/jucaipen/updatePhone</url-pattern>
+  </servlet-mapping>
 </web-app>

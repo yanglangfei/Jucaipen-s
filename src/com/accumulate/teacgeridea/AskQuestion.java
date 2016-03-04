@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.accumulate.entity.Ask;
+import com.accumulate.entity.FamousTeacher;
 import com.accumulate.entity.SiteConfig;
 import com.accumulate.service.AskSer;
+import com.accumulate.service.FamousTeacherSer;
 import com.accumulate.service.SiteConfigSer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
@@ -30,7 +32,7 @@ public class AskQuestion extends HttpServlet {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private int totleAskNum;
 	private int currentAskNum;
-
+ 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
@@ -50,12 +52,13 @@ public class AskQuestion extends HttpServlet {
 		if (StringUtil.isInteger(userId)) {
 			// 用户id格式正确
 			int uId = Integer.parseInt(userId);
-			initMaxAskNum(uId);
-			//判断提问数量是否超出限制的提问数
-			if (currentAskNum < totleAskNum) {
-				if (StringUtil.isInteger(teacherId)) {
-					// 讲师id数字格式化正确
-					int tId = Integer.parseInt(teacherId);
+
+			if (StringUtil.isInteger(teacherId)) {
+				// 讲师id数字格式化正确
+				int tId = Integer.parseInt(teacherId);
+				initMaxAskNum(uId, tId);
+				// 判断提问数量是否超出限制的提问数
+				if (currentAskNum < totleAskNum) {
 					if (tId > 0) {
 						if (StringUtil.isInteger(askType)) {
 							// 提问类型数字格式化正确
@@ -87,11 +90,11 @@ public class AskQuestion extends HttpServlet {
 					}
 
 				} else {
-					// 讲师id数字格式化异常
-					result = JsonUtil.getRetMsg(3, "讲师id数字格式化异常");
+					result = JsonUtil.getRetMsg(8, "您的提问数已经超出限制");
 				}
 			} else {
-				result = JsonUtil.getRetMsg(8, "您的提问数已经超出限制");
+				// 讲师id数字格式化异常
+				result = JsonUtil.getRetMsg(3, "讲师id数字格式化异常");
 			}
 		} else {
 			// 用户id数字格式化异常
@@ -102,11 +105,17 @@ public class AskQuestion extends HttpServlet {
 		out.close();
 	}
 
-	private void initMaxAskNum(int uId) {
+	private void initMaxAskNum(int uId, int tId) {
 		// 获取最大提问数和当前已经提问的数量
-		SiteConfig config = SiteConfigSer.findSiteConfig();
-		totleAskNum = config.getAskNum();
-		currentAskNum = AskSer.findAskNumByUid(uId);
+		FamousTeacher teacher = FamousTeacherSer.findFamousTeacherById(tId);
+		int askNum = teacher.getAskNum();
+		if (askNum == 0) {
+			SiteConfig config = SiteConfigSer.findSiteConfig();
+			totleAskNum = config.getAskNum();
+			currentAskNum = AskSer.findAskNumByUid(uId);
+		} else {
+			currentAskNum = askNum;
+		}
 	}
 
 	private void createAskModel(int uId, int tId, int type, String askBodys) {

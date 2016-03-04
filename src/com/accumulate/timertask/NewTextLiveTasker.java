@@ -3,8 +3,6 @@ package com.accumulate.timertask;
 import java.util.List;
 import java.util.TimerTask;
 
-import org.json.JSONObject;
-
 import com.accumulate.entity.FamousTeacher;
 import com.accumulate.entity.TextLive;
 import com.accumulate.service.FamousTeacherSer;
@@ -17,7 +15,7 @@ public class NewTextLiveTasker extends TimerTask {
 	private List<TextLive> textLives;
 
 	@Override
-	public void run() {
+	public void run() {        
 		//通过liveId 获取最新的直播信息
 		textLives=TxtLiveSer.findLastPushLive(1);
 		//推送最新直播信息到客户端
@@ -27,13 +25,11 @@ public class NewTextLiveTasker extends TimerTask {
 				String startDate=textLive.getStartDate();
 				int id=textLive.getId();
 				boolean isPush=TimeUtils.compareDate(startDate);
-				System.out.println("preparePush......");
 				if(isPush){
-					int teacherId=textLive.getTeacherId();
+					int teacherId=textLive.getTeacherId();   
 					FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(teacherId);
 					String nickName=teacher.getNickName();
-					JSONObject res = XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
-					System.out.println("res:"+res.toString());
+				   // XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
 				}
 			}
 		}

@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.accumulate.entity.LogCommen;
 import com.accumulate.service.LogCommSer;
 import com.accumulate.utils.JsonUtil;
@@ -17,7 +16,6 @@ import com.accumulate.utils.StringUtil;
 
 /**
  * @author Administrator
- * 
  * 
  *         commType 0 ÆÀÂÛ 1 »Ø¸´
  * 
@@ -33,11 +31,10 @@ public class AddIdeaComm extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
-
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");    
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String commType = request.getParameter("commType");

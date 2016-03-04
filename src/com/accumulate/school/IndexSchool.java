@@ -33,13 +33,13 @@ public class IndexSchool extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		initData();
 		result = JsonUtil.getIndexVideoList(sTvs);
-		out.print(result);
+		out.print(result);     
 		out.flush();
 		out.close();
 	}
 
 	private void initData() {
-		sTvs = VideoServer.findVideoByIsIndexId(1, 11);
+		sTvs = VideoServer.findVideoByClassIdLast(2, 1);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

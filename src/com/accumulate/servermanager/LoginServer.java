@@ -26,7 +26,7 @@ import com.accumulate.utils.StringUtil;
 @SuppressWarnings("serial")
 public class LoginServer extends HttpServlet {
 	private String result;
-	private Connection dbConn;
+	private Connection dbConn; 
 	private ServerManager manager;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

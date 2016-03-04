@@ -51,9 +51,17 @@ public class TextLive implements Serializable{
 	 */
 	private int teacherId;
 	/**
-	 * 是否结束   0 正在进行 1已结束 2未开始
+	 * 是否结束   0 正在进行 1已结束 2未开始             
 	 */
 	private int isEnd;
+	/**
+	 *  价格
+	 */
+	private double price;
+	/**
+	 * 直播类型
+	 */
+	private int liveType;
 	
 	public TextLive() {
 	}
@@ -130,6 +138,32 @@ public class TextLive implements Serializable{
 	public void setIsEnd(int isEnd) {
 		this.isEnd = isEnd;
 	}
+
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+
+	public int getLiveType() {
+		return liveType;
+	}
+
+
+
+	public void setLiveType(int liveType) {
+		this.liveType = liveType;
+	}
+	
+	
 	
 	
 

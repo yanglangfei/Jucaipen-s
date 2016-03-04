@@ -42,4 +42,14 @@ public class SystemInfoSer {
 		SysInfoDao dao=new SysInfoImp();
 		return dao.findInfoBySender(sendId, page);
 	}
+	
+	/**
+	 * @param userId
+	 * @param page
+	 * @return   根据用户id获取系统消息
+	 */
+	public static List<SystemInfo> findInfoByUserId(int userId,int page){
+		SysInfoDao dao=new SysInfoImp();
+		return dao.findAllSystemInfoByUserId(userId, page);
+	}
 }

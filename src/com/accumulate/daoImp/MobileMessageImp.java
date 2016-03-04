@@ -44,7 +44,7 @@ public class MobileMessageImp implements MobileMessageDao {
 							+ message.getMsgid()
 							+ "','"
 							+ message.getSendIp()
-							+ "'");
+							+ "')");
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class MobileMessageImp implements MobileMessageDao {
 	}
 
 	public int upDateMessageType(String msgId, MobileMessage message) {
-		// 修改短信状态
+		// 修改短信状态---成功
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
@@ -62,6 +62,22 @@ public class MobileMessageImp implements MobileMessageDao {
 					+ message.getCheckDate() + 
 					"',Remark='"+message.getRemark()+
 					"' WHERE Return_msgid='" + msgId+"'");
+			return isSuccess;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
+	public int upDateMessageFailType(String msgId, MobileMessage message) {
+		// 修改短信状态  --验证超时
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			isSuccess = sta.executeUpdate("UPDATE JCP_MobileMess SET MessType="
+					+ message.getMsgType()  +
+					" WHERE Return_msgid='" + msgId+"'");
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();

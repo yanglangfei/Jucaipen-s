@@ -80,9 +80,10 @@ public class TodayIdeas extends HttpServlet {
 		if (txtLives.size() > 0) {
 			for (TextLive textLive : txtLives) {
 				int liveId = textLive.getId();
+				int isEnd=textLive.getIsEnd();
 				String startDate = textLive.getStartDate();
 				boolean isToday = TimeUtils.compareDate(startDate);
-				if (isToday) {
+				if (isEnd==0) {
 					todayIdeas = TxtLiveDetaileSer
 							.findTextDetaileByLiveId(liveId);
 					txtArray.add(todayIdeas);

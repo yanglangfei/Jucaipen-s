@@ -36,7 +36,7 @@ public class KnowledgeOwnership extends HttpServlet {
 		if(StringUtil.isInteger(type)){
 			int tp=Integer.parseInt(type);
 			if(tp==1){
-				news=NewServer.findIndexNewsById(2, 2);
+				news=NewServer.findIndexNewsById(2, 2,3);
 				result=JsonUtil.getIndxKnownList(news);
 			}else if(tp==2){
 				String pager=request.getParameter("pager");

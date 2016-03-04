@@ -12,6 +12,7 @@ import com.accumulate.entity.User;
 import com.accumulate.service.UserServer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
+import com.google.gson.JsonNull;
 
 /**
  * @author YLF
@@ -40,23 +41,42 @@ public class UpdateOtherAccount extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String accountType = request.getParameter("accountType");
 		String accountId = request.getParameter("accountId").trim();
-		if (StringUtil.isInteger(userId)) {
+		if (StringUtil.isInteger(userId )) {
 			int uId = Integer.parseInt(userId);
 			if (uId > 0) {
 				if (StringUtil.isInteger(accountType)) {
 					int type = Integer.parseInt(accountType);
 					if (type == 0 || type == 1 || type == 2) {
-						User u = checkAccountIsBind(type, accountId);
+						User u = checkAccountIsBind(type, accountId,uId);
 						//用户不存在    --绑定       
-						if ((accountId==null||accountId.trim().equals(""))||u == null) {
+						if ((accountId!=null&&accountId.length()>0)&&u == null) {
 							insertOtherAccount(uId, type, accountId);
+							//绑定账号
 							if (isSuccess == 1) {
 								result = JsonUtil.getRetMsg(0, "账号保存成功");
 							} else {
 								result = JsonUtil.getRetMsg(1, "账号保存失败");
 							}
-						} else {
+						}else if((accountId==null||accountId.length()<=0)&&u!= null){
+							insertOtherAccount(uId, type, accountId);
+							//解除账号
+							if (isSuccess == 1) {
+								result = JsonUtil.getRetMsg(0, "账号解除成功");
+							} else {
+								result = JsonUtil.getRetMsg(1, "账号解除失败");
+							}
+						}else if((accountId!=null&&accountId.length()>0)&&u!= null){
+							//账号已经绑定
+							if(u.getId()==uId){
 							result = JsonUtil.getRetMsg(7, "该账号已绑定");
+							}else{
+								result=JsonUtil.getRetMsg(10,"该账号已被其他用户绑定");
+							}
+						}else if((accountId==null||accountId.length()<=0)&&u== null){
+							//账号已经解除
+							result = JsonUtil.getRetMsg(8, "该账号已解除");
+						}else {
+							result = JsonUtil.getRetMsg(9, "操作失败");
 						}
 					} else {
 						result = JsonUtil.getRetMsg(6, "账号类型参数必须为0或1或2");
@@ -83,8 +103,8 @@ public class UpdateOtherAccount extends HttpServlet {
 	 * 
 	 *            验证账号是否绑定
 	 */
-	private User checkAccountIsBind(int type, String accountId) {
-		User user;
+	private User checkAccountIsBind(int type, String accountId,int uId) {
+		User user=null;
 		if (type == 0) {
 			// qq
 			user = UserServer.findUserByQQId(accountId);
@@ -94,8 +114,6 @@ public class UpdateOtherAccount extends HttpServlet {
 		} else if (type == 2) {
 			// 新浪
 			user = UserServer.findUserBySinaId(accountId);
-		} else {
-			user = new User();
 		}
 		return user;
 

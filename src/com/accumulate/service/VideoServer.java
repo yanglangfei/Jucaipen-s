@@ -50,13 +50,24 @@ public class VideoServer {
 		VideoDao dao=new VideoImp();
 		return dao.findVideoByIndexId(isIndex, classId);
 	}
-	/**
+	/** 
 	 * @param id
 	 * @return  通过id获取视频播放资源
-	 */
-	public static Video findVideoResourceById(int id){
+	 */ 
+	public static Video findVideoResourceById(int id){ 
 		VideoDao dao=new VideoImp();
 		return dao.findVideoRecouresById(id);
+	}
+	
+	/**
+	 * @param count
+	 * @param classId
+	 * @return    根据分类id获取最近的视频信息
+	 */
+	public static List<Video> findVideoByClassIdLast(int count,int classId){
+		VideoDao dao=new VideoImp();
+		return dao.findVideoByClassIdLast(count, classId);
+
 	}
 
 }

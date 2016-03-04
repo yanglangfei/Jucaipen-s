@@ -105,13 +105,15 @@ public class VideoImp implements VideoDao {
 			res = sta
 					.executeQuery("select Id,Title,VideoUrl from JCPVideo where Id="
 							+ id);
-			res.next();
-			int Vid = res.getInt(SqlUtil.NEWS_ID);
-			String title = res.getString(SqlUtil.VIDEO_TITLE);
-			String videoUrl = res.getString(SqlUtil.VIDEO_URL);
-			Video video = new Video(Vid, title);
-			video.setVideoUrl(videoUrl);
-			return video;
+			
+			while (res.next()) {
+				int Vid = res.getInt(SqlUtil.NEWS_ID);
+				String title = res.getString(SqlUtil.VIDEO_TITLE);
+				String videoUrl = res.getString(SqlUtil.VIDEO_URL);
+				Video video = new Video(Vid, title);
+				video.setVideoUrl(videoUrl);
+				return video;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -250,11 +252,11 @@ public class VideoImp implements VideoDao {
 			sta = dbConn.createStatement();
 			if(classId==3){
 				res = sta
-						.executeQuery("select Top 2 Id,Title,Images,ImagesThumb from JCPVideo where ClassId in ("
+						.executeQuery("select Top 2 Id,Title,Images,ImagesThumb,VideoUrl from JCPVideo where ClassId in ("
 								+ liveIndex+") order by Id desc");
 			}else {
 				res = sta
-						.executeQuery("select Top 2 Id,Title,Images,ImagesThumb from JCPVideo where ClassId in ("
+						.executeQuery("select Top 2 Id,Title,Images,ImagesThumb,VideoUrl from JCPVideo where ClassId in ("
 								+ SchoolIndex+") order by Id desc");
 			}
 			while (res.next()) {
@@ -262,9 +264,11 @@ public class VideoImp implements VideoDao {
 				String title = res.getString(SqlUtil.VIDEO_TITLE);
 				String Images = res.getString(SqlUtil.VIDEO_IMAGES);
 				String ImagesThumb = res.getString(SqlUtil.VIDEO_IMAGETHUMB);
+				String videoUrl=res.getString(SqlUtil.VIDEO_URL);
 				Video video = new Video(id, title);
 				video.setImages(Images);
 				video.setImagesThumb(ImagesThumb);
+				video.setVideoUrl(videoUrl);
 				videos.add(video);
 			}
 			return videos;
@@ -353,8 +357,10 @@ public class VideoImp implements VideoDao {
 				int id = res.getInt(SqlUtil.NEWS_ID);
 				String title = res.getString(SqlUtil.VIDEO_TITLE);
 				String descript = res.getString(SqlUtil.VIDEO_DESC);
+				String image=res.getString(SqlUtil.VIDEO_IMAGETHUMB);
 				Video video = new Video(id, title);
 				video.setDescript(descript);
+				video.setImagesThumb(image);
 				videos.add(video);
 			}
 			return videos;
@@ -362,5 +368,29 @@ public class VideoImp implements VideoDao {
 		}
 		return null;
 	}
+	
+	public List<Video> findVideoByClassIdLast(int count, int classId) {// 查询分类下的本站视频
+		videos.clear();
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("select TOP "+count+" Id,Title,Descriptions,ImagesThumb from JCPVideo where  ClassId=" + classId
+							+" ORDER BY InsertDate DESC");
+			while (res.next()) {
+				int id = res.getInt(SqlUtil.NEWS_ID);
+				String title = res.getString(SqlUtil.VIDEO_TITLE);
+				String descript = res.getString(SqlUtil.VIDEO_DESC);
+				String image=res.getString(SqlUtil.VIDEO_IMAGETHUMB);
+				Video video = new Video(id, title);
+				video.setDescript(descript);
+				video.setImagesThumb(image);
+				videos.add(video);
+			}
+			return videos;
+		} catch (Exception e) {
+		}
+		return null;}
+
 
 }

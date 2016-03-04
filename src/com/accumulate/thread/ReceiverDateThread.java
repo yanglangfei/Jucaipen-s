@@ -4,9 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import com.accumulate.entity.MessageObject;
+import com.accumulate.utils.GePushUtils;
 import com.accumulate.utils.HttpUtils;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.XinGeUtil;
@@ -24,7 +27,7 @@ import com.accumulate.utils.XinGeUtil;
  */
 public class ReceiverDateThread extends Thread {
 
-	private String path = "http://chat-data.jucaipen.com/ashx/chat_msg.ashx?action=getlist";
+	private String path = "http://chat.jucaipen.com/ashx/chat_msg.ashx?action=getlist";
 	private int topId;
 	private int roomId;
 	private int userId;
@@ -33,15 +36,49 @@ public class ReceiverDateThread extends Thread {
 	private int isManager;
 	private String userName;
 	private boolean isStop;
-	private JSONObject object;
+	private JSONObject object;          
+	private int isServer;
+	private int isVip;
+	
+	
+	
+	/*发送消息接口：http://chat.jucaipe n.com/ashx/chat_msg.ashx?action=add
+
+		需要传递参数：msgcontent（消息内容）、sendusername（发送人昵称）、fasongface（发送人头像）、SendUserId（发送人ID）、roomid（房间ID）、
+			      jieshouname（接收人昵称）、jieshouid（接收人ID）、ReceiverNameId（接收人用户名）、sendusernameid（发送人用户名）、
+			      userLevel（用户产品ID）、ReceiveLevel（接收产品ID）、ReceiveManger（接收用户是否为管理员）、SendManager（发送人是否为管	      理员，1为管理员0为普通用户）、
+			      ReceiveServiceId（接收信息的服务ID）、SendServiceId（发送信息的服务ID）、MessType（消息类型，0为群聊，1为私信）、
+
+
+
+		聊天记录接口：http://chat.jucaipen.com/ashx/chat_msg.ashx?action=getlist
+
+		需要传递参数：topId（显示最新十条消息）、roomid（房间ID）、userId（用户ID，游客用户ID为0）、isServer（0为普通用户或游客，1为管理员或客	      服）
+				
+
+
+		请求topId接口:http://chat.jucaipen.com/ashx/chat_msg.ashx?action=getTopId
+
+		需要传递参数：userType(用户是否为管理员)、topCount（显示条数）、roomId（房间id）、 isServer（是否为客服）、
+        //387433
+
+		表情列表接口：http://chat.jucaipen.com/ashx/addface.ashx
+*/			
 
 	public ReceiverDateThread(String userName, int isManager, int topId,
-			int roomId, int userId) {
+			int roomId, int userId, int isServer) {
 		this.topId = topId;
 		this.roomId = roomId;
 		this.userId = userId;
 		this.isManager = isManager;
 		this.userName = userName;
+		this.isServer=isServer;
+		if(isServer!=0||isManager!=0){
+			//是管理员或者客服
+			isVip=1;
+		}else if(isManager==0&&isServer==0){
+			isVip=0;
+		}
 	}
 
 	public void stopTask(boolean flag) {
@@ -55,22 +92,20 @@ public class ReceiverDateThread extends Thread {
 				// 获取PC端聊天消息
 				String object = null;
 				String data = HttpUtils.sendHttpPost(path, topId, roomId,
-						userId);
-				System.out.println("date:"+data);
+						userId,isVip);
 				if (data != null && data.contains("MessBody")) {
 					object = createChatRecoder(data);
-					System.out.println("obj:"+object);
 					if (object != null && object.contains("message")) {
 						// 消息不为空时，推送消息
-						JSONObject object2=XinGeUtil.getInstance(true).pushAccountDevice(object,
-								userName);
-						System.out.println("push:"+object2.toString());
+						GePushUtils.getInstance().sendMsg(object, userName);
+					//	XinGeUtil.getInstance(true).pushAccountDevice(object,
+						//		userName);
 					}
 				}
-				Thread.sleep(3000);
+				Thread.sleep(500);
 				if (msgObject.size() > 0) {
-					if (isManager == 1) {
-						// 管理员 topId等于消息id
+					if (isVip == 1) {
+						// 管理员 、客服 topId等于消息id
 						this.topId = msgObject.get(msgObject.size() - 1)
 								.getMsgId() + 1;
 					} else {
@@ -112,7 +147,7 @@ public class ReceiverDateThread extends Thread {
 		int sendUserId = obj.getInt("SendUserId");
 		String msgBody = obj.getString("MessBody");
 		String SendUserName = obj.getString("SendUserName");
-		String sendDate = obj.getString("SendDate");
+		String sendDate = obj.getString("SendDate");           
 		int isCheck = obj.getInt("Shenhe");
 		if (!userName.equals(SendUserName)) {
 			MessageObject msg = new MessageObject(2, sendUserId);

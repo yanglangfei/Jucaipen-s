@@ -16,6 +16,12 @@ public interface UserDao {
 	 */
 	public int updateUserTrueNameAndTelById(String telPhone,User u);
 	/**
+	 * @param id
+	 * @param tel
+	 * @return   通过ID修改用户手机号
+	 */
+	public int updatePhoneById(int id,String tel);
+	/**
 	 * @return 用户注册
 	 */
 	public int reginUser(User user);
@@ -30,6 +36,12 @@ public interface UserDao {
 	 * @return 通过id查询用户信息
 	 */
 	public User findUserById(int id);
+	
+	/**
+	 * @param id
+	 * @return  获取登录成功后的信息
+	 */
+	public User findLoginInfoById(int id);
 
 	/**
 	 * @param id

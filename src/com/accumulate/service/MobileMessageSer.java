@@ -26,6 +26,16 @@ public class MobileMessageSer{
 		MobileMessageDao dao=new MobileMessageImp();
 		return dao.upDateMessageType(msgId, message);
 	}
+	
+	/**
+	 * @param msgId
+	 * @param message
+	 * @return  修改短信状态 --验证失败
+	 */
+	public static int upDateMessageFailType(String msgId, MobileMessage message){
+		MobileMessageDao dao=new MobileMessageImp();
+		return dao.upDateMessageFailType(msgId, message);
+	}
 
 	/**
 	 * @param telPhone

@@ -14,9 +14,7 @@ import com.accumulate.utils.StringUtil;
 
 /**
  * @author YLF
- * 
- *         
- *         股权详细信息
+ *    股权详细信息
  * 
  */
 @SuppressWarnings("serial")

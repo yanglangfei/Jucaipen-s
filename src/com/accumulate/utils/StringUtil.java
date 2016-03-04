@@ -4,13 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.sun.org.apache.commons.digester.RegexMatcher;
-
 public class StringUtil {
-	/**
-	 *   聚财盆跟路径
-	 */
-	public static final String JCP_PATH = "http://www.jucaipen.com/";
+	public static final String sendPhoneAccount="jcpxxk";
+	public static final String sendPhonePwd="Tch456789";
 
 	/**
 	 * @param string
@@ -107,7 +103,6 @@ public class StringUtil {
 	 */
 	public static String Fix_String_Lenth(int type, String strs, int len) {
 		String strtemp = strs;
-		// int len1 = strs.length();
 		switch (type) {
 		case 0:
 			while (strtemp.length() < len * "我".length()) {
@@ -154,6 +149,23 @@ public class StringUtil {
          html = html.replaceAll("<strong>", "");
          return html;
      }
+	
+	/**
+	 * @param str
+	 * @return    过滤短信中的字符串
+	 */
+	public static String replaceStr(String str){
+		String newStr;
+		newStr=str.replaceAll("&nbsp;", " ");
+		newStr=newStr.replaceAll("<br />", "");
+		newStr=newStr.replaceAll("</p>", "");
+		newStr=newStr.replaceAll("<p>", "");
+		newStr=newStr.replace("{UserName}", "");
+		return newStr;
+		
+		
+		
+	}
 
 
 }

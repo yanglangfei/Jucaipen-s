@@ -6,16 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.accumulate.entity.MobileMessage;
-import com.accumulate.entity.User;
+import com.accumulate.entity.Signing;
 import com.accumulate.service.MobileMessageSer;
-import com.accumulate.service.UserServer;
+import com.accumulate.service.SigingSer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
 
@@ -32,6 +30,9 @@ public class CheckMobileCode extends HttpServlet {
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private String checkDate;
 	private String msgId;
+	private String ip;
+	private int tId;
+	private int isSuccess;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,7 +48,7 @@ public class CheckMobileCode extends HttpServlet {
 		checkDate = sdf.format(new Date());
 		//用户真实姓名
 		String trueName=request.getParameter("trueName");
-		//用户id
+		//用户id  
 		String userId=request.getParameter("userId");
 		//用户手机号
 		String mobileNum=request.getParameter("telPhone");
@@ -55,25 +56,35 @@ public class CheckMobileCode extends HttpServlet {
 		String actionCode=request.getParameter("actionCode");
 		//券商名称
 		String qsName=request.getParameter("qsName");
+		String teacherId=request.getParameter("teacherId");
+		ip=request.getRemoteAddr();
 		if(StringUtil.isInteger(userId)){
 			//用户id数字格式化正常
 			int uId=Integer.parseInt(userId);
-			if(StringUtil.isMobileNumber(mobileNum)){
-				if(StringUtil.isNotNull(qsName)){
-				//手机号符合要求
-				checkMobileCode(mobileNum,actionCode);
-				if(isPassed){
-					result=JsonUtil.getRetMsg(0, "验证码信息正确");
-					insertUserInfo(uId,trueName,mobileNum);
+			if(StringUtil.isInteger(teacherId)){                
+				tId = Integer.parseInt(teacherId);
+				if(StringUtil.isMobileNumber(mobileNum)){   
+					if(StringUtil.isNotNull(qsName)){
+					//手机号符合要求
+					checkMobileCode(mobileNum,actionCode);
+					if(isPassed){
+						insertSignInfo(uId,trueName,mobileNum,checkDate,qsName,uId);
+						if(isSuccess==1){
+							result=JsonUtil.getRetMsg(0, "验证码信息正确");
+						}else {
+							result=JsonUtil.getRetMsg(5,"验证失败");
+						}
+					}else {
+						result=JsonUtil.getRetMsg(3,"无效的验证码");
+					}
+					insertCheckInfo(mobileNum,checkDate,qsName);
+					}else {
+						result=JsonUtil.getRetMsg(4, "请选择券商");
+					}
 				}else {
-					result=JsonUtil.getRetMsg(3,"无效的验证码");
+					result=JsonUtil.getRetMsg(2,"手机号不符合要求");
 				}
-				insertCheckInfo(mobileNum,checkDate,qsName);
-				}else {
-					result=JsonUtil.getRetMsg(4, "请选择券商");
-				}
-			}else {
-				result=JsonUtil.getRetMsg(2,"手机号不符合要求");
+				
 			}
 		}else {
 			result=JsonUtil.getRetMsg(1,"参数用户id数字格式化异常");
@@ -82,12 +93,10 @@ public class CheckMobileCode extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-	private void insertUserInfo(int uId, String trueName, String mobileNum) {
-		// 修改当前用户信息
-		User u=new User();
-		u.setTrueName(trueName);
-		u.setMobileNum(mobileNum);
-		UserServer.updateUserTrueNameAndTelById(mobileNum, u);
+	private void insertSignInfo(int uId, String trueName, String mobileNum,String checkDate,String qsName,int userId) {
+		//添加签约信息
+		Signing signing=new Signing(0, userId, tId, trueName, mobileNum, checkDate, qsName, 0, ip, 3);
+		isSuccess=SigingSer.insertSigin(signing);
 		
 	}
 	private void insertCheckInfo(String mobileNum, String checkDate,String qsName) {

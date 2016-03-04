@@ -22,7 +22,7 @@ import com.accumulate.utils.StringUtil;
  *  热门观点详细内容
  */
 @SuppressWarnings("serial")
-public class HotIdeaDetaile extends HttpServlet {
+public class HotIdeaDetaile extends HttpServlet {     
 
 	private HotIdea hotIdea;
 	private FamousTeacher teacher;

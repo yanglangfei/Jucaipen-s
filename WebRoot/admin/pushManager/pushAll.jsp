@@ -21,29 +21,34 @@
 </head>
 
 <body>
-<form action="jucaipen/WebPush" method="post">
+<form action="jucaipen/webPush" method="post">
 	<div align="center" style="margin-top: 10%">
 
 		推送消息类型<select name="msgType">
-			<option>新闻</option>
+			<option >新闻</option>
 			<option>直播</option>
 			<option>系统通知</option>
 			<option>版本更新</option>
 		</select>
 	</div>
 	<div align="center" style="margin-top: 2%">
-	<input type="radio" value="" name="all"/>全部设备
-	<input type="radio" value="" name="all"/>指定TAG设备
-	<input type="radio" value="" name="all"/>指定TOKEN设备
+	<input type="radio" value="1" name="all"/>全部设备
+	<input type="radio" value="2" name="all"/>指定TAG设备
+	<input type="radio" value="3" name="all"/>指定TOKEN设备
 	</div>
 	<div style="margin-top: 2%" align="center">
-	TAG名称<input type="text" >
+	TAG名称<input type="text"  name="tagName">
 	</div>
 	<div align="center" style="margin-top: 2%">
-	TOKEN名称<input type="text"> 
+	TOKEN名称<input type="text" name="tokenName"> 
 	</div>
 	<div align="center" style="margin-top: 2%">
-	消息内容<input type="text">
+	消息标题<input type="text" name="title">
+	</div>
+	<div align="center" style="margin-top: 2%">
+	</div>
+	<div align="center" style="margin-top: 2%">
+	消息内容<input type="text" name="message">
 	</div>
 	<div align="center" style="margin-top: 2%">
 	<input type="submit" value="推送">&nbsp;&nbsp;<input type="reset" value="重置">

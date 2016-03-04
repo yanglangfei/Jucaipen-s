@@ -22,7 +22,7 @@ import com.accumulate.utils.StringUtil;
 @SuppressWarnings("serial")
 public class VideoDetaile extends HttpServlet {
 
-	private Video video;
+	private Video video;  
 	private String result;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -95,7 +95,7 @@ public class UserImp implements UserDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select RegFrom,ISNULL(NickName,'') NickName,ISNULL(Sex,'') Sex,ISNULL(MobileNum,'') MobileNum,LocaProvince,LocaCity,LocaEare,ISNULL(Email,'') Email,ISNULL(Bodys,'') Bodys,ISNULL(Birthday,'') Birthday,ISNULL(FaceImage,'') FaceImage from JCPUser where Id="
+					.executeQuery("select RegFrom,ISNULL(UserName,'') UserName,ISNULL(NickName,'') NickName,ISNULL(Sex,'') Sex,ISNULL(MobileNum,'') MobileNum,LocaProvince,LocaCity,LocaEare,ISNULL(Email,'') Email,ISNULL(Bodys,'') Bodys,ISNULL(Birthday,'') Birthday,ISNULL(FaceImage,'') FaceImage from JCPUser where Id="
 							+ id);
 			while (res.next()) {
 				String nickName = res.getString(SqlUtil.USER_NICKNAME);
@@ -109,9 +109,11 @@ public class UserImp implements UserDao {
 				String birthday = res.getString(SqlUtil.USER_BIRTH);
 				String logo = res.getString(SqlUtil.USRE_FACEIMAGE);
 				int RegFrom = res.getInt(SqlUtil.USER_REGFROM);
+				String userName=res.getString(SqlUtil.USER_NAME);
 				u = new User();
 				u.setNickName(nickName);
 				u.setSex(sex);
+				u.setUserName(userName);
 				u.setLocalProvince(localProvince);
 				u.setMobileNum(telPhone);
 				u.setBirthday(birthday);
@@ -185,13 +187,28 @@ public class UserImp implements UserDao {
 		}
 		return 0;
 	}
+	
+	//根据用户ID修改用户手机号
+	public int updatePhoneById(int id, String tel) {
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			isSuccess = sta.executeUpdate("UPDATE JCPUser SET MobileNum='"
+					+ tel + "'" + "WHERE Id=" + id);
+			return isSuccess;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	public int updateUserTrueNameAndTelById(String telPhone, User user) {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			isSuccess = sta.executeUpdate("UPDATE JCPUser SET TrueName='"
-					+ user.getTrueName() + "' WHERE MobileNum='" + telPhone+"'");
+					+ user.getTrueName() + "' WHERE MobileNum='" + telPhone
+					+ "'");
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -529,6 +546,38 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/*
+	 * 获取登录成功后的信息
+	 * 
+	 */
+	public User findLoginInfoById(int id) {
+		User user = null;
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT UserName,IsRoomManager,BuyProductId,ServerId,RegDate FROM JCPUser WHERE Id="
+							+ id);
+			while (res.next()) {
+				String userName=res.getString(1);
+				int isRoom=res.getInt(2);
+				int productId=res.getInt(3);
+				int serverId=res.getInt(4);
+				String reginDate=res.getString(5);
+				user=new User();
+				user.setUserName(userName);
+				user.setRegDate(reginDate);
+				user.setBuyProductId(productId);
+				user.setIsRoomManager(isRoom);
+				user.setServerId(serverId);
+				user.setId(id);
+				return user;
+			}
+		} catch (Exception e) {
 		}
 		return null;
 	}

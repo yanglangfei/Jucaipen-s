@@ -83,9 +83,6 @@ public class UploadApk extends HttpServlet {
 					param.put(key, values);
 				} else {
 					if (fi.getFieldName() != null && !fi.getName().equals("")) {
-						System.out.println("文件大小：" + fi.getSize());
-						System.out.println("文件类型：" + fi.getContentType());
-						System.out.println("上传文件名称：" + fi.getName());
 						File tempFile = new File(fi.getName());
 						File saveFile = new File(savePath, tempFile.getName());
 						fi.write(saveFile);
@@ -95,7 +92,7 @@ public class UploadApk extends HttpServlet {
 								createApkDate(param, uuId+"/"+ tempFile.getName());
 								if(info!=null){
 									updateApkInfo(info);
-								//	pushUpdateInfo();
+								    pushUpdateInfo();
 				     				out.print("文件上传处理成功");
 								}else {
 									out.print("文件处理失败");
@@ -118,7 +115,7 @@ public class UploadApk extends HttpServlet {
 	}
 
 	private void pushUpdateInfo() {
-		XinGeUtil.getInstance(false).pushAllUpdateDevice(0, "apk版本更新提醒", "可更新到最新版本"+versionName);
+		//XinGeUtil.getInstance(false).pushAllUpdateDevice(0, "apk版本更新提醒", "可更新到最新版本"+versionName);
 	}
 
 	/**

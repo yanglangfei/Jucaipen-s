@@ -15,12 +15,11 @@ import com.accumulate.service.FamousTeacherSer;
 import com.accumulate.service.TxtLiveSer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
-
 /**
  * @author Administrator
  * 
  * 
- *         名师详细信息
+ *         名师详细信息      
  */
 @SuppressWarnings("serial")
 public class FamousTeacherDetaile extends HttpServlet {
@@ -50,6 +49,7 @@ public class FamousTeacherDetaile extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+
 
 	private void initTeacherDetaile(int id) {
 		teacher = FamousTeacherSer.findFamousTeacherById(id);

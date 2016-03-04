@@ -24,6 +24,16 @@ public class UserServer {
 		UserDao dao = new UserImp();
 		return dao.findUserById(id);
 	}
+	
+	
+	/**
+	 * @param id
+	 * @return   获取登录用户信息
+	 */
+	public static User findLoginInfoById(int id){
+		UserDao dao=new UserImp();
+		return dao.findLoginInfoById(id);
+	}
 
 	/**
 	 * @param userName
@@ -173,6 +183,16 @@ public class UserServer {
 	public static int updateAccountId(int id, int accountType, String accountId) {
 		UserDao dao = new UserImp();
 		return dao.upDataAccountId(id, accountType, accountId);
+	}
+	
+	/**
+	 * @param id
+	 * @param tel
+	 * @return   通过ID修改手机号
+	 */
+	public static int updatePhoneById(int id,String tel){
+		UserDao dao=new UserImp();
+		return dao.updatePhoneById(id, tel);
 	}
 
 	/**

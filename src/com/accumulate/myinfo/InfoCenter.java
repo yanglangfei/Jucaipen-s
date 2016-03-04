@@ -34,28 +34,15 @@ public class InfoCenter extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String userId = request.getParameter("userId");
 		String pager = request.getParameter("pager");
-		String typeId = request.getParameter("type");
 		if (StringUtil.isInteger(userId)) {
 			int uId = Integer.parseInt(userId);
 			if (uId > 0) {
-				if (StringUtil.isInteger(typeId)) {
-					int type = Integer.parseInt(typeId);
-					if (StringUtil.isInteger(pager)) {
-						int page = Integer.parseInt(pager);
-						if (type == 1) {
-							// 查询收件箱信息
-							initReceiveBoxInfo(uId, page);
-							result = JsonUtil.getObject(infos);
-						} else if (type == 2) {
-							// 查询发件箱信息
-							initDataSendBoxInfo(uId, page);
-							result = JsonUtil.getObject(infos);
-						}
-					} else {
-						result = JsonUtil.getRetMsg(3, "页数参数数字格式化异常");
-					}
+				if (StringUtil.isInteger(pager)) {
+					int page = Integer.parseInt(pager);
+					initSystemInfoByUserId(uId, page);
+					result = JsonUtil.getObject(infos);
 				} else {
-					result = JsonUtil.getRetMsg(1, "信息分类参数格式化异常");
+					result = JsonUtil.getRetMsg(3, "页数参数数字格式化异常");
 				}
 			} else {
 				result = JsonUtil.getRetMsg(6, "当前用户还没登录");
@@ -69,16 +56,10 @@ public class InfoCenter extends HttpServlet {
 		out.close();
 	}
 
-	private void initDataSendBoxInfo(int uId, int page) {
-		// 查询发件箱信息
+	private void initSystemInfoByUserId(int uId, int page) {
+		// 根据用户id获取系统信息
 		infos.clear();
-		infos = SystemInfoSer.findInfoBySendId(uId, page);
-	}
-
-	private void initReceiveBoxInfo(int uId, int page) {
-		// 查询收件箱信息
-		infos.clear();
-		infos = SystemInfoSer.findInfoByReceiveId(uId, page);
+		infos = SystemInfoSer.findInfoByUserId(uId, page);
 
 	}
 

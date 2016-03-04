@@ -37,6 +37,12 @@ public interface TxtLiveDao {
 	 * @return  根据讲师id获取直播信息
 	 */
 	public List<TextLive> findTextLiveByTeacherId(int teacherId);
+	
+	/**
+	 * @param teacherId
+	 * @return   根据讲师id获取文字直播是否免费
+	 */
+	public TextLive findIsPayByTeacherId(int teacherId);
 	/**
 	 * @param isEnd
 	 * @return   根据是否结束获取直播信息

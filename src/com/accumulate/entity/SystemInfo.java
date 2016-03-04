@@ -28,7 +28,7 @@ public class SystemInfo implements Serializable {
 	/**
 	 * 消息发送者
 	 */
-	private int sendId;
+	private int sendId;   
 	/**
 	 * 消息标题
 	 */

@@ -35,7 +35,7 @@ public class EquityNews extends HttpServlet {
 		if (StringUtil.isInteger(type)) {
 			int tp = Integer.parseInt(type);
 			if (tp == 1) {
-				news = NewServer.findIndexNewsById(2, 1);
+				news = NewServer.findIndexNewsById(2, 1,3);
 				result = JsonUtil.getIndxEquityNewsList(news);
 			} else if (tp == 2) {
 				String pager = request.getParameter("pager");

@@ -50,7 +50,7 @@ public class IndexNews extends HttpServlet {
 
 	private void initThreeBoardData(int type) {
 		// 获取新三板信息
-		news = NewServer.queryNewsByIndexShow(10);
+		news = NewServer.queryNewsByIndexIsImage(10);
 
 	}
 

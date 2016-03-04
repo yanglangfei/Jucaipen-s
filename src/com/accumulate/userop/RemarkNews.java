@@ -23,7 +23,7 @@ import com.accumulate.utils.StringUtil;
  *         typeId -----分类id 0 新闻评论，回复 1 视频评论，回复
  *         
  *         ParentId    0  评论      非0   回复
- */
+ */ 
 @SuppressWarnings("serial")
 public class RemarkNews extends HttpServlet {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -39,12 +39,12 @@ public class RemarkNews extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");     
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String typeId = request.getParameter("typeId");
 		String userId = request.getParameter("userId");
-		String classId = request.getParameter("classId");
+		String classId = request.getParameter("classId"); 
 		String newsId = request.getParameter("newsId");
 		String bodys = request.getParameter("bodys");
 		if (StringUtil.isInteger(userId)) {

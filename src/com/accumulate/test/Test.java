@@ -1,53 +1,55 @@
 package com.accumulate.test;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Timer;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import org.json.JSONObject;
+import java.util.List;
 
-import com.accumulate.timertask.MobileState;
-import com.accumulate.utils.XinGeUtil;
-import com.tencent.xinge.XingeApp;
+import org.apache.commons.lang.math.IEEE754rUtils;
+
+import com.accumulate.entity.News;
+import com.accumulate.entity.NewsSmallClass;
+import com.accumulate.service.NewServer;
+import com.accumulate.service.NewSmallSer;
+import com.accumulate.utils.JdbcUtil;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class Test {
+
+
+	public static void main(String[] args) {
+		
+		//   [{name:"123",item:[{title:"123"},{title:"65"}]},{name:"123",item:[{title:"123"},{title:"65"}]}]
+	JsonArray array=new JsonArray();
+	 List<NewsSmallClass> type = NewSmallSer.findNewSmallByByBigId(6);
+	 for(int i=0;i<type.size();i++){
+		 JsonObject obj1=new JsonObject();
+		NewsSmallClass tp=type.get(i);
+		String name = tp.getSamllName();
+		int sId=tp.getId();
+		obj1.addProperty("name",name);
+		JsonArray arr1=new JsonArray();
+		List<News> items=NewServer.findIndexNewsById(6, sId, 2);
+        for(int j=0;j<items.size();j++){
+        	JsonObject obj2=new JsonObject();
+        	News n = items.get(j);
+        	String title = n.getTitle();
+        	int id=n.getId();
+        	String desc=n.getDescript();
+        	obj2.addProperty("title", title);
+        	obj2.addProperty("id", id);
+        	obj2.addProperty("desc", desc);
+        	arr1.add(obj2);
+        }
+        obj1.add("item", arr1);
+        array.add(obj1);		 
+	 }
 	
-	private static String time="2015-10-30 10:20:17.000";
-	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
-	public static void main(String[] args) {/*
-		ExecutorService service = Executors.newCachedThreadPool();
-		for (int i = 0; i < 10; i++) {
-			final int index = i;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			service.execute(new Runnable() {
-				public void run() {
-					String name = Thread.currentThread().getName();
-					System.out.println("正在执行线程:" + name + " p:" + index);
-
-				}
-			});
-		}
-	*/
-	/*XingeApp xing=new XingeApp(XinGeUtil.APP_ID, XinGeUtil.APP_KEY);
-	JSONObject devCount=xing.queryDeviceCount();
-	System.out.println("devCount:"+devCount);
-	JSONObject TAGE=xing.queryTags();
-	System.out.println("TAG:"+TAGE);*/
-		/*String str="20151118154456,0 1001118154456693600";
-		System.out.println("str:"+str.split(",")[0]);
-		String ret=str.split(",")[1];
-		System.out.println("ret_code："+ret.split(" ")[0]);
-		System.out.println("ret_code："+ret.split(" ")[1]);*/
-		JSONObject res=XinGeUtil.getInstance(false).pushAllUpdateDevice(0, "apk版本更新提醒", "可更新到最新版本1.3");
-        System.out.println("res:"+res.toString());
+		
+      
+	  
+	 System.out.println(array.toString());
+	  
+	  
+		
 	}
 
 }

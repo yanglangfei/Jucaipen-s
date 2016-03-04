@@ -20,9 +20,16 @@ public interface MobileMessageDao {
 	
 	/**
 	 * @param type
-	 * @return  根据id改变短信状态
+	 * @return  根据id改变短信状态  --成功
 	 */
 	public int upDateMessageType(String msgId,MobileMessage message);
+	
+	/**
+	 * @param msgId
+	 * @param message
+	 * @return  根据id修改状态  --Fail 失败
+	 */
+	public int upDateMessageFailType(String msgId,MobileMessage message);
 	
 	/**
 	 * @param telPhone
