@@ -1,14 +1,10 @@
 package com.accumulate.test;
 
 import java.util.List;
-
-import org.apache.commons.lang.math.IEEE754rUtils;
-
 import com.accumulate.entity.News;
 import com.accumulate.entity.NewsSmallClass;
 import com.accumulate.service.NewServer;
 import com.accumulate.service.NewSmallSer;
-import com.accumulate.utils.JdbcUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 

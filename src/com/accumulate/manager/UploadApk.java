@@ -24,7 +24,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.accumulate.entity.ApkInfo;
 import com.accumulate.service.ApkInfoServer;
 import com.accumulate.utils.StringUtil;
-import com.accumulate.utils.XinGeUtil;
 
 /**
  * @author YLF
@@ -46,7 +45,7 @@ public class UploadApk extends HttpServlet {
 	 */
 	private Map<String, String> param = new HashMap<String, String>();
 	private ApkInfo info;
-	private int isSuccess;
+	//private int isSuccess;
 	private int maxId;
 	private String uuId;
 	private String savePath;
@@ -132,7 +131,7 @@ public class UploadApk extends HttpServlet {
 	 *            上传APK文件
 	 */
 	private void updateApkInfo(ApkInfo info) {
-		isSuccess=ApkInfoServer.insertApkInfo(info);
+		ApkInfoServer.insertApkInfo(info);
 
 	}
 

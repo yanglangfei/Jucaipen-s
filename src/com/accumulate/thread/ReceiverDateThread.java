@@ -31,11 +31,9 @@ public class ReceiverDateThread extends Thread {
 	private int userId;
 	private List<MessageObject> msgObject = new ArrayList<MessageObject>();
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	private int isManager;
 	private String userName;
 	private boolean isStop;
 	private JSONObject object;          
-	private int isServer;
 	private int isVip;
 	
 	
@@ -68,9 +66,7 @@ public class ReceiverDateThread extends Thread {
 		this.topId = topId;
 		this.roomId = roomId;
 		this.userId = userId;
-		this.isManager = isManager;
 		this.userName = userName;
-		this.isServer=isServer;
 		if(isServer!=0||isManager!=0){
 			//是管理员或者客服
 			isVip=1;
@@ -91,15 +87,12 @@ public class ReceiverDateThread extends Thread {
 				String object = null;
 				String data = HttpUtils.sendHttpPost(path, topId, roomId,
 						userId,isVip);
-				System.out.println("tId:"+topId);
 				if (data != null && data.contains("MessBody")) {
 					object = createChatRecoder(data);
 					if (object != null && object.contains("message")) {
 						// 消息不为空时，推送消息
-						//GePushUtils.getInstance().sendMsg(object, userName);
-						System.out.println(object);
-						JSONObject res=XinGeUtil.getInstance(true).pushAccountDevice(object, userName);
-					    System.out.println("res:"+res.toString());
+						// GePushUtils.getInstance().sendMsg(object, userName);
+						XinGeUtil.getInstance(true).pushAccountDevice(object, userName);
 					}
 				}
 				Thread.sleep(3000);
@@ -124,7 +117,7 @@ public class ReceiverDateThread extends Thread {
 	 * @param data
 	 * @return 解析、封装消息
 	 */
-	private String createChatRecoder(String data) {
+	private String createChatRecoder(String data) {  
 		try {
 			JSONArray array = new JSONArray(data);
 			if (array.length() > 0) {

@@ -1,9 +1,6 @@
 package com.accumulate.teacgeridea;
 
 import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Timer;
 
@@ -11,8 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.accumulate.entity.Friends;
 import com.accumulate.timertask.NewTextLiveTasker;
 
 /**

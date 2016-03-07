@@ -16,7 +16,6 @@ import com.accumulate.service.TxtLiveDetaileSer;
 import com.accumulate.service.TxtLiveSer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
-import com.accumulate.utils.TimeUtils;
 
 /**
  * @author Administrator querryType 0
@@ -81,8 +80,8 @@ public class TodayIdeas extends HttpServlet {
 			for (TextLive textLive : txtLives) {
 				int liveId = textLive.getId();
 				int isEnd=textLive.getIsEnd();
-				String startDate = textLive.getStartDate();
-				boolean isToday = TimeUtils.compareDate(startDate);
+				//String startDate = textLive.getStartDate();
+				//boolean isToday = TimeUtils.compareDate(startDate);
 				if (isEnd==0) {
 					todayIdeas = TxtLiveDetaileSer
 							.findTextDetaileByLiveId(liveId);

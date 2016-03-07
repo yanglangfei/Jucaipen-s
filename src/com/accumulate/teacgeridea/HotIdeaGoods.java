@@ -38,7 +38,7 @@ public class HotIdeaGoods extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String ideaId = request.getParameter("ideaId");
 		if (StringUtil.isInteger(userId)) {
-			int uId = Integer.parseInt(userId);
+			//int uId = Integer.parseInt(userId);
 			if (StringUtil.isInteger(ideaId)) {
 				int iId = Integer.parseInt(ideaId);
 				isSuccess = insertGoogs(iId);

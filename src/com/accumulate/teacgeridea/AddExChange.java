@@ -43,7 +43,6 @@ public class AddExChange extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String liveId = request.getParameter("liveId");
 		String bodys = request.getParameter("bodys");
-		System.out.println("bodys:"+bodys);
 		if (StringUtil.isInteger(userId)) {
 			// 用户id正常
 			int uId = Integer.parseInt(userId);

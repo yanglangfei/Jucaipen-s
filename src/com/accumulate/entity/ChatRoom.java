@@ -82,7 +82,19 @@ public class ChatRoom implements Serializable{
 	 * 直播间背景照
 	 */
 	private String roomFace;
+	/**
+	 * 直播室是否正常显示  （0   正常显示   1  关闭  不显示）
+	 */
+	private int roomType;
 	
+	
+	
+	public int getRoomType() {
+		return roomType;
+	}
+	public void setRoomType(int roomType) {
+		this.roomType = roomType;
+	}
 	public String getRoomFace() {
 		return roomFace;
 	}

@@ -12,7 +12,6 @@ import com.accumulate.entity.User;
 import com.accumulate.service.UserServer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
-import com.google.gson.JsonNull;
 
 /**
  * @author YLF

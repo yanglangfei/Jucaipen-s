@@ -33,7 +33,7 @@ public class ChatMessage extends HttpServlet {
 	}
    
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException,  IOException {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
@@ -57,7 +57,6 @@ public class ChatMessage extends HttpServlet {
 						String position = HttpUtils.getChatTopCount(isManager,roomId,isServer);
 						if (position != null) {
 							int p = Integer.parseInt(position);
-							System.out.println("po:"+position);
 							ReceiverDateThread reThread = new ReceiverDateThread(
 									userName, isManager, p, roomId, fromId,isServer);
 							reThread.stopTask(false);

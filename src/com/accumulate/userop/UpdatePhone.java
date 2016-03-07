@@ -29,7 +29,7 @@ public class UpdatePhone extends HttpServlet {
 	private int isSuccess;
 	private boolean isPassed;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private String msgId;
+	//private String msgId;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -108,7 +108,7 @@ public class UpdatePhone extends HttpServlet {
 			if (mobileList.size() > 0) {
 				String checkCode = mobileList.get(0).getActionCode();
 				String sendDate = mobileList.get(0).getSendDate();
-				msgId = mobileList.get( 0).getMsgid();
+				mobileList.get( 0).getMsgid();
 				long sendTime = sdf.parse(sendDate).getTime();
 				long currrentTime = System.currentTimeMillis();
 				if ((actionCode.equals(checkCode))
@@ -124,7 +124,7 @@ public class UpdatePhone extends HttpServlet {
 
 	}
 	
-	private void insertCheckInfo(String mobileNum, String checkDate,String qsName) {
+/*	private void insertCheckInfo(String mobileNum, String checkDate,String qsName) {
 		//ÐÞ¸Ä¶ÌÐÅ¼¤»î×´Ì¬
 		MobileMessage mobileMessage=new MobileMessage();
 		if(isPassed){
@@ -137,5 +137,5 @@ public class UpdatePhone extends HttpServlet {
 		MobileMessageSer.upDateMessageType(msgId, mobileMessage);
 		
 	}
-
+*/
 }

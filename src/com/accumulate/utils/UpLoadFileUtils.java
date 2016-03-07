@@ -83,7 +83,7 @@ public class UpLoadFileUtils {
 			for (FileItem item : list) {
 				// 如果fileitem中封装的是普通输入项的数据
 				if (item.isFormField()) {
-					String name = item.getFieldName();
+				//	String name = item.getFieldName();
 					// 解决普通输入项的数据的中文乱码问题
 					value = item.getString("UTF-8");
 					userId = value;

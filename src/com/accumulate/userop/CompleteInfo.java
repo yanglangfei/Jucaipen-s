@@ -9,10 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONObject;
-
-import com.accumulate.entity.User;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.LoginUtil;
 import com.accumulate.utils.StringUtil;
@@ -28,7 +25,7 @@ public class CompleteInfo extends HttpServlet {
 	// 修改个人信息
 	private String upDatePath = "http://user.jucaipen.com/ashx/AndroidUser.ashx?action=Useredit";
 	private String result;
-	private User user;
+//	private User user;
 	private int province;
 	private int city;
 	private int area;

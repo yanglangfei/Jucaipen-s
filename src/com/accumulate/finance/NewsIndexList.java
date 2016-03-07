@@ -1,24 +1,17 @@
 package com.accumulate.finance;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;    
 import javax.servlet.http.HttpServletResponse;
-
 import com.accumulate.entity.News;
-import com.accumulate.entity.NewsSmallClass;
 import com.accumulate.service.NewServer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
-
 /**
  * @author Administrator
- *
  *
  *    根据分类id获取首页关注信息
  */
@@ -45,7 +38,7 @@ public class NewsIndexList extends HttpServlet {
 	    	}else {
 	    		result=JsonUtil.getRetMsg(1,"smallId分类参数数字格式化异常");
 			}
-	    	
+	    	 
 	    }else {
     		result=JsonUtil.getRetMsg(1,"bigId分类参数数字格式化异常");
 
@@ -58,7 +51,6 @@ public class NewsIndexList extends HttpServlet {
 
 	private void initIndexNews(int bId, int sId) {
 		news=NewServer.findIndexNewsById(bId, sId, 2);
-		
 	}
 
 

@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.AppMessage;
-import com.gexin.rp.sdk.base.impl.ListMessage;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
 import com.gexin.rp.sdk.http.IGtPush;
-import com.gexin.rp.sdk.template.LinkTemplate;
 import com.gexin.rp.sdk.template.NotificationTemplate;
-import com.gexin.rp.sdk.template.NotyPopLoadTemplate;
 import com.gexin.rp.sdk.template.TransmissionTemplate;
 
 /**
@@ -101,13 +98,13 @@ public class GePushUtils {
 	public void initMessage(int msgType){
 		if(msgType==0){
 			//指定应用群推送
-			AppMessage appMessage=new AppMessage();
+		//	AppMessage appMessage=new AppMessage();
 		}else if(msgType==1){
 			//列表推送消息
-			ListMessage listMessage=new ListMessage();
+		//	ListMessage listMessage=new ListMessage();
 		}else{
 			//单推消息
-			SingleMessage singleMessage=new SingleMessage();
+			//SingleMessage singleMessage=new SingleMessage();
 		}
 	}
 	
@@ -117,16 +114,16 @@ public class GePushUtils {
 	public void initTemp(int tempType){
 		if(tempType==0){
 			//点击通知到App模版
-		    NotificationTemplate notificationTemplate=new NotificationTemplate();	
+		 //   NotificationTemplate notificationTemplate=new NotificationTemplate();	
 		}else if(tempType==1){
 			//点击通知到链接模版
-			LinkTemplate linkTemplate=new LinkTemplate();
+			//LinkTemplate linkTemplate=new LinkTemplate();
 		}else if(tempType==2){
 			//透传模版
-			TransmissionTemplate transmissionTemplate=new TransmissionTemplate();
+		//	TransmissionTemplate transmissionTemplate=new TransmissionTemplate();
 		}else{
 			//通知栏弹框下载模版
-			NotyPopLoadTemplate notyPopLoadTemplate=new NotyPopLoadTemplate();
+		//	NotyPopLoadTemplate notyPopLoadTemplate=new NotyPopLoadTemplate();
 		}
 		
 	}

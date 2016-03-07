@@ -7,8 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.UpLoadFileUtils;
 
 /**
@@ -18,7 +16,7 @@ import com.accumulate.utils.UpLoadFileUtils;
  */
 @SuppressWarnings("serial")
 public class DownUserLogo extends HttpServlet {
-	private String resultMsg;
+	//private String resultMsg;
 	private int result;
 	private String fileSaveRootPath;
 	
@@ -42,11 +40,11 @@ public class DownUserLogo extends HttpServlet {
         	result=upLoadFileUtils.downFile(fileNames, fileSaveRootPath, response);
 	      //  result=new UpLoadFileUtils().downFile(fileNames, fileSaveRootPath, response);
 			if(result==0){
-				resultMsg=JsonUtil.getRetMsg(result, "文件下载完成");
+				//resultMsg=JsonUtil.getRetMsg(result, "文件下载完成");
 			}else if(result==1){
-				resultMsg=JsonUtil.getRetMsg(result, "访问文件不存在");
+				//resultMsg=JsonUtil.getRetMsg(result, "访问文件不存在");
 			}else {
-				resultMsg=JsonUtil.getRetMsg(2, "文件下载失败");
+				//resultMsg=JsonUtil.getRetMsg(2, "文件下载失败");
 			}
         }
     }

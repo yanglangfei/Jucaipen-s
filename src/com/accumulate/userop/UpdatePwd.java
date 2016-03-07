@@ -7,9 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.accumulate.service.UserServer;
-import com.accumulate.utils.GePushUtils;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.MD5Util;
 import com.accumulate.utils.StringUtil;

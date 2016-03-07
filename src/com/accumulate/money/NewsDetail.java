@@ -1,11 +1,6 @@
 package com.accumulate.money;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +21,7 @@ import com.accumulate.utils.StringUtil;
  */
 @SuppressWarnings("serial")
 public class NewsDetail extends HttpServlet {
-	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+//	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	private String result;
 	private News news;
 	private ResourceSources source;
@@ -57,11 +52,11 @@ public class NewsDetail extends HttpServlet {
 		out.close();
 	}
 
-	private void addHits(int hits,int id) {
+/*	private void addHits(int hits,int id) {
 		//增加点击数
 		NewServer.upDateHits(hits, id);
 		
-	}
+	}*/
 
 	private void initData(int id) {
 		news = NewServer.findNewsById(id);
