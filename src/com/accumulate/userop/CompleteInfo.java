@@ -52,7 +52,7 @@ public class CompleteInfo extends HttpServlet {
 		String localProvince = request.getParameter("localProvince");
 		String localCity = request.getParameter("localCity");
 		String localArea = request.getParameter("localArea");
-		if (!StringUtil.isMail(email)) {
+		if (!StringUtil.isMail(email)) {     
 			result = JsonUtil.getRetMsg(9, "邮箱格式不符合要求");
 			out.print(result);
 			return;
@@ -97,6 +97,7 @@ public class CompleteInfo extends HttpServlet {
 					area = 0;
 				}
 				para.put("address", province + "-" + city + "-" + area);
+				System.out.println(para.get("address"));
 				result = completeUserInfo(uId, para);
 			} else {
 				result = JsonUtil.getRetMsg(4, "当前用户还没登录");
@@ -110,6 +111,7 @@ public class CompleteInfo extends HttpServlet {
 	// 提交个人信息
 	private String completeUserInfo(int uId, Map<String, String> p) {
 		String resJson = LoginUtil.sendHttpPost(upDatePath, p);
+		System.out.println("res:"+resJson);
 		if (resJson!=null&&resJson.length() > 0) {
 			JSONObject object = new JSONObject(resJson);
 			boolean isRes = object.getBoolean("Result");

@@ -22,7 +22,7 @@ import com.accumulate.utils.StringUtil;
 @SuppressWarnings("serial")
 public class TeacherAttention extends HttpServlet {
 	private String result;
-	private int isSuccess;
+	private int isSuccess;      
 	private com.accumulate.entity.TeacherAttention attention;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +33,7 @@ public class TeacherAttention extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8")  ;
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String opType=request.getParameter("opType");

@@ -13,7 +13,7 @@ import com.accumulate.utils.XinGeUtil;
 public class NewTextLiveTasker extends TimerTask {
 
 	private List<TextLive> textLives;
-
+ 
 	@Override
 	public void run() {        
 		//通过liveId 获取最新的直播信息
@@ -23,8 +23,8 @@ public class NewTextLiveTasker extends TimerTask {
 			for(TextLive textLive :textLives){
 				String title=textLive.getTitle();
 				String startDate=textLive.getStartDate();
-				int id=textLive.getId();
-				boolean isPush=TimeUtils.compareDate(startDate);
+				int id=textLive.getId();             
+				boolean isPush=TimeUtils.compareDate(startDate);               
 				if(isPush){
 					int teacherId=textLive.getTeacherId();   
 					FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(teacherId);

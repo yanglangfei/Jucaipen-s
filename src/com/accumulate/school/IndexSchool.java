@@ -33,7 +33,7 @@ public class IndexSchool extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		initData();
 		result = JsonUtil.getIndexVideoList(sTvs);
-		out.print(result);     
+		out.print(result); 
 		out.flush();
 		out.close();
 	}
