@@ -375,14 +375,16 @@ public class VideoImp implements VideoDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select TOP "+count+" Id,Title,Descriptions,ImagesThumb from JCPVideo"
+					.executeQuery("select TOP "+count+" Id,Title,Descriptions,ImagesThumb,VideoUrl from JCPVideo"
 							+" ORDER BY InsertDate DESC");
 			while (res.next()) {
 				int id = res.getInt(SqlUtil.NEWS_ID);
 				String title = res.getString(SqlUtil.VIDEO_TITLE);
 				String descript = res.getString(SqlUtil.VIDEO_DESC);
 				String image=res.getString(SqlUtil.VIDEO_IMAGETHUMB);
+				String videoUrl=res.getString("VideoUrl");
 				Video video = new Video(id, title);
+				video.setVideoUrl(videoUrl);
 				video.setDescript(descript);
 				video.setImagesThumb(image);
 				videos.add(video);

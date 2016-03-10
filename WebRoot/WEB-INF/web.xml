@@ -851,6 +851,16 @@
     <servlet-name>UpdatePhone</servlet-name>
     <servlet-class>com.accumulate.userop.UpdatePhone</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ThreeBoardType</servlet-name>
+    <servlet-class>com.accumulate.money.ThreeBoardType</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ThreeBoardIndex</servlet-name>
+    <servlet-class>com.accumulate.finance.ThreeBoardIndex</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -909,5 +919,13 @@
   <servlet-mapping>
     <servlet-name>UpdatePhone</servlet-name>
     <url-pattern>/jucaipen/updatePhone</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ThreeBoardType</servlet-name>
+    <url-pattern>/jucaipen/threeBoardType</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ThreeBoardIndex</servlet-name>
+    <url-pattern>/jucaipen/threeBoardIndex</url-pattern>
   </servlet-mapping>
 </web-app>
