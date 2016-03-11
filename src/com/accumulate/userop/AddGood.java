@@ -30,17 +30,16 @@ public class AddGood extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
-
+  
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html");
+		response.setContentType("text/html  ");
 		PrintWriter out = response.getWriter();
 		String userId=request.getParameter("userId");
 		String commId=request.getParameter("commId");
 		if(StringUtil.isInteger(userId)){
-		    //int uId=Integer.parseInt(userId);
 			if(StringUtil.isInteger(commId)){
 				int cId=Integer.parseInt(commId);
 				//查询评论的赞数
