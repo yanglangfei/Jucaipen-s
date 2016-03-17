@@ -32,9 +32,9 @@ public class NewTextLiveTasker extends TimerTask {
 					int teacherId=textLive.getTeacherId();   
 					FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(teacherId);
 					String nickName=teacher.getNickName();
-				    JSONObject res=XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
-				    //GePushUtils.getInstance().pushAllDev(nickName+"今日直播", title);
-				    System.out.println(res.toString());
+				   // JSONObject res=XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
+				    //GePushUtils.getInstance().pushAllDev(nick Name+"今日直播", title);
+				   // System.out.println(res.toString());
 				}
 			}
 		}

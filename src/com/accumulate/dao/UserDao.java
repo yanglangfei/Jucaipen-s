@@ -10,6 +10,12 @@ import com.accumulate.entity.User;
  *         用户操作类
  */
 public interface UserDao {
+	
+	/**
+	 * @param isLive
+	 * @return    获取直播间在线
+	 */
+	public  List<User> findOnLiveUserByIsLive(int isLive,int page);
 	/**
 	 * @param id
 	 * @return  通过id修改手机号和真实姓名

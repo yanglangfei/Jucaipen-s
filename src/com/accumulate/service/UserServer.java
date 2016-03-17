@@ -244,5 +244,16 @@ public class UserServer {
 		UserDao dao = new UserImp();
 		return dao.updateUserLoginToken(uId, token);
 	}
+	
+	
+	/**
+	 * @param roomId
+	 * @param page
+	 * @return   获取当前直播间用户信息
+	 */
+	public static List<User> findOnLiveRoomUser(int roomId, int page) {
+		UserDao dao = new UserImp();
+		return dao.findOnLiveUserByIsLive(roomId, page);
+	}
 
 }

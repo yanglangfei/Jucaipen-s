@@ -22,8 +22,8 @@ import com.accumulate.utils.JsonUtil;
  */
 @SuppressWarnings("serial")
 public class IndexSchool extends HttpServlet {
-	private String result;
-	private List<Video> sTvs;
+	private String result;      
+	private List<Video> sTvs;  
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

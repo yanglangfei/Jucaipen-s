@@ -11,6 +11,10 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class User implements Serializable {
 	/**
+	 * 对应用户表 ChatType 字段  （1   聚财盆用户    2   金刚用户   不能进直播间  必须扫二维码进入   0  普通用户）
+	 */
+	private int userType;
+	/**
 	 * 用户信息当前页
 	 */
 	private int page;
@@ -130,6 +134,17 @@ public class User implements Serializable {
 	private int serverId;
 	private int isRoomManager;
 	private int buyProductId;
+	
+	
+	
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+
 	/**
 	 * 注册来源  （1：网站PC；2：手机网站；3：直播室PC；4：直播室手机；5：APP）
 	 */

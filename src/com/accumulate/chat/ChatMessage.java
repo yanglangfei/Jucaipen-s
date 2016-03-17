@@ -50,7 +50,7 @@ public class ChatMessage extends HttpServlet {
 			if ((roomId == 1) || (roomId != 1 && userName != null)) {
 				if (msgType == 0 || msgType == 1) {
 					// 更新状态
-					upDateUserState(msgType, fromId);
+					upDateUserState(msgType, fromId,roomId);
 					// 上线、 下线消息
 					if (msgType == 0) {
 						// 启动线程，循环获取信息，并转发给用户
@@ -97,13 +97,13 @@ public class ChatMessage extends HttpServlet {
 	 * @param uId
 	 *            更新用户在线状态
 	 */
-	private void upDateUserState(int msgType, int uId) {
+	private void upDateUserState(int msgType, int uId,int roomId) {
 		int state;
 		// 更新用户在线状态
 		if (msgType == 0) {
-			state = 1;
+			state = roomId;
 		} else {
-			state = 0;
+			state = -1;
 		}
 		UserServer.updateUserIsLiveRoom(state, uId);
 	}

@@ -68,8 +68,8 @@ public class XinGeUtil {
 			xinge = new XingeApp(APP_ID, APP_KEY);
 		}
 		custom.clear();
-		custom.put("chatMessage", msg);
-		message.setCustom(custom);
+		custom.put("chatMessage", msg);    
+		message.setCustom(custom);          
 		message.setContent("1");
 		message.setType(Message.TYPE_MESSAGE);
 		JSONObject ret = xinge.pushSingleAccount(XingeApp.DEVICE_ALL, account,
@@ -77,7 +77,7 @@ public class XinGeUtil {
 		return ret;
 	}
 
-	/**
+	/** 
 	 * @param liveId
 	 * @param title
 	 * @param msg
