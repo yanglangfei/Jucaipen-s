@@ -15,6 +15,17 @@ public class UserServer {
 		return dao.findUser(page);
 
 	}
+	
+	
+	
+	/**
+	 * @param uId
+	 * @return   根据ID获取用户购买直播信息
+	 */
+	public static User findUserPurshInfo(int uId){
+		UserDao dao=new UserImp();
+		return dao.findUserPurshInfo(uId);
+	}
 
 	/**
 	 * @param id

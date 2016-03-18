@@ -43,25 +43,24 @@ public class UserImp implements UserDao {
 		}
 		return 0;
 	}
-	
-	
-	
+
 	/*
 	 * 
-	 *   获取直播间在线用户列表
+	 * 获取直播间在线用户列表
 	 */
-	public List<User> findOnLiveUserByIsLive(int roomId,int page) {
-		int totlePage = findTotlePager("WHERE IsLiveRoom="+roomId);
+	public List<User> findOnLiveUserByIsLive(int roomId, int page) {
+		int totlePage = findTotlePager("WHERE IsLiveRoom=" + roomId);
 		System.out.println("SELECT TOP 15 UserName FROM "
-							+ "(SELECT ROW_NUMBER() OVER (WHERE IsLiveRoom="+roomId+" ORDER BY id ) AS RowNumber,* FROM JCPUser"
-							+ ") A " + "WHERE RowNumber > " + 15 * (page - 1));
+				+ "(SELECT ROW_NUMBER() OVER (WHERE IsLiveRoom=" + roomId
+				+ " ORDER BY id ) AS RowNumber,* FROM JCPUser" + ") A "
+				+ "WHERE RowNumber > " + 15 * (page - 1));
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta
-					.executeQuery("SELECT TOP 15 UserName FROM "
-							+ "(SELECT ROW_NUMBER() OVER (WHERE IsLiveRoom="+roomId+" ORDER BY id ) AS RowNumber,* FROM JCPUser"
-							+ ") A " + "WHERE RowNumber > " + 15 * (page - 1));
+			res = sta.executeQuery("SELECT TOP 15 UserName FROM "
+					+ "(SELECT ROW_NUMBER() OVER (WHERE IsLiveRoom=" + roomId
+					+ " ORDER BY id ) AS RowNumber,* FROM JCPUser" + ") A "
+					+ "WHERE RowNumber > " + 15 * (page - 1));
 			users = getUser(res, page, totlePage);
 			return users;
 		} catch (SQLException e) {
@@ -69,7 +68,6 @@ public class UserImp implements UserDao {
 		}
 		return null;
 	}
-	
 
 	/*
 	 * 用户注册
@@ -136,7 +134,7 @@ public class UserImp implements UserDao {
 				String birthday = res.getString(SqlUtil.USER_BIRTH);
 				String logo = res.getString(SqlUtil.USRE_FACEIMAGE);
 				int RegFrom = res.getInt(SqlUtil.USER_REGFROM);
-				String userName=res.getString(SqlUtil.USER_NAME);
+				String userName = res.getString(SqlUtil.USER_NAME);
 				u = new User();
 				u.setNickName(nickName);
 				u.setSex(sex);
@@ -214,8 +212,8 @@ public class UserImp implements UserDao {
 		}
 		return 0;
 	}
-	
-	//根据用户ID修改用户手机号
+
+	// 根据用户ID修改用户手机号
 	public int updatePhoneById(int id, String tel) {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
@@ -488,6 +486,40 @@ public class UserImp implements UserDao {
 	}
 
 	/*
+	 * 获取用户购买服务信息
+	 */
+	public User findUserPurshInfo(int userId) {
+		User u = null;
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT ISNULL(ServerStartDate,'') ServerStartDate,ISNULL(ServerEndDate,'') ServerEndDate,ServerId,IsRoomManager,BuyProductId,ChatType FROM JCPUser WHERE Id="
+							+ userId);
+			while (res.next()) {
+				String startDate = res.getString(1);
+				String endDate = res.getString(2);
+				int serverId = res.getInt(3);
+				int managerId = res.getInt(4);
+				int productId = res.getInt(5);
+				int userType = res.getInt(6);
+				u = new User();
+				u.setServerStartDate(startDate);
+				u.setServerEndDate(endDate);
+				u.setIsRoomManager(managerId);
+				u.setServerId(serverId);
+				u.setUserType(userType);
+				u.setBuyProductId(productId);
+				return u;
+			}
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/*
 	 * 根据qqId 查询用户信息
 	 */
 	public User findUserByQqopenId(String qqId) {
@@ -579,7 +611,6 @@ public class UserImp implements UserDao {
 
 	/*
 	 * 获取登录成功后的信息
-	 * 
 	 */
 	public User findLoginInfoById(int id) {
 		User user = null;
@@ -590,13 +621,13 @@ public class UserImp implements UserDao {
 					.executeQuery("SELECT UserName,IsRoomManager,BuyProductId,ServerId,RegDate,ChatType FROM JCPUser WHERE Id="
 							+ id);
 			while (res.next()) {
-				String userName=res.getString(1);
-				int isRoom=res.getInt(2);
-				int productId=res.getInt(3);
-				int serverId=res.getInt(4);
-				String reginDate=res.getString(5);
-				int userType=res.getInt(6);
-				user=new User();
+				String userName = res.getString(1);
+				int isRoom = res.getInt(2);
+				int productId = res.getInt(3);
+				int serverId = res.getInt(4);
+				String reginDate = res.getString(5);
+				int userType = res.getInt(6);
+				user = new User();
 				user.setUserType(userType);
 				user.setUserName(userName);
 				user.setRegDate(reginDate);
@@ -672,6 +703,5 @@ public class UserImp implements UserDao {
 		}
 		return null;
 	}
-
 
 }

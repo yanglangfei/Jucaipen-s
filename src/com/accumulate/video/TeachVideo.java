@@ -16,7 +16,9 @@ import com.accumulate.utils.JsonUtil;
  * @author YLF
  * 
  *   根据分类，获取直播视频列表
- *
+ *   
+ *   
+ *   
  */
    
 @SuppressWarnings("serial")
@@ -44,7 +46,6 @@ public class TeachVideo extends HttpServlet {
 
 	private void initData() {
 		rooms=LiveRoomServer.getRoomList();
-
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

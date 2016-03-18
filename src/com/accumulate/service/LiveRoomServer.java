@@ -21,7 +21,7 @@ public class LiveRoomServer {
 
 	/**
 	 * @param id
-	 * @return   根据id 获取直播间视频信息
+	 * @return   根据id 获取直播间视频信息        
 	 */
 	public static ChatRoom getRoomLiveUrl(int id) {
 		LiveRoomDao dao = new LiveRoomImp();

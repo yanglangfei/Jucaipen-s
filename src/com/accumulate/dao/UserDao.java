@@ -12,6 +12,12 @@ import com.accumulate.entity.User;
 public interface UserDao {
 	
 	/**
+	 * @param userId
+	 * @return   获取用户购买服务信息
+	 */
+	public User findUserPurshInfo(int userId);
+	
+	/**
 	 * @param isLive
 	 * @return    获取直播间在线
 	 */
