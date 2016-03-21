@@ -867,6 +867,11 @@
     <servlet-name>VideoPurseInfo</servlet-name>
     <servlet-class>com.accumulate.video.VideoPurseInfo</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DownFile</servlet-name>
+    <servlet-class>com.accumulate.base.DownFile</servlet-class>
+  </servlet>
+
 
 
 
@@ -945,5 +950,9 @@
   <servlet-mapping>
     <servlet-name>VideoPurseInfo</servlet-name>
     <url-pattern>/jucaipen/videoPurseInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownFile</servlet-name>
+    <url-pattern>/jucaipen/downFile</url-pattern>
   </servlet-mapping>
 </web-app>

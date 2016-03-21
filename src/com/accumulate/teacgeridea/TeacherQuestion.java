@@ -35,6 +35,7 @@ public class TeacherQuestion extends HttpServlet {
 	private Question question;
 	private String result;
 	private List<Question> questions=new ArrayList<Question>();
+	private String askName;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -91,7 +92,12 @@ public class TeacherQuestion extends HttpServlet {
 				String nickName=teacher.getNickName();
 				String level = teacher.getLevel();
 				int isV = teacher.getIsV();
-				String askName = user.getUserName();
+				if(user!=null){
+					askName = user.getUserName();
+				}else{
+					 askName ="null";
+				}
+			
 				String askBodys = ask.getAskBody();
 				int isReply = ask.getIsReply();
 				question = new Question(id, image, nickName, level, isV,
