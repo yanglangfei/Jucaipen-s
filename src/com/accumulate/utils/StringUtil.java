@@ -7,17 +7,15 @@ import java.util.regex.Pattern;
 public class StringUtil {
 	public static final String sendPhoneAccount="jcpxxk";
 	public static final String sendPhonePwd="Tch456789";
-
+	private static final String mailPattern="^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+	private static final String phonePattern="^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$";
 	/**
 	 * @param string
 	 * @return ≈–∂œ” œ‰’˝»∑–‘
 	 */
 	public static boolean isMail(String string) {
 		if (null != string) {
-			if (string
-					.matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
-				return true;
-			}
+				return string.matches(mailPattern);
 		}
 		return false;
 	}
@@ -31,10 +29,7 @@ public class StringUtil {
 	public static boolean isMobileNumber(String mobiles) {
 
 		if (null != mobiles) {
-			Pattern p = Pattern
-					.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
-			Matcher m = p.matcher(mobiles);
-			return m.matches();
+			return mobiles.matches(phonePattern);
 		} else {
 			return false;
 		}
@@ -71,7 +66,6 @@ public class StringUtil {
 	 * @return false if null || ""
 	 */
 	public static boolean isNotNull(String string) {
-
 		if (string == null || "".equals(string)) {
 			return false;
 		} else {

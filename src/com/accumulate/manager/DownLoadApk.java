@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -13,6 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.accumulate.utils.JsonUtil;
+import com.accumulate.utils.StringUtil;
 
 /**
  * @author Administrator
@@ -25,6 +29,7 @@ public class DownLoadApk extends HttpServlet {
 	private String rootPath;
 	private String loadPath;
 	private String fileName;
+	private String result;
 	
 	
 	@Override
@@ -39,10 +44,21 @@ public class DownLoadApk extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		fileName = request.getParameter("fileName");
-		loadPath=rootPath+fileName;
-		File apkFile=new File(loadPath);
-		if(apkFile.exists()){
-			downLoadApk(response);
+		if(StringUtil.isNotNull(fileName)){
+			loadPath=rootPath+fileName;
+			File apkFile=new File(loadPath);
+			if(apkFile.exists()){
+				downLoadApk(response);
+				return ;
+			}else{
+				
+			}
+		}else{
+			PrintWriter out=response.getWriter();
+			result=JsonUtil.getRetMsg(1,"下载文件名不能为空");
+			out.write(result);
+			out.flush();
+			out.close();
 		}
 	}
 
@@ -70,10 +86,13 @@ public class DownLoadApk extends HttpServlet {
 			out.close();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			System.out.println("err1");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("err2");
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("err3");
 		}
 		
 	}
