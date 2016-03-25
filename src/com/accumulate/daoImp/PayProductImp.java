@@ -43,6 +43,12 @@ public class PayProductImp implements PayProductDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -61,6 +67,12 @@ public class PayProductImp implements PayProductDao {
 			return payProducts;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -79,6 +91,12 @@ public class PayProductImp implements PayProductDao {
 			payProducts = getPayProducts(res, page, totlePage);
 			return payProducts;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -97,6 +115,12 @@ public class PayProductImp implements PayProductDao {
 			payProducts = getPayProducts(res, page, totlePage);
 			return payProducts;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -114,6 +138,12 @@ public class PayProductImp implements PayProductDao {
 				return payProducts.get(0);
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -132,6 +162,12 @@ public class PayProductImp implements PayProductDao {
 			payProducts = getPayProducts(res, page, totlePage);
 			return payProducts;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -150,6 +186,12 @@ public class PayProductImp implements PayProductDao {
 							* (page - 1));
 			return getPayProducts(res, page, totlePage);
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -166,6 +208,12 @@ public class PayProductImp implements PayProductDao {
 				return payProducts.get(0);
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -179,6 +227,12 @@ public class PayProductImp implements PayProductDao {
 					+ " * FROM Pay_Order_Item ORDER BY ID");
 			return getPayProducts(res, 1, 1);
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -217,6 +271,12 @@ public class PayProductImp implements PayProductDao {
 							+ payProduct.getUserId() + ")");
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -264,6 +324,12 @@ public class PayProductImp implements PayProductDao {
 			return payProducts;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 

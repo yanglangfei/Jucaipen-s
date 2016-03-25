@@ -33,6 +33,12 @@ public class EquityImp implements EquityDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -55,6 +61,12 @@ public class EquityImp implements EquityDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return equities;
 
@@ -77,6 +89,12 @@ public class EquityImp implements EquityDao {
 			return equity;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -97,6 +115,12 @@ public class EquityImp implements EquityDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return equities;
 
@@ -121,6 +145,12 @@ public class EquityImp implements EquityDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return equities;
 
@@ -161,6 +191,12 @@ public class EquityImp implements EquityDao {
 			return equities;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -205,6 +241,12 @@ public class EquityImp implements EquityDao {
 			return equities;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

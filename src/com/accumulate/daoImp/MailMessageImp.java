@@ -29,6 +29,12 @@ public class MailMessageImp implements MailMessageDao {
 			return maList;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -44,6 +50,12 @@ public class MailMessageImp implements MailMessageDao {
 			return maList;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -65,6 +77,12 @@ public class MailMessageImp implements MailMessageDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return 0;
@@ -81,6 +99,12 @@ public class MailMessageImp implements MailMessageDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -96,6 +120,12 @@ public class MailMessageImp implements MailMessageDao {
 			return maList;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -125,6 +155,12 @@ public class MailMessageImp implements MailMessageDao {
 			}
 			return maList;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

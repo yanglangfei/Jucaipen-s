@@ -33,6 +33,12 @@ public class OranizationImp implements OranizationDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -52,6 +58,12 @@ public class OranizationImp implements OranizationDao {
 			return organizations;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -72,6 +84,12 @@ public class OranizationImp implements OranizationDao {
 			return o;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -105,6 +123,12 @@ public class OranizationImp implements OranizationDao {
 			return organizations;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return organizations;
 

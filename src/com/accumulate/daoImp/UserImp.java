@@ -40,6 +40,12 @@ public class UserImp implements UserDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -65,6 +71,12 @@ public class UserImp implements UserDao {
 			return users;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -87,6 +99,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -107,6 +125,12 @@ public class UserImp implements UserDao {
 			return users;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -152,6 +176,12 @@ public class UserImp implements UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -172,6 +202,12 @@ public class UserImp implements UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -192,6 +228,12 @@ public class UserImp implements UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -209,6 +251,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -223,6 +271,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -237,6 +291,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -254,6 +314,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -275,6 +341,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -304,6 +376,12 @@ public class UserImp implements UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -327,6 +405,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -349,6 +433,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -366,6 +456,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -387,6 +483,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -409,6 +511,12 @@ public class UserImp implements UserDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -436,6 +544,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -460,6 +574,12 @@ public class UserImp implements UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -481,6 +601,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -515,6 +641,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -538,6 +670,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -561,6 +699,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -584,6 +728,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -605,6 +755,12 @@ public class UserImp implements UserDao {
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -638,6 +794,12 @@ public class UserImp implements UserDao {
 				return user;
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -700,6 +862,12 @@ public class UserImp implements UserDao {
 			return users;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

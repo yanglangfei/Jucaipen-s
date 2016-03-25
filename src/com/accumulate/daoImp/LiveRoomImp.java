@@ -56,6 +56,12 @@ public class LiveRoomImp implements LiveRoomDao {
 			return chatRooms;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -68,6 +74,12 @@ public class LiveRoomImp implements LiveRoomDao {
 			res = sta.executeQuery("SELECT * FROM Chat_Room WHERE Id=" + id);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -91,6 +103,12 @@ public class LiveRoomImp implements LiveRoomDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

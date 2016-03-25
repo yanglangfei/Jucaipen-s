@@ -9,7 +9,6 @@ import com.accumulate.entity.FamousTeacher;
 import com.accumulate.entity.TextLive;
 import com.accumulate.service.FamousTeacherSer;
 import com.accumulate.service.TxtLiveSer;
-import com.accumulate.utils.GePushUtils;
 import com.accumulate.utils.TimeUtils;
 import com.accumulate.utils.XinGeUtil;
 
@@ -32,7 +31,7 @@ public class NewTextLiveTasker extends TimerTask {
 					int teacherId=textLive.getTeacherId();   
 					FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(teacherId);
 					String nickName=teacher.getNickName();
-				   // JSONObject res=XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
+				    JSONObject res=XinGeUtil.getInstance(false).pushAllDevice(id,nickName+"今日直播", title);
 				    //GePushUtils.getInstance().pushAllDev(nick Name+"今日直播", title);
 				   // System.out.println(res.toString());
 				}

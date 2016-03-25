@@ -2,6 +2,7 @@ package com.accumulate.daoImp;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.accumulate.dao.SiteConfigDao;
@@ -30,6 +31,12 @@ public class SiteConfigImp implements SiteConfigDao {
 			}
 			return config;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(state, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

@@ -31,6 +31,12 @@ public class FeedBackImp implements FeedBackDao {
 					+ "'," + feedBack.getType() + ")");
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -45,6 +51,12 @@ public class FeedBackImp implements FeedBackDao {
 			return feedBacks;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -60,6 +72,12 @@ public class FeedBackImp implements FeedBackDao {
 			return feedBacks;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -75,6 +93,12 @@ public class FeedBackImp implements FeedBackDao {
 			return feedBacks;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -93,6 +117,12 @@ public class FeedBackImp implements FeedBackDao {
 			return feedBacks;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -109,6 +139,12 @@ public class FeedBackImp implements FeedBackDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -132,6 +168,12 @@ public class FeedBackImp implements FeedBackDao {
 			return feedBacks;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

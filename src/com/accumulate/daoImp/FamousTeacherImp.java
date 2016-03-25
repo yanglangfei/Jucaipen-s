@@ -39,6 +39,12 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 
@@ -66,6 +72,12 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			return teachers;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 
@@ -84,6 +96,12 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			return teachers;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return null;
@@ -114,6 +132,12 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			return teachers;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return null;
@@ -132,6 +156,12 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return null;
@@ -205,6 +235,12 @@ public class FamousTeacherImp implements FamousTeacherDao {
 			return teachers;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 		

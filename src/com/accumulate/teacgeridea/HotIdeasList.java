@@ -1,8 +1,12 @@
 package com.accumulate.teacgeridea;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +18,7 @@ import com.accumulate.entity.FamousTeacher;
 import com.accumulate.entity.HotIdea;
 import com.accumulate.service.FamousTeacherSer;
 import com.accumulate.service.HotIdeaServ;
+import com.accumulate.utils.Compress;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
 
@@ -24,7 +29,7 @@ import com.accumulate.utils.StringUtil;
  * 
  */
 @SuppressWarnings("serial")
-public class HotIdeasList extends HttpServlet {
+public class HotIdeasList extends HttpServlet{
 	private List<HotIdea> hotIdeas;
 	private String result;
 	private List<FamousTeacher> teachers=new ArrayList<FamousTeacher>();
@@ -50,6 +55,7 @@ public class HotIdeasList extends HttpServlet {
 					int p = Integer.parseInt(page);
 					initAllHotIdeasData(p);
 					result = JsonUtil.getAllHotIdeaList(hotIdeas,teachers);
+					//sendData(response,result);
 				} else {
 					//页数参数异常
 					result = JsonUtil.getRetMsg(2, "分页参数数字格式化异常");
@@ -64,6 +70,44 @@ public class HotIdeasList extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	
+	
+	
+	
+	/*
+	public void sendData(HttpServletResponse response,String res){
+		byte data[]=res.getBytes();
+		ByteArrayOutputStream bos=new ByteArrayOutputStream();
+		OutputStream os=null;
+		try { 
+			os=response.getOutputStream();
+			//如果要返回的结果字节数组小于50位，不将压缩
+			if(data.length<Compress.BYTE_MIN_LENGTH){
+				byte flagByte=Compress.FLAG_GBK_STRING_UNCOMPRESSED_BYTEARRAY;
+				bos.write(flagByte);
+				bos.write(data);
+			}else{
+				byte flagByte=Compress.FLAG_GBK_STRING_COMPRESSED_BYTEARRAY;
+				bos.write(flagByte);
+				bos.write(Compress.byteCompress(data));
+			}
+			bos.flush();
+			bos.close();
+			//将最后组织后的字节数组发送给客户端
+			os.write(bos.toByteArray());
+			Date d=new Date();
+			long after=d.getTime();
+			System.out.println("after:"+after);
+		} catch (Exception e) {
+		}finally{
+			try {
+				os.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}*/
 
 	private void initAllHotIdeasData(int p) {
 		// 分页查询所有数据
@@ -88,7 +132,6 @@ public class HotIdeasList extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
 
 

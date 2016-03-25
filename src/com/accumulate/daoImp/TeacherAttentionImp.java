@@ -34,6 +34,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 
@@ -52,6 +58,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			return isSuccess;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -65,6 +77,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			isSuccess=sta.executeUpdate("DELETE FROM JCPTearch_Attention WHERE UserId="+uId+" AND TearchId="+tId);
 		    return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -81,6 +99,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			return teacherAttentions;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -97,6 +121,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			return teacherAttentions;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -119,6 +149,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			return teacherAttentions;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -136,6 +172,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -156,6 +198,12 @@ public class TeacherAttentionImp implements TeacherAttentionDao {
 			return teacherAttentions;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

@@ -27,6 +27,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 			slList=getTexLiveSales(res);
 			return slList;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -40,6 +46,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 			slList=getTexLiveSales(res);
 			return slList;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -53,6 +65,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 			slList=getTexLiveSales(res);
 			return slList;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -66,6 +84,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 			slList=getTexLiveSales(res);
 			return slList;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -81,6 +105,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 				return slList.get(0);
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -96,6 +126,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 				return slList.get(0);
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -111,6 +147,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 				return slList.get(0);
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -124,6 +166,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 		    slList=getTexLiveSales(res);
 			return slList;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -144,6 +192,12 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 			return slList;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

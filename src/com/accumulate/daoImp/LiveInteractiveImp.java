@@ -34,6 +34,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 
@@ -57,6 +63,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 							+ interactive.getParentaId() + ")");
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -70,6 +82,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			lInteractives = getLiveInteractive(res,1,1);
 			return lInteractives;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -84,6 +102,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			lInteractives = getLiveInteractive(res,1,1);
 			return lInteractives;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -99,6 +123,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			lInteractives = getLiveInteractive(res,page,totlePage);
 			return lInteractives;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -116,6 +146,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			lInteractives = getLiveInteractive(res,1,1);
 			return lInteractives;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -130,6 +166,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 				return lInteractives.get(0);
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -157,6 +199,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			return lInteractives;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

@@ -39,6 +39,12 @@ public class HotIdeaImp implements HotIdeaDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 
@@ -53,6 +59,12 @@ public class HotIdeaImp implements HotIdeaDao {
 					+ hits + " WHERE Id=" + ideaId);
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -67,6 +79,12 @@ public class HotIdeaImp implements HotIdeaDao {
 							+ commCount + " WHERE Id=" + ideaId);
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -80,6 +98,12 @@ public class HotIdeaImp implements HotIdeaDao {
 					+ googs + " WHERE Id=" + ideaId);
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -105,6 +129,12 @@ public class HotIdeaImp implements HotIdeaDao {
 				return idea;
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -116,7 +146,7 @@ public class HotIdeaImp implements HotIdeaDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT TOP 15 Id,InsertDate,Title,Bodys,Hits,TearchId FROM "
+					.executeQuery("SELECT TOP 10 Id,InsertDate,Title,Bodys,Hits,TearchId FROM "
 							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveLog) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			while (res.next()) {
@@ -140,6 +170,12 @@ public class HotIdeaImp implements HotIdeaDao {
 			return ideas;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -168,6 +204,12 @@ public class HotIdeaImp implements HotIdeaDao {
 			return ideas;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -186,6 +228,12 @@ public class HotIdeaImp implements HotIdeaDao {
 			return ideas;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -216,6 +264,12 @@ public class HotIdeaImp implements HotIdeaDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -254,6 +308,12 @@ public class HotIdeaImp implements HotIdeaDao {
 			return ideas;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 

@@ -41,6 +41,12 @@ public class PayOrderImp implements PayOrderDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -58,6 +64,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, page, totlePage);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -76,6 +88,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, page, totlePage);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -94,6 +112,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, page, totlePage);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -112,6 +136,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, page, totlePage);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -130,6 +160,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, page, totlePage);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -148,6 +184,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, page, totlePage);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -162,6 +204,12 @@ public class PayOrderImp implements PayOrderDao {
 			payOrders = getPayOrder(res, 1, 1);
 			return payOrders;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -179,6 +227,12 @@ public class PayOrderImp implements PayOrderDao {
 				return order;
 			}
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -193,6 +247,12 @@ public class PayOrderImp implements PayOrderDao {
 					+ orderCode + "'");
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -212,6 +272,12 @@ public class PayOrderImp implements PayOrderDao {
 							payOrder.getFromTeacherId()+","+payOrder.getIsDelete()+")");
 			return isSuccess;
 		} catch (Exception e) {
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return -1;
 	}
@@ -266,6 +332,12 @@ public class PayOrderImp implements PayOrderDao {
 			return payOrders;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 

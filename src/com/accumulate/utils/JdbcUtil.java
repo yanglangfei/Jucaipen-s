@@ -160,5 +160,24 @@ public class JdbcUtil {
 			return connTestSqlServer();
 		}
 	}
+	
+	
+	/**
+	 * @param s
+	 * @param conn
+	 * @param r
+	 * @throws SQLException  ¹Ø±ÕÊý¾Ý¿â
+	 */
+	public static  void closeConn(Statement s,Connection conn,ResultSet r) throws SQLException{
+		if(s!=null){
+			s.close();
+		}
+		if(r!=null){
+			r.close();
+		}
+		if(conn!=null){
+			conn.close();
+		}
+	}
 
 }
