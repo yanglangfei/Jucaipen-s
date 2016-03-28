@@ -24,7 +24,7 @@ public class HttpUtils {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Proxy-Connection", "Keep-Alive");
-			conn.setRequestProperty("accept", "*/");
+			conn.setRequestProperty("accept", "*/");      
 			conn.setReadTimeout(1000 * 5);
 			conn.setConnectTimeout(1000 * 5);
 			conn.setDoInput(true);

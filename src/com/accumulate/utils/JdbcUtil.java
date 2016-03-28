@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 /**
  * @author YLF
@@ -68,8 +69,12 @@ public class JdbcUtil {
 	public static Connection connSqlServer() {
 		try {
 			Class.forName(SQLSERVER_DRIVER);
-			dbConn = DriverManager.getConnection(SQLSERVER_URL,
-					SQLSERVER_UNAME, SQLSERVER_UPWD);
+			Properties p=new Properties();
+			p.put("user", SQLSERVER_UNAME);
+			p.put("password", SQLSERVER_UPWD);
+			p.put("defaultRowPrefetch", "30");
+			p.put("defaultBatchValue", "5");
+			dbConn=DriverManager.getConnection(SQLSERVER_URL, p);
 			return dbConn;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -88,6 +93,12 @@ public class JdbcUtil {
 	public static Connection connTestSqlServer(){
 		try {
 			Class.forName(SQLSERVER_DRIVER_TEST);
+			Properties p=new Properties();
+			p.put("user", SQLSERVER_UNAME_TEST);
+			p.put("password", SQLSERVER_UPWD_TEST);
+			p.put("defaultRowPrefetch", "30");
+			p.put("defaultBatchValue", "5");
+			dbConn=DriverManager.getConnection(SQLSERVER_URL_TEST, p);
 			dbConn = DriverManager.getConnection(SQLSERVER_URL_TEST,
 					SQLSERVER_UNAME_TEST, SQLSERVER_UPWD_TEST);
 			return dbConn;
@@ -107,8 +118,12 @@ public class JdbcUtil {
 	public static Connection connVideoSqlServer(){
 		try {
 			Class.forName(SQLSERVER_DRIVER_VIDEO);
-			dbConn = DriverManager.getConnection(SQLSERVER_URL_VIDEO,
-					SQLSERVER_UNAME_VIDEO, SQLSERVER_UPWD_VIDEO);
+			Properties p=new Properties();
+			p.put("user", SQLSERVER_UNAME_VIDEO);
+			p.put("password", SQLSERVER_UPWD_VIDEO);
+			p.put("defaultRowPrefetch", "30");
+			p.put("defaultBatchValue", "5");
+			dbConn = DriverManager.getConnection(SQLSERVER_URL_VIDEO,p);
 			return dbConn;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -122,7 +137,12 @@ public class JdbcUtil {
 	public void connDerby(){
 		try {
 			Class.forName(DERBY_DRIVER);
-			dbConn=DriverManager.getConnection(DERBY_URL,DERBY_UNAME,DERBY_PWD);
+			Properties p=new Properties();
+			p.put("user", DERBY_UNAME);
+			p.put("password", DERBY_PWD);
+			p.put("defaultRowPrefetch", "30");
+			p.put("defaultBatchValue", "5");
+			dbConn=DriverManager.getConnection(DERBY_URL,p);
 			Statement sta=dbConn.createStatement();
 			ResultSet res=sta.executeQuery("SELECT ID FROM APKINFO");
 			while (res.next()) {
@@ -139,8 +159,12 @@ public class JdbcUtil {
 		try {
 			try {
 				Class.forName(MYSQL_DRIVER);
-				dbConn = DriverManager.getConnection(MYSQL_URL, MYSQL_UNAME,
-						MYSQL_UPWD);
+				Properties p=new Properties();
+				p.put("user", MYSQL_UNAME);
+				p.put("password", MYSQL_UPWD);
+				p.put("defaultRowPrefetch", "30");
+				p.put("defaultBatchValue", "5");
+				dbConn = DriverManager.getConnection(MYSQL_URL,p);
 				return dbConn;
 			} catch (SQLException e) {
 				e.printStackTrace();
