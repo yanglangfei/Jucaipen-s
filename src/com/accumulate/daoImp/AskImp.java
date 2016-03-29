@@ -24,6 +24,7 @@ public class AskImp implements AskDao {
 	public int findTotlePage(String condition) {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
+			dbConn.setAutoCommit(false);
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_Ask "

@@ -1,17 +1,18 @@
 package com.accumulate.teacgeridea;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.sql.DataSource;
 import com.accumulate.entity.Ask;
 import com.accumulate.service.AskSer;
-import com.accumulate.utils.JsonUtil;
+import com.accumulate.utils.JsonUtil;         
 import com.accumulate.utils.StringUtil;
 
 /**
@@ -19,14 +20,14 @@ import com.accumulate.utils.StringUtil;
  * 
  *  提问列表  whichPage   0   首页数据
  *                    1   所有数据
- *
+ *       
  */
 @SuppressWarnings("serial")
-public class AskList extends HttpServlet {
-
-	
+public class AskList extends HttpServlet {   
 	private List<Ask> asks;
 	private String result;
+	private DataSource source;
+	
 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,11 +48,10 @@ public class AskList extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-
+	
 	
 	private void initAskData(int page) {
 		asks=AskSer.findAllAsk(page);
-		
 	}
 
 

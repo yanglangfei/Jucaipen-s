@@ -68,7 +68,7 @@ public class JdbcUtil {
 	 */
 	public static Connection connSqlServer() {
 		try {
-			Class.forName(SQLSERVER_DRIVER);
+			Class.forName(SQLSERVER_DRIVER).newInstance();
 			Properties p=new Properties();
 			p.put("user", SQLSERVER_UNAME);
 			p.put("password", SQLSERVER_UPWD);
@@ -76,9 +76,7 @@ public class JdbcUtil {
 			p.put("defaultBatchValue", "5");
 			dbConn=DriverManager.getConnection(SQLSERVER_URL, p);
 			return dbConn;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -92,7 +90,7 @@ public class JdbcUtil {
 	 */
 	public static Connection connTestSqlServer(){
 		try {
-			Class.forName(SQLSERVER_DRIVER_TEST);
+			Class.forName(SQLSERVER_DRIVER_TEST).newInstance();
 			Properties p=new Properties();
 			p.put("user", SQLSERVER_UNAME_TEST);
 			p.put("password", SQLSERVER_UPWD_TEST);
@@ -102,9 +100,7 @@ public class JdbcUtil {
 			dbConn = DriverManager.getConnection(SQLSERVER_URL_TEST,
 					SQLSERVER_UNAME_TEST, SQLSERVER_UPWD_TEST);
 			return dbConn;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -117,7 +113,7 @@ public class JdbcUtil {
 	 */
 	public static Connection connVideoSqlServer(){
 		try {
-			Class.forName(SQLSERVER_DRIVER_VIDEO);
+			Class.forName(SQLSERVER_DRIVER_VIDEO).newInstance();
 			Properties p=new Properties();
 			p.put("user", SQLSERVER_UNAME_VIDEO);
 			p.put("password", SQLSERVER_UPWD_VIDEO);
@@ -125,9 +121,7 @@ public class JdbcUtil {
 			p.put("defaultBatchValue", "5");
 			dbConn = DriverManager.getConnection(SQLSERVER_URL_VIDEO,p);
 			return dbConn;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -136,7 +130,7 @@ public class JdbcUtil {
 	
 	public void connDerby(){
 		try {
-			Class.forName(DERBY_DRIVER);
+			Class.forName(DERBY_DRIVER).newInstance();
 			Properties p=new Properties();
 			p.put("user", DERBY_UNAME);
 			p.put("password", DERBY_PWD);
@@ -157,19 +151,15 @@ public class JdbcUtil {
 	 */
 	public static Connection connMySql() {
 		try {
-			try {
-				Class.forName(MYSQL_DRIVER);
-				Properties p=new Properties();
-				p.put("user", MYSQL_UNAME);
-				p.put("password", MYSQL_UPWD);
-				p.put("defaultRowPrefetch", "30");
-				p.put("defaultBatchValue", "5");
-				dbConn = DriverManager.getConnection(MYSQL_URL,p);
-				return dbConn;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
+			Class.forName(MYSQL_DRIVER).newInstance();
+			Properties p=new Properties();
+			p.put("user", MYSQL_UNAME);
+			p.put("password", MYSQL_UPWD);
+			p.put("defaultRowPrefetch", "30");
+			p.put("defaultBatchValue", "5");
+			dbConn = DriverManager.getConnection(MYSQL_URL,p);
+			return dbConn;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

@@ -25,12 +25,12 @@ public class VideoImp implements VideoDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select * from JCPVideo order by InsertDate desc");
+					.executeQuery("select Id,Title,Images,ImagesThumb from JCPVideo order by InsertDate desc");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String title = res.getString(SqlUtil.VIDEO_TITLE);
-				String Images = res.getString(SqlUtil.VIDEO_IMAGES);
-				String ImagesThumb = res.getString(SqlUtil.VIDEO_IMAGETHUMB);
+				int id = res.getInt(1);
+				String title = res.getString(2);
+				String Images = res.getString(3);
+				String ImagesThumb = res.getString(4);
 				Video video = new Video(id, title);
 				video.setImages(Images);
 				video.setImagesThumb(ImagesThumb);
@@ -54,14 +54,14 @@ public class VideoImp implements VideoDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("select * from JCPVideo where ClassId="
+			res = sta.executeQuery("select Id,Title,Images,ImagesThumb,IsMySiteVideo from JCPVideo where ClassId="
 					+ classId + " order by InsertDate desc");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String title = res.getString(SqlUtil.VIDEO_TITLE);
-				String Images = res.getString(SqlUtil.VIDEO_IMAGES);
-				String ImagesThumb = res.getString(SqlUtil.VIDEO_IMAGETHUMB);
-				int isMySiteVideo = res.getInt("IsMySiteVideo");
+				int id = res.getInt(1);
+				String title = res.getString(2);
+				String Images = res.getString(3);
+				String ImagesThumb = res.getString(4);
+				int isMySiteVideo = res.getInt(5);
 				Video video = new Video(id, title);
 				video.setImages(Images);
 				video.setIsMySiteVideo(isMySiteVideo);

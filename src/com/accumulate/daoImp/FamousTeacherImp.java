@@ -110,16 +110,16 @@ public class FamousTeacherImp implements FamousTeacherDao {
 	public List<FamousTeacher> findFamousTeacherByIndex(int count) {
 		teachers.clear();
 		try {
-			dbConn=JdbcUtil.connSqlServer();
+			dbConn=JdbcUtil.connSqlServer();      
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT TOP "+count+" * FROM JCPTearch ORDER BY LiveRenQi DESC");
+			res=sta.executeQuery("SELECT TOP "+count+" Id,IsV,NickName,HeadFace,TouXian,Jianjie FROM JCPTearch ORDER BY LiveRenQi DESC");
 			while (res.next()) {
-				int id=res.getInt("Id");
-				int isV=res.getInt("IsV");
-				String nickName=res.getString("NickName");
-				String headFace=res.getString("HeadFace");
-				String touxian=res.getString("TouXian");
-				String introduce=res.getString("Jianjie");
+				int id=res.getInt(1);   
+				int isV=res.getInt(2);
+				String nickName=res.getString(3);
+				String headFace=res.getString(4);
+				String touxian=res.getString(5);
+				String introduce=res.getString(6);
 				FamousTeacher famousTeacher=new FamousTeacher();
 				famousTeacher.setId(id);
 				famousTeacher.setIsV(isV);
