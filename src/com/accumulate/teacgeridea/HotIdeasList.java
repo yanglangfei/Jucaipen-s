@@ -1,12 +1,7 @@
 package com.accumulate.teacgeridea;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,7 +13,6 @@ import com.accumulate.entity.FamousTeacher;
 import com.accumulate.entity.HotIdea;
 import com.accumulate.service.FamousTeacherSer;
 import com.accumulate.service.HotIdeaServ;
-import com.accumulate.utils.Compress;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
 
@@ -113,12 +107,10 @@ public class HotIdeasList extends HttpServlet{
 		// 分页查询所有数据
 		teachers.clear();
 		hotIdeas = HotIdeaServ.findAllHotIdea(p);
-		if(hotIdeas.size()>0){
 			for(HotIdea idea :hotIdeas){
 				int teacherId=idea.getTeacherId();
 				FamousTeacher teacher=FamousTeacherSer.findFamousTeacherById(teacherId);
 				teachers.add(teacher);
-			}
 		}
 
 	}

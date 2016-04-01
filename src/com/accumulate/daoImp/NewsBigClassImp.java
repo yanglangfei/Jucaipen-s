@@ -6,11 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.accumulate.dao.NewsBigDao;
 import com.accumulate.entity.NewsBigClass;
 import com.accumulate.utils.JdbcUtil;
-import com.accumulate.utils.SqlUtil;
 
 public class NewsBigClassImp implements NewsBigDao {
 	private Connection dbConn;
@@ -24,17 +22,17 @@ public class NewsBigClassImp implements NewsBigDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("select * from JCPNewsBigClass");
+			res = sta.executeQuery("select 	Id,BigName,KeyWord,Description,TempleteName,FilePath,LinkUrl,PxId from JCPNewsBigClass");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String BigName = res.getString(SqlUtil.NEWONECLASS_BIGNAME);
-				String KeyWord = res.getString(SqlUtil.NEWONECLASS_KEYWORD);
-				String Description = res.getString(SqlUtil.NEWONECLASS_DESC);
+				int id = res.getInt(1);
+				String BigName = res.getString(2);
+				String KeyWord = res.getString(3);
+				String Description = res.getString(4);
 				String TempleteName = res
-						.getString(SqlUtil.NEWONECLASS_MODELNAME);
-				String FilePath = res.getString(SqlUtil.NEWONECLASS_FILEPATH);
-				String LinkUrl = res.getString(SqlUtil.NEWONECLASS_LINKURL);
-				int sortId = res.getInt(SqlUtil.NEWONECLASS_SORTID);
+						.getString(5);
+				String FilePath = res.getString(6);
+				String LinkUrl = res.getString(7);
+				int sortId = res.getInt(8);
 				NewsBigClass nBigClass = new NewsBigClass(id, BigName, KeyWord,
 						Description, TempleteName, FilePath, sortId);
 				nBigClass.setLinkUrl(LinkUrl);
@@ -60,17 +58,17 @@ public class NewsBigClassImp implements NewsBigDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("select * from JCPNewsBigClass where Id="
+			res = sta.executeQuery("select BigName,KeyWord,Description,TempleteName,FilePath,LinkUrl,PxId from JCPNewsBigClass where Id="
 					+ id);
 			while (res.next()) {
-				String BigName = res.getString(SqlUtil.NEWONECLASS_BIGNAME);
-				String KeyWord = res.getString(SqlUtil.NEWONECLASS_KEYWORD);
-				String Description = res.getString(SqlUtil.NEWONECLASS_DESC);
+				String BigName = res.getString(1);
+				String KeyWord = res.getString(2);
+				String Description = res.getString(3);
 				String TempleteName = res
-						.getString(SqlUtil.NEWONECLASS_MODELNAME);
-				String FilePath = res.getString(SqlUtil.NEWONECLASS_FILEPATH);
-				String LinkUrl = res.getString(SqlUtil.NEWONECLASS_LINKURL);
-				int sortId = res.getInt(SqlUtil.NEWONECLASS_SORTID);
+						.getString(4);
+				String FilePath = res.getString(5);
+				String LinkUrl = res.getString(6);
+				int sortId = res.getInt(7);
 				NewsBigClass nBigClass = new NewsBigClass(id, BigName, KeyWord,
 						Description, TempleteName, FilePath, sortId);
 				nBigClass.setLinkUrl(LinkUrl);

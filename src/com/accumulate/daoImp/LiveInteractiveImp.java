@@ -30,7 +30,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_LiveInteractive "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -50,8 +50,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			isSuccess = sta
-					.executeUpdate("INSERT INTO JCPTearch_LiveInteractive "
+			isSuccess = sta.executeUpdate("INSERT INTO JCPTearch_LiveInteractive "
 							+ "(LiveId,UserId,DeviceType,InsertDate,Bodys,IsPass,Ip,ParentId)"
 							+ "VALUES (" + interactive.getLiveId() + ","
 							+ interactive.getUserId() + ","
@@ -117,9 +116,10 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_LiveInteractive WHERE LiveId="
-							+ liveId + " ORDER BY InsertDate DESC");
+			res=sta.executeQuery("SELECT TOP 15 * FROM "
+								+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveInteractive WHERE LiveId="+liveId+") A "
+								+ "WHERE RowNumber > " + 15 * (page - 1));
+			
 			lInteractives = getLiveInteractive(res,page,totlePage);
 			return lInteractives;
 		} catch (Exception e) {

@@ -29,7 +29,7 @@ public class EquityImp implements EquityDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPGuquanItem "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -171,13 +171,13 @@ public class EquityImp implements EquityDao {
 							+ "isNull(zhuanranggushu,'') zhuanranggushu,gufenmingcheng"
 							+ " from JCPGuquanItem " + "order by Id desc");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.EQUITY_ID);
-				String simpleName = res.getString(SqlUtil.EQUITY_SIMPLENAME);
-				String investmentThreshold = res.getString(SqlUtil.EQUITY_IT);
-				String transferNum = res.getString(SqlUtil.EQUITY_TRANSNUM);
-				String equityImage = res.getString(SqlUtil.EQUITY_IMAGE);
-				String ownName=res.getString(SqlUtil.EQUITY_NAME);
-				String intend=res.getString(SqlUtil.EQUITY_INTENDSTRANSFER);
+				int id = res.getInt(1);
+				String simpleName = res.getString(2);
+				String investmentThreshold = res.getString(4);
+				String transferNum = res.getString(6);
+				String equityImage = res.getString(3);
+				String ownName=res.getString(7);
+				String intend=res.getString(5);
 				Equity eq = new Equity();
 				eq.setOwnName(ownName);
 				eq.setInvestmentThreshold(investmentThreshold);

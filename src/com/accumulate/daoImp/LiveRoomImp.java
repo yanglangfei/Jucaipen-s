@@ -6,11 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.accumulate.dao.LiveRoomDao;
 import com.accumulate.entity.ChatRoom;
 import com.accumulate.utils.JdbcUtil;
-import com.accumulate.utils.SqlUtil;
 
 /**
  * @author Administrator
@@ -32,14 +30,14 @@ public class LiveRoomImp implements LiveRoomDao {
 			sta = dbConn.createStatement();
 			res = sta.executeQuery("SELECT UserLevel,RoomFace,ShiTingDay,RoomType,IsStopYouke,Id,RoomName,LiveUrl FROM Chat_Room");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String roomName = res.getString("RoomName");
-				int IsStopYouke=res.getInt("IsStopYouke");
-				int ShiTingDay=res.getInt("ShiTingDay");
-				String roomFace=res.getString("RoomFace");
-				String UserLevel=res.getString("UserLevel");
-				String liveUrl=res.getString("LiveUrl");
-				int roomType=res.getInt("RoomType");
+				int id = res.getInt(6);
+				String roomName = res.getString(7);
+				int IsStopYouke=res.getInt(5);
+				int ShiTingDay=res.getInt(3);
+				String roomFace=res.getString(2);
+				String UserLevel=res.getString(1);
+				String liveUrl=res.getString(8);
+				int roomType=res.getInt(4);
 				if(roomType==0){
 					ChatRoom room = new ChatRoom();
 					room.setId(id);
@@ -96,7 +94,7 @@ public class LiveRoomImp implements LiveRoomDao {
 			res = sta.executeQuery("SELECT LiveUrl FROM Chat_Room WHERE Id="
 					+ id);
 			while (res.next()) {
-				String liveUrl = res.getString("LiveUrl");
+				String liveUrl = res.getString(1);
 				ChatRoom room = new ChatRoom();
 				room.setLiveUrl(liveUrl);
 				return room;

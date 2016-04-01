@@ -57,8 +57,8 @@ public class ApkInfoImp implements ApkInfoDao {
 			res = sta
 					.executeQuery("SELECT  versionCode,apkUrl FROM versionInfo ORDER BY versionCode DESC LIMIT 0,1");
 			while (res.next()) {
-				int versionCode = res.getInt("versionCode");
-				String apkPath = res.getString("apkUrl");
+				int versionCode = res.getInt(1);
+				String apkPath = res.getString(2);
 				apkInfo = new ApkInfo();
 				apkInfo.setApkPath(apkPath);
 				apkInfo.setVersionCode(versionCode);
@@ -85,13 +85,13 @@ public class ApkInfoImp implements ApkInfoDao {
 		try {
 			dbConn = JdbcUtil.connMySql();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT * FROM versionInfo");
+			res = sta.executeQuery("SELECT Id,pkgName,versionCode,versionName,apkUrl FROM versionInfo");
 			while (res.next()) {
-				int id = res.getInt("Id");
-				String pkgName = res.getString("pkgName");
-				int versionCode = res.getInt("versionCode");
-				String versionName = res.getString("versionName");
-				String apkUrl = res.getString("apkUrl");
+				int id = res.getInt(1);
+				String pkgName = res.getString(2);
+				int versionCode = res.getInt(3);
+				String versionName = res.getString(4);
+				String apkUrl = res.getString(5);
 				ApkInfo info = new ApkInfo();
 				info.setId(id);
 				info.setPkgName(pkgName);

@@ -23,7 +23,7 @@ import com.accumulate.utils.JdbcUtil;
  */
 public class PayProductImp implements PayProductDao {
 	private List<PayProduct> payProducts = new ArrayList<PayProduct>();
-	private Connection dbConn;
+	private Connection dbConn;      
 	private Statement sta;
 	private ResultSet res;
 	private int isSuccess;
@@ -39,7 +39,7 @@ public class PayProductImp implements PayProductDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from Pay_Order_Item "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();

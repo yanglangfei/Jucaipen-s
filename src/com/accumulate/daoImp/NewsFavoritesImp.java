@@ -106,7 +106,7 @@ public class NewsFavoritesImp implements NewsFavoritesDao {
 					.executeQuery("select Id from JCPNews_Favorites where UserId="
 							+ uId + " and NewsId=" + nId);
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
+				int id = res.getInt(1);
 				newsFavorites = new NewsFavorites();
 				newsFavorites.setId(id);
 			}

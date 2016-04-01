@@ -22,7 +22,7 @@ public class ChatFaceImp implements ChatFaceDao {
 		try {
 			dbConn=JdbcUtil.connVideoSqlServer();
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT * FROM Chat_Face");
+			res=sta.executeQuery("SELECT Id,FaceUrl,FaceTitle,PxId FROM Chat_Face");
 			chatFaces=getChatFace(res);
 			return chatFaces;
 		} catch (SQLException e) {
@@ -44,7 +44,7 @@ public class ChatFaceImp implements ChatFaceDao {
 		try {
 			dbConn=JdbcUtil.connVideoSqlServer();
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT * FROM Chat_Face");
+			res=sta.executeQuery("SELECT Id,FaceUrl,FaceTitle,PxId FROM Chat_Face");
 			chatFaces=getChatFace(res);
 			if(chatFaces!=null&&chatFaces.size()>0){
 				return chatFaces.get(0);
@@ -69,10 +69,10 @@ public class ChatFaceImp implements ChatFaceDao {
 		chatFaces.clear();
 		try {
 			while (result.next()) {
-				int Id=result.getInt("Id");
-				String FaceUrl=result.getString("FaceUrl");
-				String FaceTitle=result.getString("FaceTitle");
-				int PxId=result.getInt("PxId");
+				int Id=result.getInt(1);
+				String FaceUrl=result.getString(2);
+				String FaceTitle=result.getString(3);
+				int PxId=result.getInt(4);
 				ChatFace face=new ChatFace();
 				face.setId(Id);
 				face.setPxId(PxId);

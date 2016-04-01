@@ -30,7 +30,7 @@ public class EquityFavoritesImp implements EquityFavoritesDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPGuquanItem_Favorites "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -164,7 +164,7 @@ public class EquityFavoritesImp implements EquityFavoritesDao {
 					.executeQuery("select Id from JCPGuquanItem_Favorites where UserId="
 							+ uId+" and ProductId="+eId);
 			while (res.next()) {
-				int id=res.getInt(SqlUtil.NEWS_ID);
+				int id=res.getInt(1);
 				ef=new EquityFavorites();
 				ef.setId(id);
 			}

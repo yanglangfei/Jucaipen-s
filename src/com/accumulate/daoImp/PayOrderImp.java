@@ -37,7 +37,7 @@ public class PayOrderImp implements PayOrderDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from Pay_order "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -29,7 +29,7 @@ public class AreaImp implements AreaDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPEare "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -37,7 +37,7 @@ public class NewsImp implements NewsDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPNews "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -402,11 +402,11 @@ public class NewsImp implements NewsDao {
 					.executeQuery("select top 4 Id,Title,ImagesThumb,ImageUrl,Description from JCPNews where  BigId="
 							+ bigId + "  order by InsertDate desc,Id desc");
 			while (res.next()) {
-				String title = res.getString(SqlUtil.NEWS_TITLE);
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String images = res.getString(SqlUtil.NEW_IMAGE);
-				String imageThumb = res.getString(SqlUtil.NEWS_IMAGETHUMB);
-				String descript = res.getString(SqlUtil.NEWS_DES);
+				String title = res.getString(2);
+				int id = res.getInt(1);
+				String images = res.getString(4);
+				String imageThumb = res.getString(3);
+				String descript = res.getString(5);
 				News n = new News(id);
 				n.setTitle(title);
 				n.setDescript(descript);
@@ -441,11 +441,11 @@ public class NewsImp implements NewsDao {
 					.executeQuery("select top 3 Id,Title,ImagesThumb,ImageUrl,Description from JCPNews where LEN(ImagesThumb)>0 AND BigId="
 							+ bigId + "  order by InsertDate desc,Id desc");
 			while (res.next()) {
-				String title = res.getString(SqlUtil.NEWS_TITLE);
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String images = res.getString(SqlUtil.NEW_IMAGE);
-				String imageThumb = res.getString(SqlUtil.NEWS_IMAGETHUMB);
-				String descript = res.getString(SqlUtil.NEWS_DES);
+				String title = res.getString(2);
+				int id = res.getInt(1);
+				String images = res.getString(4);
+				String imageThumb = res.getString(3);
+				String descript = res.getString(5);
 				News n = new News(id);
 				n.setTitle(title);
 				n.setDescript(descript);
@@ -586,8 +586,8 @@ public class NewsImp implements NewsDao {
 							+ count
 							+ " Id,Title FROM JCPNews ORDER BY InsertDate DESC,Id DESC");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String title = res.getString(SqlUtil.NEWS_TITLE);
+				int id = res.getInt(1);
+				String title = res.getString(2);
 				News n = new News(id);
 				n.setTitle(title);
 				news.add(n);

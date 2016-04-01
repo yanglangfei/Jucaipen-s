@@ -21,7 +21,7 @@ public class AskClassImp implements AskClassDao {
 		try {
 			dbConn=JdbcUtil.connSqlServer();
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT * FROM JCPTearch_AskClass ORDER BY Id");
+			res=sta.executeQuery("SELECT Id,ClassName FROM JCPTearch_AskClass ORDER BY Id");
 			askClasss=getAskClass(res);
 			return askClasss;
 		} catch (SQLException e) {
@@ -40,7 +40,7 @@ public class AskClassImp implements AskClassDao {
 		try {
 			dbConn=JdbcUtil.connSqlServer();
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT * FROM JCPTearch_AskClass WHERE Id="+id);
+			res=sta.executeQuery("SELECT Id,ClassName FROM JCPTearch_AskClass WHERE Id="+id);
 			askClasss=getAskClass(res);
 			if(askClasss.size()>0){
 				return askClasss.get(0);
@@ -61,8 +61,8 @@ public class AskClassImp implements AskClassDao {
 		askClasss.clear();
 		try {
 			while (result.next()) {
-				int id=result.getInt("Id");
-				String className=res.getString("ClassName");
+				int id=result.getInt(1);
+				String className=res.getString(2);
 				AskClass askClass=new AskClass(id, className);
 				askClasss.add(askClass);
 			}

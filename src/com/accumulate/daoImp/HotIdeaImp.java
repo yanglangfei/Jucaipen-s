@@ -35,7 +35,7 @@ public class HotIdeaImp implements HotIdeaDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_LiveLog "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,9 +118,9 @@ public class HotIdeaImp implements HotIdeaDao {
 					.executeQuery("SELECT Goods,Commens,Hits FROM JCPTearch_LiveLog WHERE Id="
 							+ id);
 			while (res.next()) {
-				int goods = res.getInt("Goods");
-				int comms = res.getInt("Commens");
-				int hits = res.getInt("Hits");
+				int goods = res.getInt(1);
+				int comms = res.getInt(2);
+				int hits = res.getInt(3);
 				idea = new HotIdea();
 				idea.setId(id);
 				idea.setHits(hits);
@@ -147,6 +147,9 @@ public class HotIdeaImp implements HotIdeaDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT TOP 10 Id,InsertDate,Title,Bodys,Hits,TearchId FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveLog) A "
+							+ "WHERE RowNumber > " + 15 * (page - 1));
+			System.out.println("SELECT TOP 10 Id,InsertDate,Title,Bodys,Hits,TearchId FROM "
 							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveLog) A "
 							+ "WHERE RowNumber > " + 15 * (page - 1));
 			while (res.next()) {
@@ -190,10 +193,10 @@ public class HotIdeaImp implements HotIdeaDao {
 							+ count
 							+ " Id,ISNULL (Title,'') Title,ISNULL (Bodys,'') Bodys,ISNULL (LogImg,'') LogImg FROM JCPTearch_LiveLog  WHERE LEN(LogImg)>0 ORDER BY InsertDate DESC");
 			while (res.next()) {
-				int id = res.getInt("Id");
-				String title = res.getString("Title");
-				String bodys = res.getString("Bodys");
-				String logImage = res.getString("LogImg");
+				int id = res.getInt(1);
+				String title = res.getString(2);
+				String bodys = res.getString(3);
+				String logImage = res.getString(4);
 				HotIdea idea = new HotIdea();
 				idea.setId(id);
 				idea.setLogImage(logImage);

@@ -21,8 +21,8 @@ import com.accumulate.utils.StringUtil;
 /**
  * @author Administrator
  * 
- *  下载APK文件
- *
+ *         下载APK文件
+ * 
  */
 @SuppressWarnings("serial")
 public class DownFile extends HttpServlet {
@@ -30,12 +30,11 @@ public class DownFile extends HttpServlet {
 	private String loadPath;
 	private String fileName;
 	private String result;
-	
-	
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		rootPath="D:/apkInfo/apk/";
+		rootPath = "D:/apkInfo/apk/";
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,24 +43,23 @@ public class DownFile extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		fileName = request.getParameter("fileName");
-		if(StringUtil.isNotNull(fileName)){
-			loadPath=rootPath+fileName;
-			File apkFile=new File(loadPath);
-			if(apkFile.exists()){
+		if (StringUtil.isNotNull(fileName)) {
+			loadPath = rootPath + fileName;
+			File apkFile = new File(loadPath);
+			if (apkFile.exists()) {
 				downLoadApk(response);
-			}else{
-				
+			} else {
+
 			}
-		}else{
-			PrintWriter out=response.getWriter();
-			result=JsonUtil.getRetMsg(1,"下载文件名不能为空");
+		} else {
+			PrintWriter out = response.getWriter();
+			result = JsonUtil.getRetMsg(1, "下载文件名不能为空");
 			out.write(result);
 			out.flush();
 			out.close();
 		}
 	}
 
-	
 	private void downLoadApk(HttpServletResponse response) {
 		try {
 			// 设置响应头，控制浏览器下载该文件
@@ -93,12 +91,12 @@ public class DownFile extends HttpServlet {
 			e.printStackTrace();
 			System.out.println("err3");
 		}
-		
+
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-            doGet(request, response);
+		doGet(request, response);
 	}
 
 }

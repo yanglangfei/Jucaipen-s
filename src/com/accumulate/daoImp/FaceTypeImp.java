@@ -22,7 +22,7 @@ public class FaceTypeImp implements FaceTypeDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT * FROM JCP_faceClass");
+			res = sta.executeQuery("SELECT Id,ClassName,PxId FROM JCP_faceClass");
 			eTypes = getExpressionType(res);
 			return eTypes;
 		} catch (SQLException e) {
@@ -44,7 +44,7 @@ public class FaceTypeImp implements FaceTypeDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCP_faceClass WHERE Id=" + id);
+					.executeQuery("SELECT Id,ClassName,PxId FROM JCP_faceClass WHERE Id=" + id);
 			eTypes = getExpressionType(res);
 			if (eTypes.size() > 0) {
 				return eTypes.get(0);
@@ -66,9 +66,9 @@ public class FaceTypeImp implements FaceTypeDao {
 		eTypes.clear();
 		try {
 			while (result.next()) {
-				int id = result.getInt("Id");
-				String typeName = result.getString("ClassName");
-				int pxId = result.getInt("PxId");
+				int id = result.getInt(1);
+				String typeName = result.getString(2);
+				int pxId = result.getInt(3);
 				ExpressionType type = new ExpressionType();
 				type.setClassName(typeName);
 				type.setId(id);

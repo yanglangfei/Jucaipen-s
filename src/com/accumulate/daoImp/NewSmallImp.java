@@ -66,9 +66,9 @@ public class NewSmallImp implements NewSmallDao {
 					.executeQuery("select Id,SmallName,BigId from JCPNewsSmallClass where BigId="
 							+ bigId);
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				int bId=res.getInt(SqlUtil.NEWTWOCLASS_BIGID);
-				String smallName = res.getString(SqlUtil.NEWTWOCLASS_SMALLNAME);
+				int id = res.getInt(1);
+				int bId=res.getInt(3);
+				String smallName = res.getString(2);
 				NewsSmallClass nsc = new NewsSmallClass(id, smallName);
 				nsc.setBigId(bId);
 				newsSmallClasses.add(nsc);

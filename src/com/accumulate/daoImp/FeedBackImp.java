@@ -46,7 +46,7 @@ public class FeedBackImp implements FeedBackDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Feedback ORDER BY InsertDate DESC");
+					.executeQuery("SELECT Id,UserId,TrueName,MobileNum,Bodys,InsertDate,Ip,Types FROM JCPTearch_Feedback ORDER BY InsertDate DESC");
 			feedBacks = getFeedBack(res);
 			return feedBacks;
 		} catch (SQLException e) {
@@ -66,7 +66,7 @@ public class FeedBackImp implements FeedBackDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Feedback WHERE UserId="
+					.executeQuery("SELECT Id,UserId,TrueName,MobileNum,Bodys,InsertDate,Ip,Types FROM JCPTearch_Feedback WHERE UserId="
 							+ uId + " ORDER BY InsertDate DESC");
 			feedBacks = getFeedBack(res);
 			return feedBacks;
@@ -87,7 +87,7 @@ public class FeedBackImp implements FeedBackDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Feedback WHERE Types="
+					.executeQuery("SELECT Id,UserId,TrueName,MobileNum,Bodys,InsertDate,Ip,Types FROM JCPTearch_Feedback WHERE Types="
 							+ type + " ORDER BY InsertDate DESC");
 			feedBacks = getFeedBack(res);
 			return feedBacks;
@@ -108,7 +108,7 @@ public class FeedBackImp implements FeedBackDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT * FROM JCPTearch_Feedback WHERE UserId="
+					.executeQuery("SELECT Id,UserId,TrueName,MobileNum,Bodys,InsertDate,Ip,Types FROM JCPTearch_Feedback WHERE UserId="
 							+ uId
 							+ "AND Types="
 							+ type
@@ -131,7 +131,7 @@ public class FeedBackImp implements FeedBackDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT * FROM JCPTearch_Feedback WHERE Id="
+			res = sta.executeQuery("SELECT Id,UserId,TrueName,MobileNum,Bodys,InsertDate,Ip,Types FROM JCPTearch_Feedback WHERE Id="
 					+ id);
 			feedBacks = getFeedBack(res);
 			if (feedBacks.size() > 0) {
@@ -153,14 +153,14 @@ public class FeedBackImp implements FeedBackDao {
 		feedBacks.clear();
 		try {
 			while (result.next()) {
-				int id = result.getInt("Id");
-				int userId = result.getInt("UserId");
-				String trueName = result.getString("TrueName");
-				String mobileNum = result.getString("MobileNum");
-				String bodys = result.getString("Bodys");
-				String insertDate = result.getString("InsertDate");
-				String ip = result.getString("Ip");
-				int type = result.getInt("Types");
+				int id = result.getInt(1);
+				int userId = result.getInt(2);
+				String trueName = result.getString(3);
+				String mobileNum = result.getString(4);
+				String bodys = result.getString(5);
+				String insertDate = result.getString(6);
+				String ip = result.getString(7);
+				int type = result.getInt(8);
 				FeedBack feedBack = new FeedBack(id, userId, trueName,
 						mobileNum, bodys, insertDate, ip, type);
 				feedBacks.add(feedBack);

@@ -102,8 +102,7 @@ public class ProductImp implements ProductDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta
-					.executeQuery("SELECT TOP 15 * FROM "
+			res = sta.executeQuery("SELECT TOP 15 * FROM "
 							+ "(SELECT ROW_NUMBER() OVER (ORDER BY id DESC) AS RowNumber,* FROM JCP_Product WHERE TearchId="
 							+ teacherId + " ) A " + "WHERE RowNumber > " + 15
 							* (page - 1));
