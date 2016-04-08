@@ -119,12 +119,9 @@ public class PrivatePlaceImp implements PrivatePlaceDao {
 						.getString(SqlUtil.PRIVATEPLACE_MANAGERIMAGE);
 				String menKan = result.getString(SqlUtil.PRIVATEPLACE_MENKAN);
 				int grade = result.getInt(SqlUtil.PRIVATEPLACE_GRADE);
-				String thisPrifit = result
-						.getString(SqlUtil.PRIVATEPLACE_THISPRFIT);
-				String lastPrifit = result
-						.getString(SqlUtil.PRIVATEPLACE_LASTPRIFIT);
-				String markReason = result
-						.getString(SqlUtil.PRIVATEPLACE_MARKREASON);
+				String thisPrifit = result.getString(SqlUtil.PRIVATEPLACE_THISPRFIT);
+				String lastPrifit = result.getString(SqlUtil.PRIVATEPLACE_LASTPRIFIT);
+				String markReason = result.getString(SqlUtil.PRIVATEPLACE_MARKREASON);
 				int isTop = result.getInt(SqlUtil.PRIVATEPLACE_ISTOP);
 				int isIndex = result.getInt(SqlUtil.PRIVATEPLACE_ISINDEX);
 				int isTuijian = result.getInt(SqlUtil.PRIVATEPLACE_ISTUIJIAN);

@@ -30,7 +30,7 @@ public class NewsCommResImp implements NewsCommResDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPNewsCommenRep "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();

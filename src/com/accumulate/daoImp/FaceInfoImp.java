@@ -100,6 +100,7 @@ public class FaceInfoImp implements FaceInfoDao {
 			}
 			return eInfos;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}finally{
 			try {
 				JdbcUtil.closeConn(sta, dbConn, result);

@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.accumulate.entity.User;
+import com.accumulate.service.UserServer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.LoginUtil;
 import com.accumulate.utils.StringUtil;
@@ -48,27 +52,44 @@ public class Regin extends HttpServlet {
 		} else if (!password.equals(reptPwd)) {
 			result = JsonUtil.getRetMsg(5, "两次密码不一致");
 		} else {
-			if (StringUtil.isNotNull(actionCode)) {
-				param.clear();
-				param.put("username", userName);
-				param.put("mobilenum", telPhone);
-				param.put("pwd", password);
-				param.put("pwd_sure", reptPwd);
-				param.put("actioncode", actionCode);
-				param.put("ip",reginIp);
-				param.put("regfrom",5+"");
-				String logJson = LoginUtil.sendHttpPost(REGIN_PATH, param);
-				if(logJson!=null){
-					result=logJson;
-				}else {
-					result=JsonUtil.getRetMsg(7, "系统繁忙，请稍后重试");
+			boolean isExist = checkUserIsExist(userName);
+			if(isExist){
+				result=JsonUtil.getReginInfo(isExist);
+			}else{
+				if (StringUtil.isNotNull(actionCode)) {
+					param.clear();
+					param.put("username", userName);
+					param.put("mobilenum", telPhone);
+					param.put("pwd", password);
+					param.put("pwd_sure", reptPwd);
+					param.put("actioncode", actionCode);
+					param.put("ip",reginIp);
+					param.put("regfrom",5+"");
+					String logJson = LoginUtil.sendHttpPost(REGIN_PATH, param);
+					if(logJson!=null){
+						result=logJson;
+					}else {
+						result=JsonUtil.getRetMsg(7, "系统繁忙，请稍后重试");
+					}
+				} else {
+					result = JsonUtil.getRetMsg(6, "验证码不能为空");
 				}
-			} else {
-				result = JsonUtil.getRetMsg(6, "验证码不能为空");
 			}
 		}
 		out.print(result);
 		out.flush();
 		out.close();
+	}
+
+	/**
+	 * @param userName   监测当前用户名是否已经被注册
+	 */
+	private boolean checkUserIsExist(String userName) {
+	  User user = UserServer.findUserByAccount(userName);
+	  if(user!=null){
+		  return true;
+	  }else{
+		  return false;
+	  }
 	}
 }

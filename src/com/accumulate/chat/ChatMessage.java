@@ -23,7 +23,7 @@ import com.accumulate.utils.JsonUtil;
  */
 @SuppressWarnings("serial")
 public class ChatMessage extends HttpServlet {
-	private MessageObject msgObject;
+	private MessageObject msgObject;      
 	private String result;
 	private Map<Integer, ReceiverDateThread> threads = new HashMap<Integer, ReceiverDateThread>();
 
@@ -34,7 +34,7 @@ public class ChatMessage extends HttpServlet {
    
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException,  IOException {
-		response.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");   
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
