@@ -36,7 +36,7 @@ public class UserImp implements UserDao {
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPUser "
 							+ condition);
 			res.next();
-			int totlePager = res.getInt("totlePager");
+			int totlePager = res.getInt(1);
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,10 +56,6 @@ public class UserImp implements UserDao {
 	 */
 	public List<User> findOnLiveUserByIsLive(int roomId, int page) {
 		int totlePage = findTotlePager("WHERE IsLiveRoom=" + roomId);
-		System.out.println("SELECT TOP 15 UserName FROM "
-				+ "(SELECT ROW_NUMBER() OVER (WHERE IsLiveRoom=" + roomId
-				+ " ORDER BY id ) AS RowNumber,* FROM JCPUser" + ") A "
-				+ "WHERE RowNumber > " + 15 * (page - 1));
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
@@ -147,18 +143,18 @@ public class UserImp implements UserDao {
 					.executeQuery("select RegFrom,ISNULL(UserName,'') UserName,ISNULL(NickName,'') NickName,ISNULL(Sex,'') Sex,ISNULL(MobileNum,'') MobileNum,LocaProvince,LocaCity,LocaEare,ISNULL(Email,'') Email,ISNULL(Bodys,'') Bodys,ISNULL(Birthday,'') Birthday,ISNULL(FaceImage,'') FaceImage from JCPUser where Id="
 							+ id);
 			while (res.next()) {
-				String nickName = res.getString(SqlUtil.USER_NICKNAME);
-				String sex = res.getString(SqlUtil.USER_SEX);
-				String telPhone = res.getString(SqlUtil.USER_MOBILE);
-				int localProvince = res.getInt(SqlUtil.USER_LOCALPROVINCE);
-				int localCity = res.getInt(SqlUtil.USER_LOCALCITY);
-				int localArea = res.getInt(SqlUtil.USER_LOCALAREA);
-				String email = res.getString(SqlUtil.USER_EMAIL);
-				String desc = res.getString(SqlUtil.USER_BODYS);
-				String birthday = res.getString(SqlUtil.USER_BIRTH);
-				String logo = res.getString(SqlUtil.USRE_FACEIMAGE);
-				int RegFrom = res.getInt(SqlUtil.USER_REGFROM);
-				String userName = res.getString(SqlUtil.USER_NAME);
+				String nickName = res.getString(3);
+				String sex = res.getString(4);
+				String telPhone = res.getString(5);
+				int localProvince = res.getInt(6);
+				int localCity = res.getInt(7);
+				int localArea = res.getInt(8);
+				String email = res.getString(9);
+				String desc = res.getString(10);
+				String birthday = res.getString(11);
+				String logo = res.getString(12);
+				int RegFrom = res.getInt(1);
+				String userName = res.getString(2);
 				u = new User();
 				u.setNickName(nickName);
 				u.setSex(sex);
@@ -197,7 +193,7 @@ public class UserImp implements UserDao {
 			res = sta.executeQuery("SELECT FaceImage FROM JCPUser WHERE Id="
 					+ id);
 			while (res.next()) {
-				String face = res.getString("FaceImage");
+				String face = res.getString(1);
 				return face;
 			}
 		} catch (SQLException e) {
@@ -335,7 +331,7 @@ public class UserImp implements UserDao {
 			res = sta.executeQuery("select PassWord from JCPUser where Id="
 					+ id);
 			res.next();
-			String password = res.getString(SqlUtil.USER_PASSWORD);
+			String password = res.getString(1);
 			u = new User();
 			u.setPassword(password);
 			return u;
@@ -364,9 +360,9 @@ public class UserImp implements UserDao {
 					.executeQuery("select ISNULL (UserName,'') UserName,ISNULL (NickName,'') NickName,ISNULL (FaceImage,'') FaceImage from JCPUser where Id="
 							+ id);
 			while (res.next()) {
-				String NickName = res.getString(SqlUtil.USER_NICKNAME);
-				String userName = res.getString(SqlUtil.USER_NAME);
-				String faceImage = res.getString(SqlUtil.USRE_FACEIMAGE);
+				String NickName = res.getString(2);
+				String userName = res.getString(1);
+				String faceImage = res.getString(3);
 				u = new User();
 				u.setId(id);
 				u.setFaceImage(faceImage);
@@ -563,9 +559,9 @@ public class UserImp implements UserDao {
 					.executeQuery("SELECT ISNULL(QQOpenId,'') QQOpenId,ISNULL(WeiXinId,'') WeiXinId,ISNULL(WeiboId,'') WeiboId FROM JCPUser WHERE Id="
 							+ id);
 			while (res.next()) {
-				String QQOpenId = res.getString(SqlUtil.USER_QQID);
-				String WeiXinId = res.getString(SqlUtil.USER_WEIXINID);
-				String WeiboId = res.getString(SqlUtil.USER_SINAID);
+				String QQOpenId = res.getString(1);
+				String WeiXinId = res.getString(2);
+				String WeiboId = res.getString(3);
 				User user = new User();
 				user.setQqId(QQOpenId);
 				user.setWeiXinId(WeiXinId);
@@ -662,7 +658,7 @@ public class UserImp implements UserDao {
 			res = sta.executeQuery("select Id from JCPUser where QQOpenId='"
 					+ qqId + "'");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
+				int id = res.getInt(1);
 				u = new User();
 				u.setId(id);
 				return u;
@@ -688,10 +684,10 @@ public class UserImp implements UserDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("select * from JCPUser where WeiXinId='"
+			res = sta.executeQuery("select Id from JCPUser where WeiXinId='"
 					+ wenxinId + "'");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
+				int id = res.getInt(1);
 				u = new User();
 				u.setId(id);
 				return u;
@@ -717,10 +713,10 @@ public class UserImp implements UserDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("select * from JCPUser where WeiboId='"
+			res = sta.executeQuery("select Id from JCPUser where WeiboId='"
 					+ sinaId + "'");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
+				int id = res.getInt(1);
 				u = new User();
 				u.setId(id);
 				return u;

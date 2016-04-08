@@ -24,8 +24,8 @@ public class VideoTypeImp implements VideoTypeDao {
 			sta = dbConn.createStatement();
 			res = sta.executeQuery("select Id,ClassName  from JCPVideoClass");
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.NEWS_ID);
-				String typeName = res.getString(SqlUtil.VIDEOCLASS_CLASSNAME);
+				int id = res.getInt(1);
+				String typeName = res.getString(2);
 				VideoType vt = new VideoType(typeName, id);
 				fts.add(vt);
 			}
@@ -119,9 +119,9 @@ public class VideoTypeImp implements VideoTypeDao {
 					.executeQuery("select Id,ParentId,ClassName from JCPVideoClass where ParentId="
 							+ parentId);
 			while (res.next()) {
-				int id = res.getInt(SqlUtil.VIDEOCLASS_ID);
-				int pId = res.getInt(SqlUtil.VIDEOCLASS_PARENTID);
-				String className = res.getString(SqlUtil.VIDEOCLASS_CLASSNAME);
+				int id = res.getInt(1);
+				int pId = res.getInt(2);
+				String className = res.getString(3);
 				VideoType videoType = new VideoType(className, id);
 				videoType.setParentId(pId);
 				fts.add(videoType);

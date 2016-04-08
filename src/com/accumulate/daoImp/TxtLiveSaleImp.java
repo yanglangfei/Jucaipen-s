@@ -162,7 +162,7 @@ public class TxtLiveSaleImp implements TxtLiveSaleDao {
 		try {
 			dbConn=JdbcUtil.connSqlServer();
 			sta=dbConn.createStatement();
-			res=sta.executeQuery("SELECT TOP "+count +" FROM JCPTearch_TxtLive_Sale WHERE UserId="+uId+" ORDER BY InsertDate DESC");
+			res=sta.executeQuery("SELECT TOP "+count +" * FROM JCPTearch_TxtLive_Sale WHERE UserId="+uId+" ORDER BY InsertDate DESC");
 		    slList=getTexLiveSales(res);
 			return slList;
 		} catch (Exception e) {

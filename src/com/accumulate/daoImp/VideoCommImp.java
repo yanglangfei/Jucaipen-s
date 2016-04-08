@@ -66,7 +66,7 @@ public class VideoCommImp implements VideoCommDao {
 		// 根据视频id 查询当前视频下的所有评论
 		vList.clear();
 		try {
-			dbConn = JdbcUtil.connSqlServer();
+			dbConn = JdbcUtil.connSqlServer();  
 			sta = dbConn.createStatement();
 			res = sta.executeQuery("select * from VideoCommen where VideoId="
 					+ videoId);
