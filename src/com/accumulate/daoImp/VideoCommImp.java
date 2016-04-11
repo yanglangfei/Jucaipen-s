@@ -27,7 +27,7 @@ public class VideoCommImp implements VideoCommDao {
 			res = sta.executeQuery("select * from VideoCommen");
 			vList = getVideoComm(res);
 			return vList;
-		} catch (SQLException e) {
+		} catch (SQLException e) {  
 			e.printStackTrace();
 		}finally{
 			try {
