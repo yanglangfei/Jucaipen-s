@@ -47,7 +47,7 @@ public class NewSmallImp implements NewSmallDao {
 			return newsSmallClasses;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -67,7 +67,7 @@ public class NewSmallImp implements NewSmallDao {
 							+ bigId);
 			while (res.next()) {
 				int id = res.getInt(1);
-				int bId=res.getInt(3);
+				int bId = res.getInt(3);
 				String smallName = res.getString(2);
 				NewsSmallClass nsc = new NewsSmallClass(id, smallName);
 				nsc.setBigId(bId);
@@ -75,7 +75,7 @@ public class NewSmallImp implements NewSmallDao {
 			}
 			return newsSmallClasses;
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -86,6 +86,24 @@ public class NewSmallImp implements NewSmallDao {
 	}
 
 	public NewsSmallClass findSmallClassById(int id) {
+		return null;
+	}
+
+	public NewsSmallClass findSmallClassBySidAndBigId(int id, int bigId) {
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("select SmallName from JCPNewsSmallClass where BigId="
+							+ bigId + " AND Id=" + id);
+			while (res.next()) {
+			   String name=res.getString(1);
+			   NewsSmallClass nsc=new NewsSmallClass(id, name);
+			   return nsc;
+			}
+		} catch (Exception e) {
+		}
+
 		return null;
 	}
 

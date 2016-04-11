@@ -19,5 +19,13 @@ public interface NewSmallDao {
 	 * @return   根据id获取二级分类信息
 	 */
 	public NewsSmallClass findSmallClassById(int id);
+	
+	
+	/**
+	 * @param id
+	 * @param bigId
+	 * @return  根据一二级分类id获取分类信息
+	 */
+	public NewsSmallClass findSmallClassBySidAndBigId(int id,int bigId);
 
 }

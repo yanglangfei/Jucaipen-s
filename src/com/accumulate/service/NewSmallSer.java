@@ -32,5 +32,15 @@ public class NewSmallSer {
 		NewSmallDao dao = new NewSmallImp();
 		return dao.findSmallClassByBigId(bigId);
 	}
+	
+	/**
+	 * @param id
+	 * @param bigId
+	 * @return   根据一二级分类id获取分类信息
+	 */
+	public static NewsSmallClass findSmallClassBySidAndBigId(int id,int bigId){
+		NewSmallDao dao=new NewSmallImp();
+		return dao.findSmallClassBySidAndBigId(id, bigId);
+	}
 
 }

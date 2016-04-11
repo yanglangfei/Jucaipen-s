@@ -562,7 +562,7 @@ public class NewsImp implements NewsDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta.executeQuery("SELECT Title FROM JCPNews WHERE Id=" + id);
+			res = sta.executeQuery("SELECT Title,BigId,SmallId FROM JCPNews WHERE Id=" + id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
@@ -584,12 +584,16 @@ public class NewsImp implements NewsDao {
 			res = sta
 					.executeQuery("SELECT TOP "
 							+ count
-							+ " Id,Title FROM JCPNews ORDER BY InsertDate DESC,Id DESC");
+							+ " Id,Title,BigId,SmallId FROM JCPNews ORDER BY InsertDate DESC,Id DESC");
 			while (res.next()) {
 				int id = res.getInt(1);
 				String title = res.getString(2);
+				int bigId=res.getInt(3);
+                int smallId=res.getInt(4);				
 				News n = new News(id);
 				n.setTitle(title);
+				n.setBigId(bigId);
+				n.setSmallId(smallId);
 				news.add(n);
 			}
 			return news;
