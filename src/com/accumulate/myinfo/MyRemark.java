@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.accumulate.entity.News;
 import com.accumulate.entity.NewsComment;
+import com.accumulate.entity.NewsSmallClass;
 import com.accumulate.service.NewServer;
+import com.accumulate.service.NewSmallSer;
 import com.accumulate.service.NewsCommSer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
@@ -25,6 +27,7 @@ import com.accumulate.utils.StringUtil;
 @SuppressWarnings("serial")    
 public class MyRemark extends HttpServlet {
 	private String result;
+	private List<String> names=new ArrayList<String>();
 	private List<NewsComment> comments = new ArrayList<NewsComment>();
 	private List<News> news=new ArrayList<News>();
 
@@ -42,7 +45,7 @@ public class MyRemark extends HttpServlet {
 				int uId = Integer.parseInt(userId);
 				if(uId>0){
 					initData(uId, page);
-					result = JsonUtil.getCommentList(comments,news);
+					result = JsonUtil.getCommentList(comments,news,names);
 				}else {
 					result=JsonUtil.getRetMsg(5,"当前用户还没登录");
 				}
@@ -67,6 +70,14 @@ public class MyRemark extends HttpServlet {
 			int nId=nc.getnId();
 			News n=NewServer.findNewsById(nId);
 			if(n!=null){
+				int bigId=n.getBigId();
+				int smallId=n.getSmallId();
+				NewsSmallClass nsc = NewSmallSer.findSmallClassBySidAndBigId(smallId, bigId);
+				if(nsc!=null){
+					names.add(nsc.getSamllName());
+				}else{
+					names.add(null);
+				}
 				news.add(n);
 			}
 		}
