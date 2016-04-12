@@ -453,21 +453,28 @@ public class VideoImp implements VideoDao {
 		return null;
 	}
 	
-	public List<Video> findVideoByClassIdLast(int count, int classId) {// 查询分类下的本站视频
+	
+	//isPay     0   免费     1  收费
+	public List<Video> findVideoByClassIdLast(int count, int isPay) {// 查询分类下的本站视频
 		videos.clear();
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("select TOP "+count+" Id,Title,Descriptions,ImagesThumb,VideoUrl from JCPVideo"
+					.executeQuery("select TOP "+count+" Id,Title,Descriptions,ImagesThumb,VideoUrl,IsPay,PayMoney from JCPVideo"
 							+" ORDER BY InsertDate DESC");
+			
 			while (res.next()) {
 				int id = res.getInt(1);
 				String title = res.getString(2);
 				String descript = res.getString(3);
 				String image=res.getString(4);
 				String videoUrl=res.getString(5);
+				int ispay=res.getInt(6);
+				String payMoney=res.getString(7);
 				Video video = new Video(id, title);
+				video.setIsPay(ispay);
+				video.setPayMoney(payMoney);
 				video.setVideoUrl(videoUrl);
 				video.setDescript(descript);
 				video.setImagesThumb(image);

@@ -63,10 +63,12 @@ public class VideoServer {
 	 * @param count
 	 * @param classId
 	 * @return    根据分类id获取最近的视频信息
+	 * 
+	 * isPay    0   免费    1  收费
 	 */
-	public static List<Video> findVideoByClassIdLast(int count,int classId){
+	public static List<Video> findVideoByClassIdLast(int count,int isPay){
 		VideoDao dao=new VideoImp();
-		return dao.findVideoByClassIdLast(count, classId);
+		return dao.findVideoByClassIdLast(count, isPay);
 
 	}
 

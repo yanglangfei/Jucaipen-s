@@ -39,7 +39,7 @@ public class IndexSchool extends HttpServlet {
 	}
 
 	private void initData() {
-		sTvs = VideoServer.findVideoByClassIdLast(2, 1);
+		sTvs = VideoServer.findVideoByClassIdLast(2, 0);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

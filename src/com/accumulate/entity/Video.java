@@ -86,7 +86,42 @@ public class Video implements Serializable{
 	 * 是否是本站视频　（　１　是　０　不是　）
 	 */
 	private int IsMySiteVideo;
+	/**
+	 *  是否精选     1  精选     0  非精选
+	 */
+	private int IsBase;
 	
+	/**
+	 *  支付金额
+	 */
+	private  String PayMoney;
+	
+	/**
+	 *   是否收费      0   免费    1   否则   收费
+	 */
+	private int isPay;
+	
+	
+	
+	
+	public int getIsBase() {
+		return IsBase;
+	}
+	public void setIsBase(int isBase) {
+		IsBase = isBase;
+	}
+	public String getPayMoney() {
+		return PayMoney;
+	}
+	public void setPayMoney(String payMoney) {
+		PayMoney = payMoney;
+	}
+	public int getIsPay() {
+		return isPay;
+	}
+	public void setIsPay(int isPay) {
+		this.isPay = isPay;
+	}
 	public Video(int id, String title) {
 		this.id = id;
 		this.title = title;
