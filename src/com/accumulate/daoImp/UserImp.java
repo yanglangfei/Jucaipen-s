@@ -760,6 +760,34 @@ public class UserImp implements UserDao {
 		}
 		return null;
 	}
+	
+	
+	public User isManagerOrServer(int uId) {
+		User u = null;
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta.executeQuery("select ServerId,IsRoomManager from JCPUser where Id="+uId);
+			while (res.next()) {
+				u=new User();
+				int serverId=res.getInt(1);
+				int managerId=res.getInt(2);
+				u.setIsRoomManager(managerId);
+				u.setServerId(serverId);
+				return u;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 
 	/*
 	 * 获取登录成功后的信息
@@ -867,5 +895,6 @@ public class UserImp implements UserDao {
 		}
 		return null;
 	}
+
 
 }

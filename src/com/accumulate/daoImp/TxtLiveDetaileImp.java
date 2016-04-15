@@ -17,6 +17,34 @@ public class TxtLiveDetaileImp implements TxtLiveDetailsDao {
 	private ResultSet res;
 	private Statement sta;
 	private int isSuccess;
+	
+	/**
+	 * @return 查询今日观点总页数
+	 */
+	public int findTotlePage(String condition) {
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_TxtLiveDetails "
+							+ condition);
+			res.next();
+			int totlePager = res.getInt(1);
+			return totlePager;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+
+	}
+	
+	
 
 	public int insertTextDetaile(TxtLiveDetails details) {
 		try {
@@ -47,20 +75,40 @@ public class TxtLiveDetaileImp implements TxtLiveDetailsDao {
 		return 0;
 	}
 
-	public List<TxtLiveDetails> findTextDetaileByLiveId(int liveId) {
+	
+	/*
+	 * 
+	 *    "SELECT TOP 15 * FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_TxtLiveDetails) A "
+							+ "WHERE RowNumber > " + 15 * (page - 1)
+	 * 
+	 * 
+	 * "SELECT Id,FK_LiveId,Bodys,InsertDate,FK_InterId FROM JCPTearch_TxtLiveDetails WHERE FK_LiveId="
+							+ liveId+" ORDER BY InsertDate DESC"
+	 * 
+	 * 
+	 */
+	
+	
+	public List<TxtLiveDetails> findTextDetaileByLiveId(int liveId,int page) {
+		int totlePage=findTotlePage(" WHERE FK_LiveId="+liveId);
 		try {
 			txtLiveDetails.clear();
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta
-					.executeQuery("SELECT Id,FK_LiveId,Bodys,InsertDate FROM JCPTearch_TxtLiveDetails WHERE FK_LiveId="
-							+ liveId+" ORDER BY InsertDate DESC");
+					.executeQuery("SELECT TOP 15 Id,FK_LiveId,Bodys,InsertDate,FK_InterId FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_TxtLiveDetails WHERE FK_LiveId="+liveId+") A "
+							+ "WHERE RowNumber > " + 15 * (page - 1));
 			while (res.next()) {
 				int id=res.getInt(1);
 				int relate_LiveId=res.getInt(2);
 				String bodys=res.getString(3);
 				String insertDate=res.getString(4);
-				TxtLiveDetails diDetails=new TxtLiveDetails(id, relate_LiveId, -1, bodys, null, -1, insertDate);
+				int intentId=res.getInt(5);
+				TxtLiveDetails diDetails=new TxtLiveDetails(id, relate_LiveId, intentId, bodys, null, -1, insertDate);
+				diDetails.setPage(page);
+				diDetails.setTotlePage(totlePage);
 				txtLiveDetails.add(diDetails);
 			}
 			return txtLiveDetails;
@@ -216,5 +264,6 @@ public class TxtLiveDetaileImp implements TxtLiveDetailsDao {
 		}
 		return null;
 	}
+
 
 }

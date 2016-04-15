@@ -31,9 +31,9 @@ public class TxtLiveDetaileSer{
 	 * @param liveId
 	 * @return  根据直播id获取文字直播详细内容
 	 */
-	public static List<TxtLiveDetails> findTextDetaileByLiveId(int liveId){
+	public static List<TxtLiveDetails> findTextDetaileByLiveId(int liveId,int page){
 		TxtLiveDetailsDao dao=new TxtLiveDetaileImp();
-		return dao.findTextDetaileByLiveId(liveId);
+		return dao.findTextDetaileByLiveId(liveId,page);
 	}
 	
 	/**

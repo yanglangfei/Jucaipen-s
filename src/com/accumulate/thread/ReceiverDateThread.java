@@ -14,7 +14,6 @@ import com.accumulate.utils.XinGeUtil;
 
 /**
  * @author Administrator
- *     £¿  
  * 
  *         topId roomId userId
  * 

@@ -17,6 +17,16 @@ public class UserServer {
 	}
 	
 	
+	/**
+	 * @param uId
+	 * @return   获取用户的管理员   客服id
+	 */
+	public static User isManagerOrServer(int uId){
+		UserDao dao=new UserImp();
+		return dao.isManagerOrServer(uId);
+	}
+	
+	
 	
 	/**
 	 * @param uId

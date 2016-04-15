@@ -12,6 +12,12 @@ import com.accumulate.entity.User;
 public interface UserDao {
 	
 	/**
+	 * @param uId
+	 * @return   判断用户是不是管理员或者客服
+	 */
+	public User isManagerOrServer(int uId);
+	
+	/**
 	 * @param userId
 	 * @return   获取用户购买服务信息
 	 */

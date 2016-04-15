@@ -13,6 +13,12 @@ import com.accumulate.entity.LiveInteractive;
 public interface LiveInteractiveDao {
 	
 	/**
+	 * @param tId
+	 * @return   获取互动的标题
+	 */
+	public LiveInteractive findLiveInteractiveByTitleId(int tId);
+	
+	/**
 	 * @param interactive
 	 * @return  添加互动
 	 */

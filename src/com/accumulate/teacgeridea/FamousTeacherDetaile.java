@@ -39,7 +39,7 @@ public class FamousTeacherDetaile extends HttpServlet {
 			if (id > 0) {
 				initTeacherDetaile(id);
 				result = JsonUtil.getFamousTeacherDetaile(teacher, txtLives);
-			} else {
+			} else { 
 				result = JsonUtil.getRetMsg(2, "讲师id不符合要求");
 			}
 		} else {

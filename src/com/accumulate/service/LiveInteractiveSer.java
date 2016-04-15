@@ -7,6 +7,16 @@ import com.accumulate.daoImp.LiveInteractiveImp;
 import com.accumulate.entity.LiveInteractive;
 
 public class LiveInteractiveSer{
+	
+	
+	/**
+	 * @param tId
+	 * @return   根据标题id  获取互动内容
+	 */
+	public static LiveInteractive findLiveInteractiveByTitleId(int tId){
+		LiveInteractiveDao dao=new LiveInteractiveImp();
+		return dao.findLiveInteractiveByTitleId(tId);
+	}
 
 	/**
 	 * @param interactive

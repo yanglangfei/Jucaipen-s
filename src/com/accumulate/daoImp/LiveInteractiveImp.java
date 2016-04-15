@@ -18,7 +18,6 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 	private ResultSet res;
 	private int isSuccess;
 
-	
 	/**
 	 * @return 查询新闻总页数
 	 */
@@ -26,7 +25,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res = sta  
+			res = sta
 					.executeQuery("SELECT  CEILING(COUNT(*)/15.0) as totlePager from JCPTearch_LiveInteractive "
 							+ condition);
 			res.next();
@@ -34,7 +33,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			return totlePager;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -45,12 +44,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 
 	}
 
-	
 	public int insertLiveInteractive(LiveInteractive interactive) {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			isSuccess = sta.executeUpdate("INSERT INTO JCPTearch_LiveInteractive "
+			isSuccess = sta
+					.executeUpdate("INSERT INTO JCPTearch_LiveInteractive "
 							+ "(LiveId,UserId,DeviceType,InsertDate,Bodys,IsPass,Ip,ParentId)"
 							+ "VALUES (" + interactive.getLiveId() + ","
 							+ interactive.getUserId() + ","
@@ -62,7 +61,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 							+ interactive.getParentaId() + ")");
 			return isSuccess;
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -78,10 +77,10 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			sta = dbConn.createStatement();
 			res = sta
 					.executeQuery("SELECT * FROM JCPTearch_LiveInteractive ORDER BY InsertDate DESC");
-			lInteractives = getLiveInteractive(res,1,1);
+			lInteractives = getLiveInteractive(res, 1, 1);
 			return lInteractives;
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -98,10 +97,10 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			res = sta
 					.executeQuery("SELECT * FROM JCPTearch_LiveInteractive WHERE UserId="
 							+ userId + " ORDER BY InsertDate DESC");
-			lInteractives = getLiveInteractive(res,1,1);
+			lInteractives = getLiveInteractive(res, 1, 1);
 			return lInteractives;
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -111,19 +110,43 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 		return null;
 	}
 
-	public List<LiveInteractive> findByLiveId(int liveId,int page) {
-	    int totlePage=findTotlePager(" WHERE LiveId="+liveId);
+	public LiveInteractive findLiveInteractiveByTitleId(int tId) {
 		try {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
-			res=sta.executeQuery("SELECT TOP 15 * FROM "
-								+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveInteractive WHERE LiveId="+liveId+") A "
-								+ "WHERE RowNumber > " + 15 * (page - 1));
-			
-			lInteractives = getLiveInteractive(res,page,totlePage);
+			res = sta
+					.executeQuery("SELECT * FROM JCPTearch_LiveInteractive WHERE Id="
+							+ tId);
+			lInteractives = getLiveInteractive(res, 1, 1);
+			if (lInteractives.size() > 0) {
+				return lInteractives.get(0);
+			}
+		} catch (Exception e) {
+		} finally {
+			try {
+				JdbcUtil.closeConn(sta, dbConn, res);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public List<LiveInteractive> findByLiveId(int liveId, int page) {
+		int totlePage = findTotlePager(" WHERE LiveId=" + liveId);
+		try {
+			dbConn = JdbcUtil.connSqlServer();
+			sta = dbConn.createStatement();
+			res = sta
+					.executeQuery("SELECT TOP 15 * FROM "
+							+ "(SELECT ROW_NUMBER() OVER (ORDER BY InsertDate desc) AS RowNumber,* FROM JCPTearch_LiveInteractive WHERE LiveId="
+							+ liveId + ") A " + "WHERE RowNumber > " + 15
+							* (page - 1));
+
+			lInteractives = getLiveInteractive(res, page, totlePage);
 			return lInteractives;
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -143,10 +166,10 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 							+ "AND LiveId="
 							+ liveId
 							+ " ORDER BY InsertDate DESC");
-			lInteractives = getLiveInteractive(res,1,1);
+			lInteractives = getLiveInteractive(res, 1, 1);
 			return lInteractives;
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -161,12 +184,12 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			dbConn = JdbcUtil.connSqlServer();
 			sta = dbConn.createStatement();
 			res = sta.executeQuery("SELECT * FROM JCPTearch_LiveInteractive");
-			lInteractives = getLiveInteractive(res,1,1);
+			lInteractives = getLiveInteractive(res, 1, 1);
 			if (lInteractives.size() > 0) {
 				return lInteractives.get(0);
 			}
 		} catch (Exception e) {
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, res);
 			} catch (SQLException e) {
@@ -176,7 +199,8 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 		return null;
 	}
 
-	public List<LiveInteractive> getLiveInteractive(ResultSet result,int page,int totlePage) {
+	public List<LiveInteractive> getLiveInteractive(ResultSet result, int page,
+			int totlePage) {
 		lInteractives.clear();
 		try {
 			while (result.next()) {
@@ -199,7 +223,7 @@ public class LiveInteractiveImp implements LiveInteractiveDao {
 			return lInteractives;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				JdbcUtil.closeConn(sta, dbConn, result);
 			} catch (SQLException e) {

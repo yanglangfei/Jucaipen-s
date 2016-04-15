@@ -97,7 +97,6 @@ public class XinGeUtil {
 		message.setCustom(custom);
 		message.setTitle(title);
 		message.setContent(msg);
-
 		JSONObject res = xinge.pushAllDevice(XingeApp.DEVICE_ALL, message);
 		return res;
 	}

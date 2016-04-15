@@ -72,7 +72,7 @@ public class ChatMessage extends HttpServlet {
 					int toId = msgObject.getToUser();
 					if (toId > 0) {
 						User toUser = initUserInfo(toId);
-						if (toUser != null) {
+						if (toUser != null) {    
 							msgObject.setToName(toUser.getNickName());
 						}
 					}

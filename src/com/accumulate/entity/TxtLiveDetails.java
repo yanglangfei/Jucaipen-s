@@ -9,6 +9,19 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class TxtLiveDetails implements Serializable{
+	
+	/**
+	 *  当前页
+	 */
+	private int page;
+	/**
+	 *   总页数
+	 */
+	private int totlePage;
+	/**
+	 * 标题
+	 */
+	private String title;
 	/**
 	 * id
 	 */
@@ -52,6 +65,54 @@ public class TxtLiveDetails implements Serializable{
 		this.insertDate = insertDate;
 	}
 	
+	
+	
+	
+	
+	public int getPage() {
+		return page;
+	}
+
+
+
+
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+
+
+
+
+	public int getTotlePage() {
+		return totlePage;
+	}
+
+
+
+
+
+	public void setTotlePage(int totlePage) {
+		this.totlePage = totlePage;
+	}
+
+
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
 	public int getIsPay() {
 		return isPay;
 	}

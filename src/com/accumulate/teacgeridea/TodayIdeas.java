@@ -10,10 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.accumulate.entity.LiveInteractive;
 import com.accumulate.entity.TextLive;
 import com.accumulate.entity.TxtLiveDetails;
+import com.accumulate.entity.User;
+import com.accumulate.service.LiveInteractiveSer;
 import com.accumulate.service.TxtLiveDetaileSer;
 import com.accumulate.service.TxtLiveSer;
+import com.accumulate.service.UserServer;
 import com.accumulate.utils.JsonUtil;
 import com.accumulate.utils.StringUtil;
 
@@ -25,7 +29,6 @@ import com.accumulate.utils.StringUtil;
  */
 @SuppressWarnings("serial")
 public class TodayIdeas extends HttpServlet {
-
 	private List<TxtLiveDetails> todayIdeas;
 	private String result;
 	private List<TextLive> txtLives;
@@ -38,31 +41,38 @@ public class TodayIdeas extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String querryType = request.getParameter("querryType");
+		String page=request.getParameter("page");
 		if (StringUtil.isInteger(querryType)) {
 			int type = Integer.parseInt(querryType);
-			if (type == 0) {
-				// 根据直播id获取
-				String liveId = request.getParameter("liveId");
-				if (StringUtil.isInteger(liveId)) {
-					int id = Integer.parseInt(liveId);
-					initTodayIdeasDataByLiveId(id);
-					result = JsonUtil.getTodayIdeasByLiveId(todayIdeas);
-				} else {
-					result = JsonUtil.getRetMsg(1, "直播ID参数数字格式化异常");
-				}
-			} else if (type == 1) {
-				// 根据讲师id获取
-				String teacherId = request.getParameter("teacherId");
-				if (StringUtil.isInteger(teacherId)) {
-					int tId = Integer.parseInt(teacherId);
-					initTodayIdeaByTeacherId(tId);
-					result = JsonUtil.getTodayIdeasList(txtArray);
-				} else {
-					result = JsonUtil.getRetMsg(4, "讲师id数字格式化异常");
-				}
+			if(StringUtil.isInteger(page)){
+				int p=Integer.parseInt(page);
+				if (type == 0) {
+					// 根据直播id获取
+					String liveId = request.getParameter("liveId");
+					if (StringUtil.isInteger(liveId)) {
+						int id = Integer.parseInt(liveId);
+						initTodayIdeasDataByLiveId(id,p);
+						result = JsonUtil.getTodayIdeasByLiveId(todayIdeas);
+					} else {
+						result = JsonUtil.getRetMsg(1, "直播ID参数数字格式化异常");
+					}
+				} else if (type == 1) {
+					// 根据讲师id获取
+					String teacherId = request.getParameter("teacherId");
+					if (StringUtil.isInteger(teacherId)) {
+						int tId = Integer.parseInt(teacherId);
+						initTodayIdeaByTeacherId(tId,p);
+						result = JsonUtil.getTodayIdeasList(txtArray);
+					} else {
+						result = JsonUtil.getRetMsg(4, "讲师id数字格式化异常");
+					}
 
-			} else {
-				result = JsonUtil.getRetMsg(2, "分类参数不符合要求");
+				} else {
+					result = JsonUtil.getRetMsg(2, "分类参数不符合要求");
+				}
+				
+			}else{
+				result=JsonUtil.getRetMsg(8,"分页参数数字格式化异常");
 			}
 		} else {
 			result = JsonUtil.getRetMsg(3, "分类参数数字格式化异常");
@@ -72,7 +82,7 @@ public class TodayIdeas extends HttpServlet {
 		out.close();
 	}
 
-	private void initTodayIdeaByTeacherId(int teacherId) {
+	private void initTodayIdeaByTeacherId(int teacherId,int page) {
 		txtArray.clear();
 		// 根据讲师id初始化今日观点信息
 		txtLives = TxtLiveSer.findTextLiveByTeacherId(teacherId);
@@ -84,7 +94,23 @@ public class TodayIdeas extends HttpServlet {
 				//boolean isToday = TimeUtils.compareDate(startDate);
 				if (isEnd==0) {
 					todayIdeas = TxtLiveDetaileSer
-							.findTextDetaileByLiveId(liveId);
+							.findTextDetaileByLiveId(liveId,page);
+					for(int i=0;i<todayIdeas.size();i++){
+						TxtLiveDetails text = todayIdeas.get(i);
+						int tId=text.getRelate_titleId();
+						if(tId>0){
+							LiveInteractive inter = LiveInteractiveSer.findLiveInteractiveByTitleId(tId);
+						    if(inter!=null){
+						    	int uId=inter.getUserId();
+						    	User user=UserServer.findUserNikNameById(uId);
+						    	text.setTitle(user.getUserName()+"说:"+inter.getBodys()+"<br/>");
+						    }else{
+						    	text.setTitle("");
+						    }
+						}else{
+							text.setTitle("");
+						}
+					}
 					txtArray.add(todayIdeas);
 				}
 
@@ -93,9 +119,25 @@ public class TodayIdeas extends HttpServlet {
 
 	}
 
-	private void initTodayIdeasDataByLiveId(int liveId) {
+	private void initTodayIdeasDataByLiveId(int liveId,int page) {
 		// 通过直播id初始化今日观点数据
-		todayIdeas = TxtLiveDetaileSer.findTextDetaileByLiveId(liveId);
+		todayIdeas = TxtLiveDetaileSer.findTextDetaileByLiveId(liveId,page);
+		for(int i=0;i<todayIdeas.size();i++){
+			TxtLiveDetails text = todayIdeas.get(i);
+			int tId=text.getRelate_titleId();
+			if(tId>0){
+				LiveInteractive inter = LiveInteractiveSer.findLiveInteractiveByTitleId(tId);
+			    if(inter!=null){
+			    	int uId=inter.getUserId();
+			    	User user=UserServer.findUserNikNameById(uId);
+			    	text.setTitle(user.getUserName()+"说:"+inter.getBodys()+"<br/>");
+			    }else{
+			    	text.setTitle("");
+			    }
+			}else{
+				text.setTitle("");
+			}
+		}
 
 	}
 
